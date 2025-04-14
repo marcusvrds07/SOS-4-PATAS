@@ -58,7 +58,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'base_statics',
+            BASE_DIR / 'base_templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -120,7 +120,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [
+    BASE_DIR / 'base_statics',
+]
 STATIC_ROOT = BASE_DIR / 'static' #collectstatic
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
