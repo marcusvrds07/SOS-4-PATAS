@@ -3,6 +3,11 @@ import os
 
 # Create your models here.
 
+def animal_image_upload_path(instance, filename):
+    animal = instance.contact
+    folder_name = f"ID_{animal.id}"
+    return os.path.join('galeria', folder_name, filename)
+
 class Animais(models.Model):
     class Meta:
         verbose_name = "Animal"
@@ -34,3 +39,17 @@ class Animais(models.Model):
         
     def __str__(self):
         return self.nome
+    
+class AnimalImage(models.Model):
+    contact = models.ForeignKey(Animais, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=animal_image_upload_path)
+
+    def __str__(self):
+        return f"Imagem extra de (ID {self.contact.id})"
+    
+    def delete(self, *args, **kwargs):
+    # Remove o arquivo da pasta antes de deletar o objeto
+        if self.image:
+            if os.path.isfile(self.image.path):
+                os.remove(self.image.path)
+        super().delete(*args, **kwargs)
