@@ -19,7 +19,7 @@ class Animais(models.Model):
     especie = models.CharField(max_length=30)
     descricao = models.TextField(blank=True)
     disponivel_para_adocao = models.BooleanField(default=True)
-    foto = models.ImageField(upload_to='foto_capa/', blank=True, null=True)
+    foto = models.ImageField(upload_to='foto_capa/', null=True)
 
     # salva foto com o id(pk) do animal.
     def save(self, *args, **kwargs):

@@ -1,30 +1,51 @@
-from django.db.models.signals import pre_delete, pre_save
+from django.db.models.signals import pre_delete, pre_save, post_save
 from django.dispatch import receiver
-import os
+import os, gc
 import time
+import shutil
 from .models import Animais, AnimalImage
 
 def safe_remove(path):
     try:
         time.sleep(0.2)
+        try:
+            from django.core.files.storage import default_storage
+            file = default_storage.open(path)
+            file.close()
+        except Exception:
+            pass
+        
         if os.path.isfile(path):
             os.remove(path)
     except Exception as e:
         print(f"[ERRO] Ao remover {path}: {e}")
 
-# === FOTO CAPA ===
+#FOTO CAPA:
+ 
 @receiver(pre_save, sender=Animais)
-def delete_old_capa_on_change(sender, instance, **kwargs):
+def store_old_capa_before_change(sender, instance, **kwargs):
     if not instance.pk:
         return
-    
     try:
         old_instance = Animais.objects.get(pk=instance.pk)
+        instance._old_foto = old_instance.foto
     except Animais.DoesNotExist:
-        return
+        instance._old_foto = None
 
-    if old_instance.foto and old_instance.foto != instance.foto:
-        safe_remove(old_instance.foto.path)
+
+@receiver(post_save, sender=Animais)
+def delete_old_capa_after_change(sender, instance, **kwargs):
+    old_foto = getattr(instance, '_old_foto', None)
+    if old_foto and old_foto.name != instance.foto.name:
+        try:
+            if hasattr(old_foto, 'close'):
+                old_foto.close()
+        except Exception as e:
+            print(f"[ERRO] Ao fechar imagem antiga: {e}")
+        safe_remove(old_foto.path)
+
+
+# GALERIA: 
 
 @receiver(pre_delete, sender=Animais)
 def delete_all_images_on_animal_delete(sender, instance, **kwargs):
@@ -35,7 +56,14 @@ def delete_all_images_on_animal_delete(sender, instance, **kwargs):
         if image.image and os.path.isfile(image.image.path):
             safe_remove(image.image.path)
 
-# === IMAGENS DA GALERIA ===
+    folder_path = os.path.join('media', 'contacts', f'ID_{instance.id}')
+    if os.path.isdir(folder_path):
+        try:
+            shutil.rmtree(folder_path)
+            print(f"Pasta {folder_path} removida com sucesso.")
+        except Exception as e:
+            print(f"[ERRO] Ao remover pasta {folder_path}: {e}")
+
 @receiver(pre_save, sender=AnimalImage)
 def delete_old_gallery_image_on_change(sender, instance, **kwargs):
     if not instance.pk:
