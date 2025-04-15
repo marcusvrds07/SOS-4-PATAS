@@ -1,0 +1,124 @@
+body {
+    background-color: #fef6a0;
+    font-family: Arial, sans-serif;
+  }
+
+  .cards-grid {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(3, 250px); /* 3 por linha */
+    gap: 40px;
+    justify-items: center;
+    position: relative;
+    right: 3%;
+  }
+
+  .card-wrapper {
+    position: relative;
+    width: 160px;
+  }
+
+  .card-base {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    width: 90%;
+    height: 90%;
+    background-color: #ffdf2b;
+    border: 2px solid #092d73;
+    border-radius: 30px;
+    padding: 10px;
+    z-index: 0;
+  }
+
+  .card-top {
+    position: relative;
+    left: 15%;
+    top: 35px;
+    width: 90%;
+    height: 200px;
+    background-color: #f4f69e;
+    border: 2px solid #092d73;
+    border-radius: 16px 30px 16px 30px;
+    padding: 10px;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .card-top img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid #092d73;
+  }
+
+  
+  .btn-3d-wrapper {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    text-decoration: none;
+    right: 3%;
+  }
+  .btn-3d-wrapper span {
+      font-size: 13px;
+      position: relative;
+      top: 20%;
+      text-align: center;
+  }
+  .btn-3d-wrapper .btn-base {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    background-color: #ffd105;
+    border: 2px solid #092d73;
+    border-radius: 8px;
+    width: 100%;
+    height: 80%;
+    z-index: 0;
+    max-width: 100%;
+  }
+
+  .btn-3d-wrapper .btn-top {
+    position: relative;
+    left: 10px;
+    top: 20px;
+    background-color: #ffd105;
+    border: 2px solid #092d73;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 8px 15px;
+    display: inline-block;
+    color: black;
+    text-align: center;
+    z-index: 1;
+    height: 30px;
+  }
+
+  .btn-3d-wrapper:hover .btn-top, .btn-3d-wrapper:hover .btn-base {
+    background-color: #ffe066;
+  }
+
+  .btn-3d-wrapper {
+    cursor: pointer;
+  }
+
+  @media (max-width: 900px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 250px); /* 2 por linha */
+      gap: 30px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cards-grid {
+      grid-template-columns: repeat(1, 250px);
+    }
+  }
+
+  @media (max-width: 400px) {
+    .cards-grid {
+      grid-template-columns: repeat(1, 200px);
+    }
+  }

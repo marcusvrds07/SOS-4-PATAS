@@ -5,5 +5,5 @@ from animais import models
 
 @admin.register(models.Animais)
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = 'id', 'nome', 'idade',
+    list_display = 'id', 'nome', 'idade', 'foto',
     ordering = ['-id']

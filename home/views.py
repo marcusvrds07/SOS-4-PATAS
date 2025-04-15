@@ -1,6 +1,11 @@
 from django.shortcuts import render
+from animais.models import Animais
 
 # Create your views here.
 
 def home(request):
-    return render(request, 'home/index.html')
+    animais = Animais.objects.all()
+    context = {
+        'animais': animais
+    }
+    return render(request, 'home/index.html', context)

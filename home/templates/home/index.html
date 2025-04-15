@@ -1,11 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static "home/css/style.css" %}">
 </head>
 <body>
-    <p>TESTE</p>
+    <div class="cards-grid">
+        {% for animal in animais %}
+        <div class="card-wrapper">
+            <div class="card-base"></div>
+            <div class="card-top">
+              <img src="{{animal.foto.url}}" alt="Animal {{ i }}">
+              <a href="#" class="btn-3d-wrapper">
+                <div class="btn-base"></div>
+                <div class="btn-top"><span>QUERO ADOTAR</span></div>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
 </body>
 </html>
