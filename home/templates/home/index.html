@@ -10,17 +10,19 @@
 <body>
     <div class="cards-grid">
         {% for animal in animais %}
-        <div class="card-wrapper">
-            <div class="card-base"></div>
-            <div class="card-top">
-              <img src="{{animal.foto.url}}" alt="Animal {{ i }}">
-              <a href="{% url "home:animal" animal.id %}" class="btn-3d-wrapper">
-                <div class="btn-base"></div>
-                <div class="btn-top"><span>QUERO ADOTAR</span></div>
-              </a>
+          {% if animal.disponivel_para_adocao %}
+          <div class="card-wrapper">
+              <div class="card-base"></div>
+              <div class="card-top">
+                <img src="{{animal.foto.url}}" alt="Animal {{ i }}">
+                <a href="{% url "home:animal" animal.id %}" class="btn-3d-wrapper">
+                  <div class="btn-base"></div>
+                  <div class="btn-top"><span>QUERO ADOTAR</span></div>
+                </a>
+              </div>
             </div>
-          </div>
-          {% endfor %}
+          {% endif %}
+        {% endfor %}
         </div>
 </body>
 </html>

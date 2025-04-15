@@ -17,5 +17,6 @@ def animal(request, id):
     for animal in animals:
         if animal.id == id:
             animal_found = animal
+            break
 
     return render(request, 'home/animal.html', {'animal': animal_found})

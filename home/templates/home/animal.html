@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    {{animal.nome}}
+    Nome: {{animal.nome}}<br>
+    Idade: {{animal.idade}}<br>
+    Porte: {{animal.porte}}<br>
+    Especie: {{animal.especie}}<br>
+    Descrição: {{animal.descricao}}<br>
+    Disponivel para adoção? {{animal.disponivel_para_adocao}}<br>
+    <img src="{{animal.foto.url}}" alt="Cachorrinho Fiadaputa">
 </body>
 </html>
