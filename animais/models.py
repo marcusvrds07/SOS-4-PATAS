@@ -16,6 +16,7 @@ class Animais(models.Model):
     disponivel_para_adocao = models.BooleanField(default=True)
     foto = models.ImageField(upload_to='foto_capa/', blank=True, null=True)
 
+    # salva foto com o id(pk) do animal.
     def save(self, *args, **kwargs):
         if not self.pk:
             super().save(*args, **kwargs)

@@ -14,7 +14,7 @@
             <div class="card-base"></div>
             <div class="card-top">
               <img src="{{animal.foto.url}}" alt="Animal {{ i }}">
-              <a href="#" class="btn-3d-wrapper">
+              <a href="{% url "home:animal" animal.id %}" class="btn-3d-wrapper">
                 <div class="btn-base"></div>
                 <div class="btn-top"><span>QUERO ADOTAR</span></div>
               </a>
