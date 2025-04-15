@@ -17,10 +17,19 @@ class Animais(models.Model):
     foto = models.ImageField(upload_to='foto_capa/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        ext = os.path.splitext(self.foto.name)[1]
-        if self.id:
-            self.foto.name = f'fotos_animais/{self.id}{ext}'
-        super().save(*args, **kwargs)
+        if not self.pk:
+            super().save(*args, **kwargs)
 
+        if self.foto:
+            ext = os.path.splitext(self.foto.name)[1]
+            new_name = f'{self.pk}{ext}'
+
+            if os.path.basename(self.foto.name) != new_name:
+                from django.core.files.base import ContentFile
+                file_content = self.foto.read()
+                self.foto.save(new_name, ContentFile(file_content), save=False)
+
+        super().save(*args, **kwargs)
+        
     def __str__(self):
         return self.nome
