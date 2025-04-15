@@ -60,7 +60,6 @@ def delete_all_images_on_animal_delete(sender, instance, **kwargs):
     if os.path.isdir(folder_path):
         try:
             shutil.rmtree(folder_path)
-            print(f"Pasta {folder_path} removida com sucesso.")
         except Exception as e:
             print(f"[ERRO] Ao remover pasta {folder_path}: {e}")
 

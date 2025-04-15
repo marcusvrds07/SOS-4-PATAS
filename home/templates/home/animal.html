@@ -13,6 +13,14 @@
     Especie: {{animal.especie}}<br>
     Descrição: {{animal.descricao}}<br>
     Disponivel para adoção? {{animal.disponivel_para_adocao}}<br>
+    <h1>FOTO DA CAPA</h1>
     <img src="{{animal.foto.url}}" alt="Cachorrinho Fiadaputa">
+    <h1>GALERIA</h1>
+    {% for img in animal.images.all %}
+        <img src="{{img.image.url}}" alt="">
+
+    {% empty %}
+        <p>Não há imagens na galeria ainda.</p>
+    {% endfor %}
 </body>
 </html>
