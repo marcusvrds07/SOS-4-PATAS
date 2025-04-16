@@ -26,10 +26,14 @@ class Animais(models.Model):
 
     # Salva foto com o id(pk) do animal e mantém o nome original
     def save(self, *args, **kwargs):
-        if not self.pk:
-            super().save(*args, **kwargs)
-        
-        super().save(*args, **kwargs)
+        if not self.pk and self.foto:
+            # Guarda a imagem e remove temporariamente
+            foto_temp = self.foto
+            self.foto = None
+            super().save(*args, **kwargs)  # Salva sem imagem pra gerar o ID
+
+            self.foto = foto_temp  # Restaura a imagem
+        super().save(*args, **kwargs)  # Salva com imagem agora que já tem ID
         
     def __str__(self):
         return self.nome
@@ -42,6 +46,7 @@ class AnimalImage(models.Model):
         return f"Imagem extra de (ID {self.animal_fk.id})"
     
     def delete(self, *args, **kwargs):
+    # Remove o arquivo da pasta antes de deletar o objeto
         if self.image:
             if os.path.isfile(self.image.path):
                 os.remove(self.image.path)

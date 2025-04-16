@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from animais.models import Animais
 from django.core.paginator import Paginator
 
@@ -16,12 +16,5 @@ def home(request):
     return render(request, 'home/index.html', context)
 
 def animal(request, id):
-    animals = Animais.objects.all()
-    animal_found = {}
-
-    for animal in animals:
-        if animal.id == id:
-            animal_found = animal
-            break
-
+    animal_found = get_object_or_404(Animais, pk=id)
     return render(request, 'home/animal.html', {'animal': animal_found})
