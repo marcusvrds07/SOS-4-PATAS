@@ -1,12 +1,17 @@
 from django.shortcuts import render
 from animais.models import Animais
+from django.core.paginator import Paginator
 
 # Create your views here.
 
 def home(request):
     animais = Animais.objects.all()
+    paginator = Paginator(animais, 8)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
+
     context = {
-        'animais': animais
+        'animals': page_obj
     }
     return render(request, 'home/index.html', context)
 

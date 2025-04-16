@@ -4,9 +4,12 @@ import os
 # Create your models here.
 
 def animal_image_upload_path(instance, filename):
-    animal = instance.contact
+    animal = instance.animal_fk
     folder_name = f"ID_{animal.id}"
     return os.path.join('galeria', folder_name, filename)
+
+def capa_upload_path(instance, filename):
+    return os.path.join('foto_capa', str(instance.id), filename)
 
 class Animais(models.Model):
     class Meta:
@@ -19,36 +22,26 @@ class Animais(models.Model):
     especie = models.CharField(max_length=30)
     descricao = models.TextField(blank=True)
     disponivel_para_adocao = models.BooleanField(default=True)
-    foto = models.ImageField(upload_to='foto_capa/', null=True)
+    foto = models.ImageField(upload_to=capa_upload_path, null=True)
 
-    # salva foto com o id(pk) do animal.
+    # Salva foto com o id(pk) do animal e mantém o nome original
     def save(self, *args, **kwargs):
         if not self.pk:
             super().save(*args, **kwargs)
-
-        if self.foto:
-            ext = os.path.splitext(self.foto.name)[1]
-            new_name = f'{self.pk}{ext}'
-
-            if os.path.basename(self.foto.name) != new_name:
-                from django.core.files.base import ContentFile
-                file_content = self.foto.read()
-                self.foto.save(new_name, ContentFile(file_content), save=False)
-
+        
         super().save(*args, **kwargs)
         
     def __str__(self):
         return self.nome
     
 class AnimalImage(models.Model):
-    contact = models.ForeignKey(Animais, related_name='images', on_delete=models.CASCADE)
+    animal_fk = models.ForeignKey(Animais, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to=animal_image_upload_path)
 
     def __str__(self):
-        return f"Imagem extra de (ID {self.contact.id})"
+        return f"Imagem extra de (ID {self.animal_fk.id})"
     
     def delete(self, *args, **kwargs):
-    # Remove o arquivo da pasta antes de deletar o objeto
         if self.image:
             if os.path.isfile(self.image.path):
                 os.remove(self.image.path)

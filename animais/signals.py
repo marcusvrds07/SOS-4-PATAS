@@ -1,4 +1,5 @@
-from django.db.models.signals import pre_delete, pre_save, post_save
+from django.db.models.signals import pre_delete, pre_save, post_save,post_delete
+from django.conf import settings
 from django.dispatch import receiver
 import os, gc
 import time
@@ -44,6 +45,16 @@ def delete_old_capa_after_change(sender, instance, **kwargs):
             print(f"[ERRO] Ao fechar imagem antiga: {e}")
         safe_remove(old_foto.path)
 
+@receiver(post_delete, sender=Animais)
+def delete_animal_folder(sender, instance, **kwargs):
+    folder_path = os.path.join(settings.MEDIA_ROOT, 'foto_capa', str(instance.pk))
+    if os.path.exists(folder_path):
+        try:
+            shutil.rmtree(folder_path)
+            print(f"[OK] Pasta {folder_path} removida com sucesso.")
+        except Exception as e:
+            print(f"[ERRO] Ao remover pasta: {e}")
+
 
 # GALERIA: 
 
@@ -56,7 +67,7 @@ def delete_all_images_on_animal_delete(sender, instance, **kwargs):
         if image.image and os.path.isfile(image.image.path):
             safe_remove(image.image.path)
 
-    folder_path = os.path.join('media', 'contacts', f'ID_{instance.id}')
+    folder_path = os.path.join('media', 'galeria', f'ID_{instance.id}')
     if os.path.isdir(folder_path):
         try:
             shutil.rmtree(folder_path)

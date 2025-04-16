@@ -6,7 +6,7 @@ body {
   .cards-grid {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(3, 250px); /* 3 por linha */
+    grid-template-columns: repeat(4, 200px);
     gap: 40px;
     justify-items: center;
     position: relative;
@@ -104,21 +104,31 @@ body {
     cursor: pointer;
   }
 
-  @media (max-width: 900px) {
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .pagination span {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @media (max-width: 1000px) {
     .cards-grid {
-      grid-template-columns: repeat(2, 250px); /* 2 por linha */
+      grid-template-columns: repeat(3, 200px);
       gap: 30px;
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 760px) {
     .cards-grid {
-      grid-template-columns: repeat(1, 250px);
+      grid-template-columns: repeat(2, 200px);
     }
   }
 
-  @media (max-width: 400px) {
+  @media (max-width: 520px) {
     .cards-grid {
-      grid-template-columns: repeat(1, 200px);
+      grid-template-columns: repeat(1, 150px);
     }
   }
