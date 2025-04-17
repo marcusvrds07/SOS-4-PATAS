@@ -4,6 +4,8 @@ from django.core.paginator import Paginator
 
 # Create your views here.
 
+#teste
+
 def home(request):
     types = tipoAnimal.objects.all()
     data_types = []
