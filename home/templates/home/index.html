@@ -23,13 +23,11 @@
         <i class="arrow down"></i>
         <div class="options">
           {% for data_type in data_types %}
-            {% if data_type.total > 0 %}
               <div class="categoria">
                 <a href="?tipo_id={{ data_type.type.id }}" class="option">
                   {{ data_type.type.tipo_animal }}
                 </a>
               </div>
-            {% endif %}
           {% endfor %}
         </div>
       </div>
