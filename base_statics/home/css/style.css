@@ -9,13 +9,19 @@ body {
     grid-template-columns: repeat(4, 200px);
     gap: 40px;
     justify-items: center;
-    position: relative;
-    right: 3%;
+    z-index: 0;
   }
 
   .card-wrapper {
     position: relative;
     width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #adoption{
+    margin: 0 auto;
   }
 
   .card-base {
@@ -114,6 +120,10 @@ body {
     padding-right: 10px;
   }
 
+  #unavailable {
+    grid-column: 1/5;
+  }
+
   @media (max-width: 1000px) {
     .cards-grid {
       grid-template-columns: repeat(3, 200px);
@@ -129,6 +139,73 @@ body {
 
   @media (max-width: 520px) {
     .cards-grid {
-      grid-template-columns: repeat(1, 150px);
+      grid-template-columns: repeat(1, 200px);
     }
+  }
+
+
+  .selected-option {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 16.5px;
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    
+  }
+  .arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transition: transform 0.5s ease;
+  }
+  .down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+  .options {
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 100;
+    top: 100%;
+    right: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+  
+  .options.open {
+    position: absolute;
+    max-height: 300px;
+    opacity: 1;
+    z-index: 100;
+  }
+  
+  .option {
+    color: black;
+    display: block;
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .option:hover {
+    background-color: #7b7878;
+    color: white;
+  }
+  .arrow.rotate {
+    transform: rotate(-135deg) translateY(-2px) translateX(-4px);
   }
