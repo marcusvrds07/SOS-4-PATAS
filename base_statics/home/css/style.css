@@ -1,7 +1,47 @@
 body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
     background-color: #fef6a0;
     font-family: Arial, sans-serif;
   }
+
+  .header{
+    background-color: #092d73;
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    border-bottom: 5px solid #f7d647;
+    justify-content: space-between;
+  }
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #f7d647;
+    padding: 5px 10px;
+}
+
+.sos {
+    color: #f7d647;
+}
+
+.patas {
+    color: #000;
+    text-shadow: 0 0 2px #f7d647;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.botamarelo {
+  background-color: #f7d647;
+  padding: 10px 30px;
+  border-radius: 5px;
+}
 
   .cards-grid {
     display: grid;
