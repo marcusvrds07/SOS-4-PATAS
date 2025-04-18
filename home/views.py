@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 
 def home(request):
     types = tipoAnimal.objects.all()
-    tipo_id = request.GET.get('tipo_id')
+    type_id = request.GET.get('tipo_id')
     data_types = []
     context = {}
 
@@ -20,20 +20,20 @@ def home(request):
 
     # Verifica se o tipo_id existe
     if types:
-        if tipo_id:
+        if type_id:
             try:
-                tipo_selecionado = tipoAnimal.objects.get(id=tipo_id)
+                type_selected = tipoAnimal.objects.get(id=type_id)
             except tipoAnimal.DoesNotExist:
-                tipo_selecionado = types[0]
+                type_selected = types[0]
         else:
-            tipo_selecionado = types[0]
+            type_selected = types[0]
     else:
-        tipo_selecionado = None
+        type_selected = None
     
-    if tipo_selecionado:
+    if type_selected:
         print('caiu aqui!')
         # Filtra os animais disponíveis para adoção
-        animais = Animais.objects.filter(tipo_animal=tipo_selecionado, disponivel_para_adocao=True)
+        animais = Animais.objects.filter(tipo_animal=type_selected, disponivel_para_adocao=True)
 
         # Paginação dos resultados
         paginator = Paginator(animais, 8)
@@ -42,7 +42,7 @@ def home(request):
 
         # Contexto para o template
         context = {
-            'first_type': tipo_selecionado,
+            'first_type': type_selected,
             'data_types': data_types,
             'animals': page_obj,
             'has_types': True,
