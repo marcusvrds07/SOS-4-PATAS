@@ -11,6 +11,13 @@ def animal_image_upload_path(instance, filename):
 def capa_upload_path(instance, filename):
     return os.path.join('foto_capa', str(instance.id), filename)
 
+class tipoAnimal(models.Model):
+    
+    tipo_animal = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f'{self.tipo_animal}'
+
 class Animais(models.Model):
     class Meta:
         verbose_name = "Animal"
@@ -21,19 +28,19 @@ class Animais(models.Model):
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
     especie = models.CharField(max_length=30)
     descricao = models.TextField(blank=True)
+    tipo_animal = models.ForeignKey(tipoAnimal, on_delete=models.SET_NULL, null=True)
     disponivel_para_adocao = models.BooleanField(default=True)
-    foto = models.ImageField(upload_to=capa_upload_path, null=True)
+    foto = models.ImageField(upload_to=capa_upload_path)
 
     # Salva foto com o id(pk) do animal e mantém o nome original
     def save(self, *args, **kwargs):
         if not self.pk and self.foto:
-            # Guarda a imagem e remove temporariamente
             foto_temp = self.foto
             self.foto = None
-            super().save(*args, **kwargs)  # Salva sem imagem pra gerar o ID
+            super().save(*args, **kwargs)
 
-            self.foto = foto_temp  # Restaura a imagem
-        super().save(*args, **kwargs)  # Salva com imagem agora que já tem ID
+            self.foto = foto_temp
+        super().save(*args, **kwargs)
         
     def __str__(self):
         return self.nome

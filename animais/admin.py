@@ -18,6 +18,10 @@ class AnimalImageInline(admin.TabularInline):
                 return "Imagem não encontrada"
         return "-"
 
+@admin.register(models.tipoAnimal)
+class tipoAnimal(admin.ModelAdmin):
+    list_display = 'tipo_animal',
+
 @admin.register(models.Animais)
 class AnimalAdmin(admin.ModelAdmin):
     inlines = [AnimalImageInline]
