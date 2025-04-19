@@ -9,75 +9,97 @@
 </head>
 <body>
 <header class="header">
-  <div class="logo-container">
-    <div class="title_span">
-        <span class="sos">SOS</span><br>
-        <span class="patas">4PATAS</span>
-    </div>
+  <div class="title_span">
+      <span class="sos">SOS</span><br>
+      <span class="patas">4PATAS</span>
   </div>
-  <div class="buttons">
-    <a href="#" class="botamarelo">QUERO ADOTAR</a>
-    <a href="#" class="botamarelo">DOAÇÃO</a> 
   </div>
-
-
+  <nav class="nav-menu">
+    <a href="#">Home</a>
+    <a href="#">Contato</a>
+    <a href="#">Doar</a>
+    <a href="#" class="btn-doacao">QUERO ADOTAR</a>
+  </nav>
 </header>
-<h1>TUDO QUE TERIA ACIMA DOS CARDS</h1>
-  
-<section id="adoption">
-  {% if not has_types %}
-    <p id="unavailable" style="text-align: center; color: red; font-weight: bold;">
-      Nenhum tipo de animal foi cadastrado ainda.
-    </p>
-  {% else %}
-    <div class="custom-select" id="customSelect">
-      <div class="selected-option">
-        <span id="select-text">{{ first_type.tipo_animal }}</span> 
-        <i class="arrow down"></i>
-        <div class="options">
-          {% for data_type in data_types %}
-              <div class="categoria">
-                <a href="?tipo_id={{ data_type.type.id }}" class="option">
-                  {{ data_type.type.tipo_animal }}
-                </a>
-              </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
 
-    <div class="cards-grid">
-      {% for animal in animals %}
-        <div class="card-wrapper">
-          <div class="card-base"></div>
-          <div class="card-top">
-            <img src="{{ animal.foto.url }}" alt="animal">
-            <a href="{% url 'home:animal_detail' animal.id %}" class="btn-3d-wrapper">
-              <div class="btn-base"></div>
-              <div class="btn-top"><span>QUERO ADOTAR</span></div>
-            </a>
+<section class="carousel">
+  <div class="carousel-slide active" style="background-image: url('img1.jpg');">
+    <div class="overlay">
+      <h1>Proteger os animais é o que nos une.</h1>
+      <a href="#" class="botao-amarelo">QUERO SER VOLUNTÁRIO</a>
+    </div>
+  </div>
+  <div class="carousel-slide" style="background-image: url('img2.jpg');">
+    <div class="overlay">
+      <h1>Adotar é um ato de amor.</h1>
+      <a href="#" class="botao-amarelo">QUERO ADOTAR</a>
+    </div>
+  </div>
+  <!-- Adicione mais slides aqui -->
+  <button class="prev">&#10094;</button>
+  <button class="next">&#10095;</button>
+</section>
+
+<script src="carousel.js"></script>
+
+<div class="main">
+  
+  <h1>TUDO QUE TERIA ACIMA DOS CARDS</h1>
+  <section id="adoption">
+    {% if not has_types %}
+      <p id="unavailable" style="text-align: center; color: red; font-weight: bold;">
+        Nenhum tipo de animal foi cadastrado ainda.
+      </p>
+    {% else %}
+      <div class="custom-select" id="customSelect">
+        <div class="selected-option">
+          <span id="select-text">{{ first_type.tipo_animal }}</span>
+          <i class="arrow down"></i>
+          <div class="options">
+            {% for data_type in data_types %}
+                <div class="categoria">
+                  <a href="?tipo_id={{ data_type.type.id }}" class="option">
+                    {{ data_type.type.tipo_animal }}
+                  </a>
+                </div>
+            {% endfor %}
           </div>
         </div>
-      {% empty %}
-        <p id='unavailable'>Não há animais disponíveis para adoção nesta categoria.</p>
-      {% endfor %}
-    </div>
-
-    <div class="pagination">
-      {% if animals.has_previous %}
-        <a href="?page={{ animals.previous_page_number }}&tipo_id={{ first_type.id }}#adoption">Anterior</a>
-      {% endif %}
-
-      {% if animals.paginator.num_pages > 1 %}
-        <span>Página {{ animals.number }} de {{ animals.paginator.num_pages }}</span>
-      {% endif %}
-
-      {% if animals.has_next %}
-        <a href="?page={{ animals.next_page_number }}&tipo_id={{ first_type.id }}#adoption">Próxima</a>
-      {% endif %}
-    </div>
-  {% endif %}
-</section>
+      </div>
+  
+      <div class="cards-grid">
+        {% for animal in animals %}
+          <div class="card-wrapper">
+            <div class="card-base"></div>
+            <div class="card-top">
+              <img src="{{ animal.foto.url }}" alt="animal">
+              <a href="{% url 'home:animal_detail' animal.id %}" class="btn-3d-wrapper">
+                <div class="btn-base"></div>
+                <div class="btn-top"><span>QUERO ADOTAR</span></div>
+              </a>
+            </div>
+          </div>
+        {% empty %}
+          <p id='unavailable'>Não há animais disponíveis para adoção nesta categoria.</p>
+        {% endfor %}
+      </div>
+  
+      <div class="pagination">
+        {% if animals.has_previous %}
+          <a href="?page={{ animals.previous_page_number }}&tipo_id={{ first_type.id }}#adoption">Anterior</a>
+        {% endif %}
+  
+        {% if animals.paginator.num_pages > 1 %}
+          <span>Página {{ animals.number }} de {{ animals.paginator.num_pages }}</span>
+        {% endif %}
+  
+        {% if animals.has_next %}
+          <a href="?page={{ animals.next_page_number }}&tipo_id={{ first_type.id }}#adoption">Próxima</a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </section>
+</div>
 
 
 <h1>TUDO QUE TERIA ABAIXO DOS CARDS</h1>
