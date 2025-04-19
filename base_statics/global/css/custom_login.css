@@ -1,0 +1,200 @@
+:root {
+  --amarelo-principal: #f7d647;
+  --azul-principal: #092d73;
+  --cinza-claro: #f4f4f4;
+  --texto: #333333;
+  --input-borda: #ccc;
+}
+
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url("/static/global/imgs/pegadas.png");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container principal */
+.login-template {
+  background-color: white;
+  padding: 40px 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Logo */
+
+.sos {
+  display: block;
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--amarelo-principal);
+}
+
+.patas {
+  display: block;
+  font-size: 40px;
+  color: white;
+  text-shadow: 
+    -1px -1px 0 var(--amarelo-principal),
+    1px -1px 0 var(--amarelo-principal),
+    -1px  1px 0 var(--amarelo-principal),
+    1px  1px 0 var(--amarelo-principal);
+    position: relative;
+    top: 20px;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 25px;
+  position: relative;
+  bottom: 20px;
+}
+
+/* Título */
+#content-main h1 {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 20px 0px;
+  color: var(--azul-principal);
+}
+
+/* Formulário */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 14px;
+  color: var(--texto);
+  margin-bottom: 6px;
+  
+}
+
+.form-group input {
+  width: 100%;
+  padding: 20px;
+  border: 1px solid var(--input-borda);
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  font-weight: initial;
+  border-color: var(--azul-principal);
+  box-shadow: 0 0 0 3px rgba(9, 45, 115, 0.2);
+}
+
+/* Botão */
+button.submit {
+  width: 100%;
+  padding: 10px 10px 30px 10px;
+  background-color: var(--azul-principal);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin: 0 auto;
+}
+
+button.submit:hover {
+  background-color: #061e4e;
+}
+
+/* Link de "Esqueceu a senha" */
+a {
+  color: var(--azul-principal);
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Alerta */
+.alert {
+  display: none;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: rgb(209, 28, 28);
+  color: white;
+  padding: 20px;
+  width: calc(100% - 20px);
+  max-width: 300px;
+  border-radius: 5px;
+  z-index: 1000;
+}
+
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#alertMessage {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.progress-container {
+  width: 300px;
+  background-color: #ddd;
+  margin-top: 10px;
+  position: relative;
+  top: 21px;
+  right: 19.64px;
+  border: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.progress-bar {
+  height: 13px;
+  background-color: #abaaaa;
+  width: 0%;
+  transition: width 0.1s linear;
+  border: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,59 @@
+{% extends "admin/base_site.html" %}
+
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'global/css/custom_login.css' %}">
+{% endblock %}
+
+{% block title %}Login - SOS 4 PATAS{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+{% block content_title %}
+{% endblock content_title %}
+
+<div class="login-template">
+    <div id="content-main">
+        <h1>LOGIN</h1>
+        <form method="post" action="{% url 'admin:login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">username</label>
+                <input type="text" name="username" placeholder="Usuário" autocomplete="off" required>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password.id_for_label }}">senha</label>
+                <input type="password" name="password" placeholder="Senha" autocomplete="off" required>
+            </div>
+            <button type="submit" class="submit">Login</button>
+
+            <div style="text-align:center; margin-top: 1rem;">
+                <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% if form.errors %}
+    <div id="djangoErrors"
+         data-error="{{ form.non_field_errors.0|default_if_none:''|escapejs }}">
+    </div>
+{% endif %}
+
+
+<div id="errorAlert" class="alert">
+    <span class="closebtn" onclick="closeAlert('errorAlert')">&times;</span>
+    <div id="alertMessage"></div>
+    <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+</div>
+
+<script src="{% static "global/js/script.js" %}"></script>
+{% endblock %}
