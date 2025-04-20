@@ -22,25 +22,29 @@
   </nav>
 </header>
 
-<section class="carousel">
-  <div class="carousel-slide active" style="background-image: url('img1.jpg');">
-    <div class="overlay">
-      <h1>Proteger os animais é o que nos une.</h1>
-      <a href="#" class="botao-amarelo">QUERO SER VOLUNTÁRIO</a>
+<div class="carroussel-container">
+  <div class="carroussel" id="carroussel">
+    <div class="slide">
+      <img src="{% static 'home/img/cachorro-teste2.jpg' %}" alt="gato">
+      <div class="overlay">
+        <h2>O resgate é o primeiro passo para salvar uma vida.</h2>
+        <a href="#" class="botao-doar">QUERO DOAR</a>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="{% static 'home/img/gato-teste1.jpg' %}" alt="gato">
+      <div class="overlay">
+        <h2>Adotar é um ato de amor que transforma vidas!</h2>
+        <a href="#" class="botao-doar">ADOTE AGORA</a>
+      </div>
     </div>
   </div>
-  <div class="carousel-slide" style="background-image: url('img2.jpg');">
-    <div class="overlay">
-      <h1>Adotar é um ato de amor.</h1>
-      <a href="#" class="botao-amarelo">QUERO ADOTAR</a>
-    </div>
-  </div>
-  <!-- Adicione mais slides aqui -->
-  <button class="prev">&#10094;</button>
-  <button class="next">&#10095;</button>
-</section>
 
-<script src="carousel.js"></script>
+  <!-- Botões de navegação -->
+  <button class="seta esquerda" onclick="prevSlide()">&#10094;</button>
+  <button class="seta direita" onclick="nextSlide()">&#10095;</button>
+</div>
+
 
 <div class="main">
   

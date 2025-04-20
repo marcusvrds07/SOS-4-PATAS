@@ -22,3 +22,27 @@ document.addEventListener("click", function (event) {
     arrow.classList.remove("rotate");
   }
 });
+
+const carroussel = document.getElementById("carroussel");
+const slides = carroussel.querySelectorAll(".slide");
+
+let index = 0;
+
+function updateCarroussel() {
+  const width = carroussel.clientWidth;
+  carroussel.style.transform = `translateX(-${index * width}px)`;
+}
+
+function nextSlide() {
+  index = (index + 1) % slides.length;
+  updateCarroussel();
+}
+
+function prevSlide() {
+  index = (index - 1 + slides.length) % slides.length;
+  updateCarroussel();
+}
+
+setInterval(nextSlide, 5000); // troca automática a cada 5 segundos
+
+window.addEventListener("resize", updateCarroussel);
