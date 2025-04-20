@@ -31,6 +31,13 @@
                 <label for="{{ form.password.id_for_label }}">Senha</label>
                 <input type="password" name="password" placeholder="informe sua senha" autocomplete="off" required>
             </div>
+
+            {% if form.errors %}
+                <div id="djangoErrors">
+                    <p>Usuário ou senha incorreto!</p>
+                </div>
+            {% endif %}
+
             <button type="submit" class="submit">Entrar</button>
 
             <div class='forgot_password'style="text-align:center; margin-top: 1rem;">
@@ -44,19 +51,5 @@
     </div>
 </div>
 
-{% if form.errors %}
-    <div id="djangoErrors"
-         data-error="{{ form.non_field_errors.0|default_if_none:''|escapejs }}">
-    </div>
-{% endif %}
-
-<div id="errorAlert" class="alert">
-    <span class="closebtn" onclick="closeAlert('errorAlert')">&times;</span>
-    <div id="alertMessage"></div>
-    <div class="progress-container">
-        <div id="progressBar" class="progress-bar"></div>
-    </div>
 </div>
-
-<script src="{% static "global/js/script.js" %}"></script>
 {% endblock %}

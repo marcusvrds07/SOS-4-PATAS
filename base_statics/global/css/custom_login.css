@@ -6,7 +6,7 @@
   --azul-principal: #092d73;
   --cinza-claro: #f4f4f4;
   --texto: #333333;
-  --input-borda: #ccc;
+  --input-borda: #092d73;
 }
 
 /* Reset e base */
@@ -90,9 +90,6 @@ body {
   font-weight: 600;
   text-transform: uppercase;
 }
-.form-group label::after {
-  content: ':';
-}
 
 .form-group input {
   width: 100%;
@@ -103,6 +100,7 @@ body {
   transition: 0.3s;
   font-weight: normal;
   outline: none;
+  color: black;
 }
 
 .form-group input:focus {
@@ -144,56 +142,12 @@ button.submit:hover {
   color: var(--amarelo-principal);
 }
 
-/* Alerta */
-.alert {
-  display: none;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background-color: rgb(209, 28, 28);
-  color: white;
-  padding: 20px;
-  width: calc(100% - 20px);
-  max-width: 300px;
-  border-radius: 5px;
-  z-index: 1000;
-}
-
-.closebtn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 18px;
-}
-
-#alertMessage {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.progress-container {
-  width: 300px;
-  background-color: #ddd;
-  margin-top: 10px;
+#djangoErrors {
+  font-family: "Montserrat", sans-serif;
   position: relative;
-  top: 21px;
-  right: 19.64px;
-  border: none;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.progress-bar {
-  height: 13px;
-  background-color: #abaaaa;
-  width: 0%;
-  transition: width 0.1s linear;
-  border: none;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  bottom: 10px;
+  color: red;
+  font-weight: 500;
 }
 
 /* Animação de entrada */
