@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 :root {
   --amarelo-principal: #f7d647;
   --azul-principal: #092d73;
@@ -14,8 +17,8 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: url("/static/global/imgs/pegadas.png");
+  font-family: "Sour Gummy", sans-serif;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/global/imgs/pegadas.png");
   background-size: cover;
   min-height: 100vh;
   display: flex;
@@ -26,7 +29,7 @@ body {
 /* Container principal */
 .login-template {
   background-color: white;
-  padding: 40px 35px;
+  padding: 20px 40px 40px 40px;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   max-width: 400px;
@@ -38,22 +41,20 @@ body {
 
 .sos {
   display: block;
-  font-size: 40px;
+  font-size: 20px;
   font-weight: bold;
   color: var(--amarelo-principal);
 }
 
 .patas {
   display: block;
-  font-size: 40px;
+  font-size: 20px;
   color: white;
   text-shadow: 
     -1px -1px 0 var(--amarelo-principal),
     1px -1px 0 var(--amarelo-principal),
     -1px  1px 0 var(--amarelo-principal),
     1px  1px 0 var(--amarelo-principal);
-    position: relative;
-    top: 20px;
 }
 
 .logo-container {
@@ -61,17 +62,17 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
   position: relative;
-  bottom: 20px;
+  top: 20px;
+
 }
 
 /* Título */
 #content-main h1 {
   text-align: center;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
-  margin: 20px 0px;
+  margin: 0px 0px 20px 0px;
   color: var(--azul-principal);
 }
 
@@ -82,10 +83,15 @@ body {
 
 .form-group label {
   display: block;
-  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
   color: var(--texto);
   margin-bottom: 6px;
-  
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.form-group label::after {
+  content: ':';
 }
 
 .form-group input {
@@ -93,8 +99,10 @@ body {
   padding: 20px;
   border: 1px solid var(--input-borda);
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 14px;
   transition: 0.3s;
+  font-weight: normal;
+  outline: none;
 }
 
 .form-group input:focus {
@@ -106,6 +114,7 @@ body {
 
 /* Botão */
 button.submit {
+  font-family: "Sour Gummy", sans-serif;
   width: 100%;
   padding: 10px 10px 30px 10px;
   background-color: var(--azul-principal);
@@ -124,15 +133,15 @@ button.submit:hover {
 }
 
 /* Link de "Esqueceu a senha" */
-a {
+.forgot_password a {
   color: var(--azul-principal);
   font-size: 14px;
   text-decoration: none;
   transition: 0.2s ease-in-out;
 }
 
-a:hover {
-  text-decoration: underline;
+.forgot_password a:hover {
+  color: var(--amarelo-principal);
 }
 
 /* Alerta */

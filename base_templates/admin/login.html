@@ -16,10 +16,6 @@
 {% block content %}
 {% block content_title %}{% endblock %}
 
-<div class="logo-container">
-    <span class="sos">SOS</span>
-    <span class="patas">4PATAS</span>
-</div>
 <div class="login-template">
     <!-- LOGO -->
 
@@ -29,16 +25,20 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.username.id_for_label }}">Usuário</label>
-                <input type="text" name="username" placeholder="Usuário" autocomplete="off" required>
+                <input type="text" name="username" placeholder="informe seu login" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label for="{{ form.password.id_for_label }}">Senha</label>
-                <input type="password" name="password" placeholder="Senha" autocomplete="off" required>
+                <input type="password" name="password" placeholder="informe sua senha" autocomplete="off" required>
             </div>
             <button type="submit" class="submit">Entrar</button>
 
-            <div style="text-align:center; margin-top: 1rem;">
+            <div class='forgot_password'style="text-align:center; margin-top: 1rem;">
                 <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a>
+            </div>
+            <div class="logo-container">
+                <span class="sos">SOS</span>
+                <span class="patas">4PATAS</span>
             </div>
         </form>
     </div>
