@@ -17,7 +17,6 @@
 {% block content_title %}{% endblock %}
 
 <div class="login-template">
-    <!-- LOGO -->
 
     <div id="content-main">
         <h1>LOGIN</h1>
@@ -44,8 +43,10 @@
                 <a href="{% url 'password_reset' %}">Esqueceu sua senha?</a>
             </div>
             <div class="logo-container">
-                <span class="sos">SOS</span>
-                <span class="patas">4PATAS</span>
+                <a href="{% url "home:index" %}">
+                    <span class="sos">SOS</span>
+                    <span class="patas">4PATAS</span>
+                </a>
             </div>
         </form>
     </div>

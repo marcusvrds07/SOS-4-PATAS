@@ -31,7 +31,6 @@ def home(request):
         type_selected = None
     
     if type_selected:
-        print('caiu aqui!')
         # Filtra os animais disponíveis para adoção
         animais = Animais.objects.filter(tipo_animal=type_selected, disponivel_para_adocao=True)
 
@@ -48,7 +47,6 @@ def home(request):
             'has_types': True,
         }
     else:
-        print("caiu aqui 2")
         context = {
         'first_type': 'Nenhum Campo',
         'data_types': [],

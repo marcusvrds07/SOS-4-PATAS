@@ -40,7 +40,6 @@
     </div>
   </div>
 
-  <!-- Botões de navegação -->
   <button class="seta esquerda" onclick="prevSlide()">&#10094;</button>
   <button class="seta direita" onclick="nextSlide()">&#10095;</button>
 </div>
@@ -62,7 +61,7 @@
           <div class="options">
             {% for data_type in data_types %}
                 <div class="categoria">
-                  <a href="?tipo_id={{ data_type.type.id }}" class="option">
+                  <a href="?tipo_id={{ data_type.type.id }}#adoption" class="option">
                     {{ data_type.type.tipo_animal }}
                   </a>
                 </div>

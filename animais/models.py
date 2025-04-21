@@ -32,7 +32,6 @@ class Animais(models.Model):
     disponivel_para_adocao = models.BooleanField(default=True)
     foto = models.ImageField(upload_to=capa_upload_path)
 
-    # Salva foto com o id(pk) do animal e mantém o nome original
     def save(self, *args, **kwargs):
         if not self.pk and self.foto:
             foto_temp = self.foto
@@ -53,7 +52,6 @@ class AnimalImage(models.Model):
         return f"Imagem extra de (ID {self.animal_fk.id})"
     
     def delete(self, *args, **kwargs):
-    # Remove o arquivo da pasta antes de deletar o objeto
         if self.image:
             if os.path.isfile(self.image.path):
                 os.remove(self.image.path)
