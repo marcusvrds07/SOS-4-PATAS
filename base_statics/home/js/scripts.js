@@ -46,3 +46,17 @@ function prevSlide() {
 setInterval(nextSlide, 5000); // troca automática a cada 5 segundos
 
 window.addEventListener("resize", updateCarroussel);
+
+
+const navbar = document.getElementById('navbar');
+    const trigger = document.getElementById('carroussel');
+
+    window.addEventListener('scroll', () => {
+      const triggerBottom = trigger.getBoundingClientRect().bottom;
+
+      if (triggerBottom <= 0) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
