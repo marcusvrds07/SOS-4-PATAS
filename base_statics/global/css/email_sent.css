@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --amarelo-principal: #f7d647;
+  --azul-principal: #092d73;
+  --cinza-claro: #f4f4f4;
+  --texto: #333333;
+  --input-borda: #092d73;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Sour Gummy", sans-serif;
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("/static/global/imgs/pegadas.png");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.email-sent-template {
+    background-color: white;
+    padding: 20px 30px 30px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    width: 100%;
+    animation: fadeIn 0.6s ease-in-out;
+    text-align: left;
+}
+
+/* Título */
+#content-main h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0px 0px 20px 0px;
+    color: var(--azul-principal);
+  }
+
+/* Logo */
+
+.sos {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--amarelo-principal);
+    position: relative;
+    top: 10px;
+}
+
+.patas {
+    display: block;
+    font-size: 25px;
+    color: white;
+    text-shadow: 
+        -1px -1px 0 var(--amarelo-principal),
+        1px -1px 0 var(--amarelo-principal),
+        -1px  1px 0 var(--amarelo-principal),
+        1px  1px 0 var(--amarelo-principal);
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 10px;
+}
+
+.logo-container a { 
+    text-decoration: none;
+    text-align: center;
+}
