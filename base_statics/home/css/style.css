@@ -197,6 +197,7 @@
 
   #adoption{
     margin: 0 auto;
+    scroll-margin-top: 90px;
   }
 
   .card-base {
