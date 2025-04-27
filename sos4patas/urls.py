@@ -18,12 +18,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', include('home.urls')),
     path('grappelli/', include('grappelli.urls')),
+
+    # Suas URLs personalizadas que usam 'admin' mas são independentes do Django Admin
+    path('admin/esqueceu-senha/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('admin/email-enviada/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('admin/redefinir-senha/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('admin/senha-redefinida/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 #config para as imagens funcionar com link
