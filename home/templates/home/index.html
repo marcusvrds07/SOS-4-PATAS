@@ -22,35 +22,41 @@
     </nav>
   </div>
   
-<div class="carroussel-container">
-  <div class="carroussel" id="carroussel">
-    <div class="slide">
-      <div class="slide-content">
-        <img src="{% static 'home/img/cachorro-teste2.jpg' %}" alt="gato">
-        <div class="dark-overlay"></div>
-        <div class="info-image">
-          <h2>O resgate é o primeiro passo para salvar uma vida.</h2>
-          <a href="#" class="botao-doar">QUERO DOAR</a>
+<div class="carroussel-main">
+  <div class="carroussel-container">
+    <div class="carroussel" id="carroussel">
+      <div class="slide">
+        <div class="slide-content">
+          <img src="{% static 'home/img/cachorro-teste2.jpg' %}" alt="gato">
+          <div class="dark-overlay"></div>
+          <div class="info-image">
+            <h2>O resgate é o primeiro passo para salvar uma vida.</h2>
+          </div>
+        </div>
+      </div>
+  
+      <div class="slide">
+        <div class="slide-content">
+          <img src="{% static 'home/img/gato-teste1.jpg' %}" alt="gato">
+          <div class="dark-overlay"></div>
+          <div class="info-image">
+            <h2>Adotar é um ato de amor que transforma vidas!</h2>
+          </div>
         </div>
       </div>
     </div>
-
-    <div class="slide">
-      <div class="slide-content">
-        <img src="{% static 'home/img/gato-teste1.jpg' %}" alt="gato">
-        <div class="dark-overlay"></div>
-        <div class="info-image">
-          <h2>Adotar é um ato de amor que transforma vidas!</h2>
-          <a href="#" class="botao-doar">ADOTE AGORA</a>
-        </div>
-      </div>
-    </div>
+  
+    <button class="seta esquerda" onclick="prevSlide()">&#10094;</button>
+    <button class="seta direita" onclick="nextSlide()">&#10095;</button>
   </div>
-
-  <button class="seta esquerda" onclick="prevSlide()">&#10094;</button>
-  <button class="seta direita" onclick="nextSlide()">&#10095;</button>
+  
+  <div class="button-container">
+    <a href="#" class="btn-adotar">QUERO ADOTAR</a>
+    <a href="#" class="btn-adotar">QUERO ENCONTRAR MEU PET</a>
+  </div>
+  
+  
 </div>
-
 
 <div class="main">
   
