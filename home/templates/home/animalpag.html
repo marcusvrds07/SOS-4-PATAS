@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ animal.nome }}</title>
+    <link rel="stylesheet" href="{% static 'home/css/animalpag.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <!-- Coluna da esquerda -->
+    <div class="image-section">
+        <h1 class="gallery-title">Galeria</h1>
+        <div class="image-container">
+            <img id="mainImage" class="main-img" src="{{ animal.foto.url }}" alt="Foto da Capa de um Cachorro">
+            <div class="gallery">
+                {% for img in animal.images.all %}
+                    <img class="thumbnail" src="{{ img.image.url }}" alt="Foto do animal">
+                {% empty %}
+                    <p>Não há imagens na galeria ainda.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Coluna da direita -->
+    <div class="details-section">
+        <h1>{{ animal.nome }}</h1>
+        <p class="info-item"><strong>Idade:</strong> {{ animal.idade }}</p>
+        <p class="info-item"><strong>Porte:</strong> {{ animal.porte }}</p>
+        <p class="info-item"><strong>Espécie:</strong> {{ animal.especie }}</p>
+        <p class="description"><strong>Descrição:</strong> {{ animal.descricao }}</p>
+
+        <a href="#" class="button">Quero adotar</a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const mainImage = document.getElementById("mainImage");
+        const thumbnails = document.querySelectorAll(".thumbnail");
+
+        thumbnails.forEach(function (thumb) {
+            thumb.addEventListener("click", function () {
+                const tempSrc = mainImage.src;
+                mainImage.src = this.src;
+                this.src = tempSrc;
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
