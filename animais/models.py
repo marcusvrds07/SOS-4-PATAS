@@ -25,7 +25,7 @@ class Animais(models.Model):
         verbose_name = "Animal"
         verbose_name_plural = 'Animais'
 
-    nome = models.CharField(max_length=100)
+    nome = models.CharField(max_length=100, help_text='Digite o seu nome')
     idade = models.IntegerField()
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
     especie = models.CharField(max_length=30)
