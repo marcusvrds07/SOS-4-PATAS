@@ -12,10 +12,12 @@
 
 <!-- Adicionando a navbar da página principal -->
 <div class="navbar" id="navbar">
-    <div class="title_span">
-        <span class="sos">SOS</span><br>
-        <span class="patas">4PATAS</span>
-    </div>
+    <a href="{% url 'home:index' %}" class="logo-link">
+        <div class="title_span">
+            <span class="sos">SOS</span><br>
+            <span class="patas">4PATAS</span>
+        </div>
+    </a>
     <nav class="nav-menu">
         <a href="{% url 'home:index' %}">Home</a>
         <a href="#">Contato</a>
