@@ -6,7 +6,7 @@
   }
   
   body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Comfortaa', cursive;
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
@@ -38,14 +38,12 @@
   }
   
   .gallery-title {
+    text-align: center;
     margin-bottom: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 800;
-    font-style: normal;
+    font-family: 'Comfortaa';
+    font-weight: bold;
     font-size: 32px;
-    color: #f9f0d4;
-    text-shadow: -2px -2px 0 var(--azul-principal), 2px -2px 0 var(--azul-principal), -2px 2px 0 var(--azul-principal),
-      2px 2px 0 var(--azul-principal);
+    color: var(--azul-principal);
     position: relative;
     display: inline-block;
     padding-bottom: 5px;
