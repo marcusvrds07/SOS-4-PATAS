@@ -15,8 +15,74 @@ body {
   display: flex;
   justify-content: center;
   padding: 20px 0;
+  padding-top: 100px; /* Espaço para a navbar fixa */
 }
 
+/* Estilos da navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: calc(100% - 40px);
+  background-color: var(--azul-principal);
+  padding: 15px 20px;
+  color: white;
+  transition: all 0.4s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 999;
+}
+
+.navbar.scrolled {
+  background-color: var(--azul-principal);
+  padding: 10px 40px;
+  font-size: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.title_span {
+  text-align: center;
+}
+
+.sos {
+  left: 2rem;
+  font-weight: bold;
+  color: var(--amarelo-principal);
+  font-size: 25px;
+  position: relative;
+  top: 10px;
+  left: 4px;
+}
+
+.patas {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 25px;
+  color: var(--azul-principal);
+  text-shadow: 
+      -1px -1px 0 var(--amarelo-principal),
+      1px -1px 0 var(--amarelo-principal),
+      -1px 1px 0 var(--amarelo-principal),
+      1px 1px 0 var(--amarelo-principal);
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 500;
+}
+
+.btn-doacao {
+  background-color: var(--amarelo-principal);
+  color: #1a237e;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* Estilos existentes da página de galeria */
 .container {
   display: flex;
   align-items: flex-start;
@@ -68,9 +134,10 @@ body {
   padding: 15px;
   border-radius: 14px;
   box-shadow: 0 6px 16px var(--shadow-color);
+  position: relative;
 }
 
-/* Novo wrapper para a imagem principal e setas */
+/* Wrapper para a imagem principal e setas */
 .main-image-wrapper {
   position: relative;
   width: 100%;
@@ -282,5 +349,26 @@ body {
       width: 30px;
       height: 30px;
       font-size: 14px;
+  }
+  
+  .navbar {
+      padding: 10px 15px;
+  }
+  
+  .sos {
+      font-size: 20px;
+  }
+  
+  .patas {
+      font-size: 20px;
+  }
+  
+  .nav-menu a {
+      margin: 0 5px;
+      font-size: 14px;
+  }
+  
+  .btn-doacao {
+      padding: 8px 15px;
   }
 }
