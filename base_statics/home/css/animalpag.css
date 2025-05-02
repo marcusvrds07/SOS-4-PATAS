@@ -1,240 +1,286 @@
 :root {
-    --amarelo-principal: #f7d647;
-    --azul-principal: #092d73;
-    --background-color: #f9f0d4;
-    --shadow-color: rgba(9, 45, 115, 0.15);
-  }
-  
-  body {
-    font-family: 'Comfortaa', cursive;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--azul-principal);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
-  }
-  
+  --amarelo-principal: #f7d647;
+  --azul-principal: #092d73;
+  --background-color: #f9f0d4;
+  --shadow-color: rgba(9, 45, 115, 0.15);
+}
+
+body {
+  font-family: 'Comfortaa', cursive;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--azul-principal);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  width: 90%;
+  max-width: 1200px;
+  gap: 40px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.image-section {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 40%;
+  max-width: 450px;
+}
+
+.gallery-title {
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: 'Comfortaa';
+  font-weight: bold;
+  font-size: 32px;
+  color: var(--azul-principal);
+  position: relative;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.gallery-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--amarelo-principal);
+  border-radius: 2px;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px var(--shadow-color);
+}
+
+/* Novo wrapper para a imagem principal e setas */
+.main-image-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.image-section img.main-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid white;
+}
+
+/* Estilo para os botões de seta */
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  color: var(--azul-principal);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.arrow-btn:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}
+
+.gallery {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gallery img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 2px solid white;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: var(--amarelo-principal);
+}
+
+.details-section {
+  flex: 1;
+  padding: 20px;
+  align-self: flex-start;
+  margin-top: 50px;
+  background-color: white;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px var(--shadow-color);
+}
+
+.details-section h1 {
+  font-size: 32px;
+  color: var(--azul-principal);
+  margin-bottom: 20px;
+  margin-top: 0;
+  border-bottom: 3px solid var(--amarelo-principal);
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+/* Estilos para parágrafos de informações */
+.details-section p {
+  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+  background-color: rgba(247, 214, 71, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--amarelo-principal);
+}
+
+/* Classe específica para a descrição */
+.description {
+  display: block !important; /* Sobrescreve o display: flex do parágrafo */
+  text-align: justify;
+  max-width: 100%;
+  word-wrap: break-word;
+  background-color: rgba(9, 45, 115, 0.05);
+  border-left: 3px solid var(--azul-principal);
+}
+
+/* Estilo para o rótulo de descrição */
+.description strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.details-section strong {
+  color: var(--azul-principal);
+  font-weight: 600;
+  padding-right: 5px;
+}
+
+.button {
+  margin-top: 25px;
+  padding: 14px 28px;
+  background-color: var(--azul-principal);
+  color: var(--amarelo-principal);
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(9, 45, 115, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.button:hover {
+  background-color: #0a3690;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(9, 45, 115, 0.4);
+}
+
+.button:hover::before {
+  left: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
   .container {
-    display: flex;
-    align-items: flex-start;
-    width: 90%;
-    max-width: 1200px;
-    gap: 40px;
-    background-color: rgba(255, 255, 255, 0.5);
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px var(--shadow-color);
-  }
-  
-  .image-section {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    width: 40%;
-    max-width: 450px;
-  }
-  
-  .gallery-title {
-    text-align: center;
-    margin-bottom: 10px;
-    font-family: 'Comfortaa';
-    font-weight: bold;
-    font-size: 32px;
-    color: var(--azul-principal);
-    position: relative;
-    display: inline-block;
-    padding-bottom: 5px;
-  }
-  
-  .gallery-title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background-color: var(--amarelo-principal);
-    border-radius: 2px;
-  }
-  
-  .image-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background-color: white;
-    padding: 15px;
-    border-radius: 14px;
-    box-shadow: 0 6px 16px var(--shadow-color);
-  }
-  
-  .image-section img.main-img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 3px solid white;
-  }
-  
-  .gallery {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  
-  .gallery img {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 2px solid white;
-  }
-  
-  .gallery img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-color: var(--amarelo-principal);
-  }
-  
-  .details-section {
-    flex: 1;
-    padding: 20px;
-    align-self: flex-start;
-    margin-top: 50px;
-    background-color: white;
-    border-radius: 14px;
-    box-shadow: 0 6px 16px var(--shadow-color);
-  }
-  
-  .details-section h1 {
-    font-size: 32px;
-    color: var(--azul-principal);
-    margin-bottom: 20px;
-    margin-top: 0;
-    border-bottom: 3px solid var(--amarelo-principal);
-    padding-bottom: 10px;
-    display: inline-block;
-  }
-  
-  /* Estilos para parágrafos de informações */
-  .details-section p {
-    margin: 10px 0;
-    font-size: 16px;
-    line-height: 1.5;
-    display: flex;
-    align-items: baseline;
-    background-color: rgba(247, 214, 71, 0.1);
-    padding: 8px 12px;
-    border-radius: 8px;
-    border-left: 3px solid var(--amarelo-principal);
-  }
-  
-  /* Classe específica para a descrição */
-  .description {
-    display: block !important; /* Sobrescreve o display: flex do parágrafo */
-    text-align: justify;
-    max-width: 100%;
-    word-wrap: break-word;
-    background-color: rgba(9, 45, 115, 0.05);
-    border-left: 3px solid var(--azul-principal);
-  }
-  
-  /* Estilo para o rótulo de descrição */
-  .description strong {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .details-section strong {
-    color: var(--azul-principal);
-    font-weight: 600;
-    padding-right: 5px;
-  }
-  
-  .button {
-    margin-top: 25px;
-    padding: 14px 28px;
-    background-color: var(--azul-principal);
-    color: var(--amarelo-principal);
-    font-weight: bold;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 16px;
-    display: inline-block;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(9, 45, 115, 0.3);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: 0.5s;
-  }
-  
-  .button:hover {
-    background-color: #0a3690;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(9, 45, 115, 0.4);
-  }
-  
-  .button:hover::before {
-    left: 100%;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 900px) {
-    .container {
       flex-direction: column;
       align-items: center;
       gap: 30px;
       padding: 20px;
-    }
-  
-    .image-section {
+  }
+
+  .image-section {
       width: 100%;
-    }
-  
-    .details-section {
+  }
+
+  .details-section {
       width: 100%;
       margin-top: 0;
-    }
   }
-  
-  @media (max-width: 600px) {
-    .container {
+}
+
+@media (max-width: 600px) {
+  .container {
       width: 95%;
       padding: 15px;
-    }
-  
-    .gallery-title {
-      font-size: 28px;
-    }
-  
-    .details-section h1 {
-      font-size: 28px;
-    }
-  
-    .details-section p {
-      font-size: 15px;
-    }
   }
-  
+
+  .gallery-title {
+      font-size: 28px;
+  }
+
+  .details-section h1 {
+      font-size: 28px;
+  }
+
+  .details-section p {
+      font-size: 15px;
+  }
+
+  .arrow-btn {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+  }
+}

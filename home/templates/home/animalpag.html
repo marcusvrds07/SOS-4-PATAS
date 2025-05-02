@@ -15,7 +15,11 @@
     <div class="image-section">
         <h1 class="gallery-title">GALERIA</h1>
         <div class="image-container">
-            <img id="mainImage" class="main-img" src="{{ animal.foto.url }}" alt="Foto da Capa de um Cachorro">
+            <div class="main-image-wrapper">
+                <img id="mainImage" class="main-img" src="{{ animal.foto.url }}" alt="Foto da Capa de um Cachorro">
+                <button class="arrow-btn prev-btn">&larr;</button>
+                <button class="arrow-btn next-btn">&rarr;</button>
+            </div>
             <div class="gallery">
                 {% for img in animal.images.all %}
                     <img class="thumbnail" src="{{ img.image.url }}" alt="Foto do animal">
@@ -42,7 +46,51 @@
     document.addEventListener("DOMContentLoaded", function () {
         const mainImage = document.getElementById("mainImage");
         const thumbnails = document.querySelectorAll(".thumbnail");
-
+        const prevBtn = document.querySelector(".prev-btn");
+        const nextBtn = document.querySelector(".next-btn");
+        
+        // Função para trocar a imagem principal com uma miniatura específica
+        function swapWithThumbnail(thumbnailIndex) {
+            if (thumbnailIndex >= 0 && thumbnailIndex < thumbnails.length) {
+                const tempSrc = mainImage.src;
+                mainImage.src = thumbnails[thumbnailIndex].src;
+                thumbnails[thumbnailIndex].src = tempSrc;
+            }
+        }
+        
+        // Evento para botão anterior
+        prevBtn.addEventListener("click", function() {
+            // Se não houver miniaturas, não faz nada
+            if (thumbnails.length === 0) return;
+            
+            // Troca com a última miniatura
+            swapWithThumbnail(thumbnails.length - 1);
+            
+            // Reorganiza as miniaturas (move a última para a primeira posição)
+            const lastThumbnailSrc = thumbnails[thumbnails.length - 1].src;
+            for (let i = thumbnails.length - 1; i > 0; i--) {
+                thumbnails[i].src = thumbnails[i - 1].src;
+            }
+            thumbnails[0].src = lastThumbnailSrc;
+        });
+        
+        // Evento para botão próximo
+        nextBtn.addEventListener("click", function() {
+            // Se não houver miniaturas, não faz nada
+            if (thumbnails.length === 0) return;
+            
+            // Troca com a primeira miniatura
+            swapWithThumbnail(0);
+            
+            // Reorganiza as miniaturas (move a primeira para a última posição)
+            const firstThumbnailSrc = thumbnails[0].src;
+            for (let i = 0; i < thumbnails.length - 1; i++) {
+                thumbnails[i].src = thumbnails[i + 1].src;
+            }
+            thumbnails[thumbnails.length - 1].src = firstThumbnailSrc;
+        });
+        
+        // Evento para miniaturas (mantendo o comportamento original)
         thumbnails.forEach(function (thumb) {
             thumb.addEventListener("click", function () {
                 const tempSrc = mainImage.src;
