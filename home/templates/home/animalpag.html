@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<!-- Adicionando a navbar da página principal -->
 <div class="navbar" id="navbar">
     <a href="{% url 'home:index' %}" class="logo-link">
         <div class="title_span">
@@ -27,7 +26,6 @@
 </div>
 
 <div class="container">
-    <!-- Coluna da esquerda -->
     <div class="image-section">
         <h1 class="gallery-title">GALERIA</h1>
         <div class="image-container">
@@ -46,7 +44,6 @@
         </div>
     </div>
 
-    <!-- Coluna da direita -->
     <div class="details-section">
         <h1>{{ animal.nome }}</h1>
         <p class="info-item"><strong>Idade:</strong> {{ animal.idade }}</p>
@@ -65,7 +62,6 @@
         const prevBtn = document.querySelector(".prev-btn");
         const nextBtn = document.querySelector(".next-btn");
         
-        // Função para trocar a imagem principal com uma miniatura específica
         function swapWithThumbnail(thumbnailIndex) {
             if (thumbnailIndex >= 0 && thumbnailIndex < thumbnails.length) {
                 const tempSrc = mainImage.src;
@@ -74,7 +70,6 @@
             }
         }
         
-        // Evento para botão anterior
         prevBtn.addEventListener("click", function() {
             if (thumbnails.length === 0) return;
             
@@ -88,7 +83,6 @@
             thumbnails[0].src = lastThumbnailSrc;
         });
         
-        // Evento para botão próximo
         nextBtn.addEventListener("click", function() {
             if (thumbnails.length === 0) return;
             
@@ -101,7 +95,6 @@
             thumbnails[thumbnails.length - 1].src = firstThumbnailSrc;
         });
         
-        // Evento para miniaturas (mantendo o comportamento original)
         thumbnails.forEach(function (thumb) {
             thumb.addEventListener("click", function () {
                 const tempSrc = mainImage.src;
@@ -110,7 +103,6 @@
             });
         });
         
-        // Adicionar comportamento de scroll para a navbar
         window.addEventListener("scroll", function() {
             const navbar = document.getElementById("navbar");
             if (window.scrollY > 50) {
