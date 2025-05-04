@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{% static "home/css/style.css" %}">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -73,9 +74,10 @@
             <div class="card-base"></div>
             <div class="card-top">
               <img src="{{ animal.foto.url }}" alt="animal">
+              <h3 class="animal-name">{{ animal.nome }}</h3>
               <a href="{% url 'home:animal_detail' animal.id %}" class="btn-3d-wrapper">
                 <div class="btn-base"></div>
-                <div class="btn-top"><span>QUERO ADOTAR</span></div>
+                <div class="btn-top"><span>Ver mais</span></div>
               </a>
             </div>
           </div>
