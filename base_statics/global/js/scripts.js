@@ -60,3 +60,9 @@ function isSamePassword() {
     allItems.forEach(item => item.classList.remove('active'));
     element.classList.add('active');
   }
+
+  function menu_options() {
+    menu = document.querySelector('.menu-options')
+
+    menu.classList.toggle("active")
+  }
