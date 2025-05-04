@@ -40,3 +40,29 @@ function isSamePassword() {
       icon.src = icon.dataset.show;
     }
   }
+
+  function activate_adopted_area() {
+    // document.body.style.overflow = "hidden";
+    modal = document.querySelector('.adopters-modal')
+    modal.style.display = 'block'
+  }
+
+  function toggleMenu(id, button) {
+    var arrow = document.querySelector(".arrow");
+    const menu = document.getElementById(id);
+    menu.classList.toggle('show');
+    button.classList.toggle('open');
+    arrow.classList.toggle("rotate");
+  }
+
+  function setActive(element) {
+    const allItems = document.querySelectorAll('.submenu li');
+    allItems.forEach(item => item.classList.remove('active'));
+    element.classList.add('active');
+  }
+
+  function menu_options() {
+    menu = document.querySelector('.menu-options')
+
+    menu.classList.toggle("active")
+  }

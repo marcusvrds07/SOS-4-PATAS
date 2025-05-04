@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'painel_admin',
+    'painel_admin.apps.PainelAdminConfig',
     'grappelli',
     'django.contrib.admin',
     'django.contrib.auth',

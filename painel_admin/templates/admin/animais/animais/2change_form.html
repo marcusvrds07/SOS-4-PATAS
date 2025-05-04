@@ -1,0 +1,109 @@
+{% load static i18n admin_urls %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Animal - Gestão de Animais</title>
+  <link rel="stylesheet" href="{% static 'global/css/admin_form.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  {% block extrastyle %}
+  {% endblock %}
+</head>
+<body>
+
+  {% block header %}
+  {% endblock %}
+
+  {% block breadcrumbs %}{% endblock %}
+
+
+  <div class="container">
+      <nav class="sidebar">
+        <div class="logo-container">
+          <a href="{% url "home:index" %}">
+              <img src="{% static "home/img/sos.png" %}" alt="logo sos 4 patas">
+          </a>
+        </div>
+
+        <div id='hr'></div>
+        <div class="options">
+          <h2>Administração</h2>
+          <div class="menu-item">
+            <button class="menu-button" onclick="toggleMenu('tables', this)"> <img src="{% static "home/img/database.png" %}" alt="icone de banco de dados">
+              Base de Dados <i class="arrow down"></i></div>
+            </button>
+            <ul class="submenu" id="tables">
+              <li onclick="setActive(this)">Animais</li>
+              <li onclick="setActive(this)">Tipos de Animais</li>
+            </ul>
+          </div>
+      </nav>
+
+      <div class='content'>
+      </div>
+
+    {% comment %} <div class="form-wrapper">
+      <form method="post" enctype="multipart/form-data" class="custom-form">
+        {% csrf_token %}
+
+        {% if errors %}
+          <div class="form-error">
+            {{ adminform.form.non_field_errors }}
+          </div>
+        {% endif %}
+
+        {% for fieldset in adminform %}
+          <section class="form-section {{ fieldset.classes }}">
+            {% if fieldset.name %}
+              <h2 class="form-section-title">{{ fieldset.name }}</h2>
+            {% endif %}
+            {% if fieldset.description %}
+              <p class="form-section-description">{{ fieldset.description|safe }}</p>
+            {% endif %}
+
+            {% for line in fieldset %}
+              <div class="form-row{% if line.errors %} has-errors{% endif %}">
+                {% for field in line %}
+                  <div class="form-field{% if field.is_checkbox %} is-checkbox{% endif %} form-{{ field.field.name }}">
+                    <label class="form-label" for="{{ field.id_for_label }}">
+                      {{ field.label_tag }}
+                    </label>
+                    <div class="form">
+                      {{ field.field }}
+                      {% if field.help_text %}
+                        <p class="form-help">{{ field.help_text|safe }}</p>
+                      {% endif %}
+                      {{ field.errors }}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+          </section>
+        {% endfor %}
+
+        {% block inline_formsets %}
+          {% for inline_admin_formset in inline_admin_formsets %}
+            {% include inline_admin_formset.opts.template %}
+          {% endfor %}
+        {% endblock %}
+
+        <div class="form-actions">
+          <input type="submit" class="btn btn-primary" value="Salvar">
+          <input type="submit" class="btn btn-secondary" name="_continue" value="Salvar e continuar editando">
+          <input type="submit" class="btn btn-secondary" name="_addanother" value="Salvar e adicionar outro">
+          {% if original and has_delete_permission %}
+            <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
+            <a href="#" class="btn btn-danger" onclick='activate_adopted_area()'>Adotado?</a>
+          {% endif %}
+        </div>
+      </form>
+    </div> {% endcomment %}
+  </div>
+
+    <script src='{% static "global/js/scripts.js" %}'></script>
+</body>
+</html>

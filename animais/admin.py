@@ -1,6 +1,7 @@
 from django.contrib import admin
 from animais import models
 from django.utils.html import format_html
+from .forms import AnimalForm
 
 # Register your models here.
 
@@ -24,9 +25,11 @@ class tipoAnimal(admin.ModelAdmin):
 
 @admin.register(models.Animais)
 class AnimalAdmin(admin.ModelAdmin):
+    # change_form_template = "admin/animais/animais/change_form.html"
     inlines = [AnimalImageInline]
     list_display = 'id', 'nome', 'idade', 'preview',
     ordering = ['-id']
+    form = AnimalForm
 
     def preview(self, obj):
         if obj.foto:
