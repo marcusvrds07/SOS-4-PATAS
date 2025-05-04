@@ -12,9 +12,7 @@ def capa_upload_path(instance, filename):
     return os.path.join('foto_capa', str(instance.id), filename)
 
 class tipoAnimal(models.Model):
-    class Meta:
-        verbose_name = "Tipo de Animal"
-        verbose_name_plural = 'Tipos de Animais'
+    
     tipo_animal = models.CharField(max_length=50)
 
     def __str__(self):

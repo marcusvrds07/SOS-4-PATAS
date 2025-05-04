@@ -59,4 +59,4 @@ def home(request):
 
 def animal_detail(request, id):
     animal = get_object_or_404(Animais, id=id)
-    return render(request, 'home/animalpag.html', {'animal': animal})
+    return render(request, 'home/animal.html', {'animal': animal})
