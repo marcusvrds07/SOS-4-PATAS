@@ -45,9 +45,7 @@ function prevSlide() {
   updateCarroussel();
 }
 
-setInterval(nextSlide, 5000); // troca automática a cada 5 segundos
-
-window.addEventListener("resize", updateCarroussel);
+setInterval(nextSlide, Listener("resize", updateCarroussel));
 
 
 const navbar = document.getElementById('navbar');
