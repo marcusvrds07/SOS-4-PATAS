@@ -145,9 +145,9 @@ body {
   color: var(--amarelo-principal);
   font-size: 25px;
   position: relative;
-  top: 5px; /* ajuste fino opcional */
-  left: 0; /* remove deslocamento lateral */
-  margin-bottom: -5px; /* aproxima o texto abaixo */
+  top: 5px;
+  left: 0; 
+  margin-bottom: -5px;
 }
 
 .patas {
@@ -166,13 +166,16 @@ body {
   font-weight: 500;
 }
 
+#adoption {
+  margin: 20px 0px;
+}
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 200px);
   position: relative;
   gap: 30px;
   right: 2.3%;
-  margin: 0px 0px 20px 0px;
   justify-content: center;
 }
 
@@ -266,6 +269,12 @@ body {
   z-index: 1;
   font-size: 14px;
   font-weight: bold;
+}
+
+#unavailable {
+  grid-column: 1/5;
+  margin: 0 auto;
+  padding-top: 30px;
 }
 
 @media (max-width: 1000px) {
