@@ -6,7 +6,6 @@
   --shadow-color: rgba(9, 45, 115, 0.15);
 }
 
-<<<<<<< HEAD
   body {
       padding: 0;
       margin: 0;
@@ -134,7 +133,6 @@
       border-radius: 50%;
       background-color: transparent;
     }
-=======
 * {
   font-family: "Comfortaa", cursive;
 }
@@ -175,7 +173,6 @@ body {
 .title_span {
   text-align: center;
 }
->>>>>>> 3835b9fb2245264db6b50cc30321d8a9d41be44f
 
 .sos {
   font-weight: bold;
@@ -203,8 +200,6 @@ body {
   font-weight: 500;
 }
 
-<<<<<<< HEAD
-=======
 .carroussel-container {
   margin: 0 auto;
   padding-top: 130px;
@@ -448,7 +443,6 @@ body {
 }
 
 @media (max-width: 1000px) {
->>>>>>> 3835b9fb2245264db6b50cc30321d8a9d41be44f
   .cards-grid {
     position: relative;
     grid-template-columns: repeat(3, 200px);
