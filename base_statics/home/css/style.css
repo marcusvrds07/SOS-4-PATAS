@@ -183,8 +183,8 @@ body {
   position: relative;
   left: 15%;
   margin-top: 35px;
-  width: 155px;
-  height: 230px;
+  width: 180px;
+  height: 270px;
   background-color: #ffffff;
   text-align: center;
   z-index: 1;
@@ -193,8 +193,8 @@ body {
 }
 
 .card-top img {
-  margin-top: 5px;
-  width: 135px;
+  margin-top: 8px;
+  width: 155px;
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -203,10 +203,9 @@ body {
   border: 3px solid white;
 }
 
-/* Nome do animal */
 .animal-name {
-  margin: 8px 0;
-  font-size: 14px;
+  margin: 10px 0;
+  font-size: 16px;
   color: var(--azul-principal);
   font-weight: bold;
   text-align: center;
@@ -215,8 +214,8 @@ body {
 
 .btn-3d-wrapper {
   position: absolute;
-  bottom: 4px;
-  width: 130px;
+  bottom: 14px;
+  width: 150px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
@@ -226,7 +225,7 @@ body {
 .btn-3d-wrapper .btn-top {
   width: 100%;
   margin-top: 0;
-  padding: 10px 0;
+  padding: 12px 0;
   background-color: var(--azul-principal);
   color: var(--amarelo-principal);
   font-weight: bold;
@@ -267,7 +266,7 @@ body {
 .btn-3d-wrapper .btn-top span {
   position: relative;
   z-index: 1;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -280,22 +279,22 @@ body {
 @media (max-width: 1000px) {
   .cards-grid {
     position: relative;
-    grid-template-columns: repeat(3, 200px);
-    gap: 30px;
+    grid-template-columns: repeat(3, 220px);
+    gap: 35px;
     right: 2.3%;
   }
 }
 
 @media (max-width: 760px) {
   .cards-grid {
-    grid-template-columns: repeat(2, 200px);
+    grid-template-columns: repeat(2, 220px);
     right: 1%;
   }
 }
 
 @media (max-width: 520px) {
   .cards-grid {
-    grid-template-columns: repeat(1, 200px);
+    grid-template-columns: repeat(1, 220px);
     right: 5%;
   }
 }
