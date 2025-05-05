@@ -46,13 +46,24 @@
                             <li class="model-item">
                               <span class="model-name">{{ model.name }}</span>
                               <span class="model-actions">
+                                {% if model.admin_url %}
                                   <a href="{{ model.admin_url }}" class="icon-btn" title="Consultar">
                                     <i class="fas fa-search"></i>
                                   </a>
+                                {% else %}
+                                  <span class="icon-btn no-access" title="Sem permissão">
+                                    <i class="fas fa-search"></i>
+                                  </span>
+                                {% endif %}
+          
                                 {% if model.add_url %}
                                   <a href="{{ model.add_url }}" class="icon-btn" title="Adicionar">
                                     <i class="fas fa-plus"></i>
                                   </a>
+                                {% else %}
+                                  <span class="icon-btn no-access" title="Sem permissão">
+                                    <i class="fas fa-plus"></i>
+                                  </span>
                                 {% endif %}
                               </span>
                             </li>
@@ -66,7 +77,7 @@
                 <p>{% translate "You don't have permission to view or edit anything." %}</p>
               {% endif %}
             </ul>
-          </div>
+          </div>          
 
           <div class="menu-item">
             <button class="menu-button" onclick="toggleMenu('management', this)">

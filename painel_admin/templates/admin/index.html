@@ -1,5 +1,6 @@
 {% extends "partials/sidebar.html" %}
 {% load static %}
+{% load log %}
 
 {% block content-pad %}
 <div class="profile">
@@ -47,18 +48,29 @@
         </div>
       </div>
     </div>
+    
+    <div class="recent-actions">
+      <h4>Últimas Ações</h4>
+      {% if admin_log %}
+        <ul>
+          {% for entry in admin_log %}
+            <li>
+              <strong>{{ entry.user.get_username }}</strong>
+              {{ entry.get_action_flag_display|lower }}
+              <em>{{ entry.object_repr }}</em>
+              ({{ entry.content_type }})
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>Nenhuma ação recente registrada.</p>
+      {% endif %}
+    </div>
 
 <div class="dashboard-extras">
   <div class="highlight-box">
     <p>Você pode acessar todas as seções usando a barra lateral à esquerda. Explore os menus para gerenciar animais, voluntários e muito mais.</p>
   </div>
-
-  <div class="callout-box">
-    <h4>✨ Dica:</h4>
-    <p>Cadastre novos animais ou registre adoções usando os atalhos disponíveis na lateral. Mantenha a base de dados sempre atualizada para facilitar a adoção!</p>
-  </div>
-</div>
-
 
 
 <div class="dashboard-message">

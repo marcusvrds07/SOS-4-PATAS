@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'animais',
 ]
 
-LOGIN_REDIRECT_URL = '/admin/'
-LOGOUT_REDIRECT_URL = '/admin/'
+LOGIN_REDIRECT_URL = '/admin/login'
+LOGOUT_REDIRECT_URL = '/admin/login'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
