@@ -6,12 +6,16 @@
   --shadow-color: rgba(9, 45, 115, 0.15);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     background-color: white;
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Comfortaa', cursive;
     
   }
 .navbar {
@@ -27,6 +31,20 @@ body {
   align-items: center;
   z-index: 999;
   box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+}
+
+#quero-adotar{
+  color: var(--azul-principal);
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+#quero-adotar:hover {
+  background-color: #e5c53c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
 }
 
 .navbar.scrolled {
@@ -67,11 +85,22 @@ body {
 }
 
 .btn-doacao {
-  background-color: #f7d647;
-  color: #1a237e;
+  background-color: var(--amarelo-principal);
+  color: var(--azul-principal);
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 8px;
   font-weight: bold;
+  text-decoration: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.btn-doacao:hover {
+  background-color: #e5c53c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
 }
 
 .carroussel-container {
@@ -366,4 +395,53 @@ body {
 
 .arrow.rotate {
   transform: rotate(-135deg) translateY(-2px) translateX(-4px);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.pagination a {
+  position: relative;
+  background-color: var(--amarelo-principal);
+  color: var(--azul-principal);
+  font-weight: bold;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(247, 214, 71, 0.3);
+  transition: all 0.2s ease;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.pagination a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+  z-index: -1;
+}
+
+.pagination a:hover {
+  background-color: var(--amarelo-principal);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
+}
+
+.pagination a:hover::before {
+  left: 100%;
+}
+
+.pagination span {
+  color: var(--azul-principal);
+  font-weight: bold;
 }

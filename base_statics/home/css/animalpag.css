@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   margin: 0;
   padding: 0;
   background-color: var(--background-color);
@@ -39,14 +39,28 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+#quero-adotar {
+  color: var(--azul-principal);
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+#quero-adotar:hover {
+  background-color: #e5c53c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
+}
+
 .title_span {
   text-align: center;
 }
 
 .logo-link {
-text-decoration: none;
-cursor: pointer;
-display: block;
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
 }
 
 .sos {
@@ -64,23 +78,16 @@ display: block;
   font-style: normal;
   font-size: 25px;
   color: var(--azul-principal);
-  text-shadow: 
-    -1px -1px 0 var(--amarelo-principal),
-    1px -1px 0 var(--amarelo-principal),
-    -1px 1px 0 var(--amarelo-principal),
-    1px 1px 0 var(--amarelo-principal);
+  text-shadow: -1px -1px 0 var(--amarelo-principal), 1px -1px 0 var(--amarelo-principal), -1px 1px 0
+    var(--amarelo-principal), 1px 1px 0 var(--amarelo-principal);
 }
 
 .logo-link:hover .sos {
-color: #ffe066;
+  color: #ffe066;
 }
 
 .logo-link:hover .patas {
-text-shadow: 
-  -1px -1px 0 #ffe066,
-  1px -1px 0 #ffe066,
-  -1px 1px 0 #ffe066,
-  1px 1px 0 #ffe066;
+  text-shadow: -1px -1px 0 #ffe066, 1px -1px 0 #ffe066, -1px 1px 0 #ffe066, 1px 1px 0 #ffe066;
 }
 
 .nav-menu a {
@@ -92,7 +99,7 @@ text-shadow:
 
 .btn-doacao {
   background-color: var(--amarelo-principal);
-  color: #1a237e;
+  color: var(--azul-principal);
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: bold;
@@ -121,7 +128,7 @@ text-shadow:
 .gallery-title {
   text-align: center;
   margin-bottom: 10px;
-  font-family: 'Comfortaa';
+  font-family: "Comfortaa";
   font-weight: bold;
   font-size: 32px;
   color: var(--azul-principal);
@@ -318,64 +325,64 @@ text-shadow:
 
 @media (max-width: 900px) {
   .container {
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
-      padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
   }
 
   .image-section {
-      width: 100%;
+    width: 100%;
   }
 
   .details-section {
-      width: 100%;
-      margin-top: 0;
+    width: 100%;
+    margin-top: 0;
   }
 }
 
 @media (max-width: 600px) {
   .container {
-      width: 95%;
-      padding: 15px;
+    width: 95%;
+    padding: 15px;
   }
 
   .gallery-title {
-      font-size: 28px;
+    font-size: 28px;
   }
 
   .details-section h1 {
-      font-size: 28px;
+    font-size: 28px;
   }
 
   .details-section p {
-      font-size: 15px;
+    font-size: 15px;
   }
 
   .arrow-btn {
-      width: 30px;
-      height: 30px;
-      font-size: 14px;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
   }
-  
+
   .navbar {
-      padding: 10px 15px;
+    padding: 10px 15px;
   }
-  
+
   .sos {
-      font-size: 20px;
+    font-size: 20px;
   }
-  
+
   .patas {
-      font-size: 20px;
+    font-size: 20px;
   }
-  
+
   .nav-menu a {
-      margin: 0 5px;
-      font-size: 14px;
+    margin: 0 5px;
+    font-size: 14px;
   }
-  
+
   .btn-doacao {
-      padding: 8px 15px;
+    padding: 8px 15px;
   }
 }
