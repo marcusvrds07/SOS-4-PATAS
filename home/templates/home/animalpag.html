@@ -21,7 +21,7 @@
         <a href="{% url 'home:index' %}">Home</a>
         <a href="#">Contato</a>
         <a href="#">Doar</a>
-        <a href="#" class="btn-doacao">QUERO ADOTAR</a>
+        <a href="#" class="btn-doacao">Quero Adotar</a>
     </nav>
 </div>
 
@@ -31,8 +31,8 @@
         <div class="image-container">
             <div class="main-image-wrapper">
                 <img id="mainImage" class="main-img" src="{{ animal.foto.url }}" alt="Foto da Capa de um Cachorro">
-                <button class="arrow-btn prev-btn">&larr;</button>
-                <button class="arrow-btn next-btn">&rarr;</button>
+                <button class="arrow-btn prev-btn">&#10094;</button>
+                <button class="arrow-btn next-btn">&#10095;</button>
             </div>
             <div class="gallery">
                 {% for img in animal.images.all %}

@@ -2,7 +2,7 @@
 
 :root {
   --amarelo-principal: #f7d647;
-  --azul-principal: #092d73;
+  --azul-principal: #1954cb;
   --shadow-color: rgba(9, 45, 115, 0.15);
 }
 
@@ -18,7 +18,7 @@ body {
   position: fixed;
   top: 0;
   width: calc(100% - 40px);
-  background-color: #1954cb;
+  background-color: var(--azul-principal);
   padding: 15px 20px;
   color: white;
   transition: all 0.4s ease;

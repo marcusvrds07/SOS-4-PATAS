@@ -1,7 +1,7 @@
 :root {
   --amarelo-principal: #f7d647;
-  --azul-principal: #092d73;
-  --background-color: #f9f0d4;
+  --azul-principal: #1954cb;
+  --background-color: #ffffff;
   --shadow-color: rgba(9, 45, 115, 0.15);
 }
 
@@ -172,26 +172,24 @@ text-shadow:
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: white;
-  color: var(--azul-principal);
+  color: white;
   border: none;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
   border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
   width: 40px;
   height: 40px;
-  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  opacity: 0.8;
-  transition: all 0.2s ease;
-  z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1;
 }
 
 .arrow-btn:hover {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.1);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .prev-btn {
