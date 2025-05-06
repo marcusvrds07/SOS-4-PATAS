@@ -43,7 +43,9 @@ body {
 }
 
 .navbar.scrolled {
+  background-color: #1954cb;
   padding: 10px 20px;
+  font-size: 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -54,8 +56,21 @@ body {
   display: block;
 }
 
-.title_span {
+.logo {
   text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  max-height: 60px;
+  width: auto;
+  transition: all 0.3s ease;
+}
+
+.logo:hover img {
+  transform: scale(1.05);
 }
 
 .sos {

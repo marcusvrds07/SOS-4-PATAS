@@ -12,9 +12,8 @@
 
 <div class="navbar" id="navbar">
     <a href="#" class="logo-link" id="logo-link">
-        <div class="title_span">
-            <span class="sos">SOS</span><br>
-            <span class="patas">4PATAS</span>
+        <div class="logo">
+            <img src="{% static 'home/img/sos.png' %}" alt="SOS 4PATAS">
         </div>
     </a>
     <div class="menu-toggle" id="menu-toggle">
@@ -75,11 +74,11 @@
 <div class="modal-overlay" id="modal-overlay">
     <div class="modal">
         <div class="modal-header">
-            <h2 class="modal-title">Adoção - SOS 4PATAS</h2>
+            <h2 class="modal-title">Adoção - SOS 4 PATAS</h2>
             <button class="close-modal" id="close-modal">&times;</button>
         </div>
         <div class="modal-content">
-            <p>Você será redirecionado para enviar uma mensagem diretamente para a SOS 4PATAS via WhatsApp.</p>
+            <p>Você será redirecionado para enviar uma mensagem diretamente para a SOS 4 PATAS via WhatsApp.</p>
             <p>Ao clicar em "Enviar", você será conectado com nossa equipe para iniciar o processo de adoção do(a) <strong>{{ animal.nome }} (ID: #{{ animal.id }})</strong>.</p>
         </div>
         <a href="#" class="whatsapp-btn" id="whatsapp-btn">Enviar Mensagem</a>
@@ -234,7 +233,7 @@
             const phoneNumber = "21968049191";
             const animalNome = "{{ animal.nome }}";
             const animalId = "{{ animal.id }}";
-            const message = `Olá, SOS 4PATAS! Estou interessado(a) em adotar o(a) *${animalNome} (Número identificador: #${animalId})*. Gostaria de saber mais informações sobre o processo de adoção e como posso conhecê-lo(a) pessoalmente. Obrigado(a)!`;
+            const message = `Olá, SOS 4 PATAS! Estou interessado(a) em adotar o(a) *${animalNome} (Número identificador: #${animalId})*. Gostaria de saber mais informações sobre o processo de adoção e como posso conhecê-lo(a) pessoalmente. Obrigado(a)!`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
             window.open(whatsappUrl, '_blank');
