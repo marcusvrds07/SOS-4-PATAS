@@ -70,7 +70,6 @@
           </div>
         </div>
       </div>
-  
       <div class="cards-grid">
         {% for animal in animals %}
           <div class="card-wrapper">
@@ -80,9 +79,9 @@
               <h3 class="animal-name">{{ animal.nome }}</h3>
               <p class="animal-info">
                 {% if animal.anos > 0 %}
-                  {{ animal.anos }}{% if animal.anos == 1 %} ano{% else %} ano(s){% endif %}
+                  {{ animal.anos }}{% if animal.anos == 1 %} ano{% else %} anos{% endif %}
                 {% elif animal.meses > 0 %}
-                  {{ animal.meses }}{% if animal.meses == 1 %} mês{% else %} mês(es){% endif %}
+                  {{ animal.meses }}{% if animal.meses == 1 %} mês{% else %} meses{% endif %}
                 {% endif %}
                 • {{ animal.sexo }}
               </p>
@@ -94,8 +93,7 @@
           </div>
         {% empty %}
         {% endfor %}
-      </div>
-  
+      </div>      
       <div class="pagination">
         {% if animals.has_previous %}
           <a href="?page={{ animals.previous_page_number }}&tipo_id={{ first_type.id }}#adoption">Anterior</a>
