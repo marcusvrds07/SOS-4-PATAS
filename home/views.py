@@ -35,7 +35,7 @@ def home(request):
         animais = Animais.objects.filter(tipo_animal=type_selected, disponivel_para_adocao=True)
 
         # Paginação dos resultados
-        paginator = Paginator(animais, 8)
+        paginator = Paginator(animais, 10)
         page_num = request.GET.get('page', 1)
         page_obj = paginator.get_page(page_num)
 
