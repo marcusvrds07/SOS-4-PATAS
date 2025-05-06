@@ -442,13 +442,20 @@ body {
   transform: rotate(-135deg);
 }
 
+.pagination-container h4 {
+  text-align: center;
+  position: relative;
+  top: 30px;
+  font-size: 12px;
+  color: var(--azul-principal);
+}
+
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
   margin: 40px 0;
-  font-family: 'Poppins', sans-serif;
   margin-left: 2.5px;
   color: var(--azul-principal);
 }
@@ -489,7 +496,7 @@ body {
   border: none;
   background-color: #eee;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   border-bottom: 2px solid var(--azul-principal);
   border-radius: 8px;
   outline: none;
@@ -510,19 +517,19 @@ body {
   width: 50px;
   height: 36px;
   background-color: #eee;
+  border-bottom: 2px solid var(--azul-principal);
   border-radius: 8px;
   text-align: center;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 36px;
-  border-bottom: 2px solid var(--azul-principal);
   cursor: default;
 }
 
 .divider {
-  font-size: 18px;
-  font-weight: 300;
-  color: #555;
+  width: 1px;
+  height: 36px;
+  background-color: var(--azul-principal);
 }
 
 
