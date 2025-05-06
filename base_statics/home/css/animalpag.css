@@ -261,8 +261,7 @@ body {
   gap: 12px;
   max-width: 100%;
   overflow-x: auto;
-  justify-content: center;
-  padding: 2px 2px 2px 2px;
+  padding: 2px;
 }
 
 .gallery img {
@@ -680,10 +679,6 @@ body {
     padding: 2px 6px;
   }
   
-  .gallery img {
-    width: 60px;
-    height: 60px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -717,10 +712,6 @@ body {
     gap: 8px;
   }
   
-  .gallery img {
-    width: 50px;
-    height: 50px;
-  }
 }
 
 @media (max-width: 360px) {
