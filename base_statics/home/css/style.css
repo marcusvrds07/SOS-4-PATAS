@@ -183,7 +183,7 @@ body {
   height: auto;
   display: block;
   object-fit: cover;
-  max-height: 400px; /* Altura máxima ajustada */
+  max-height: calc(25vw + 150px); /* Altura proporcional ao tamanho da tela */
 }
 
 /* Setas do carrossel corrigidas */
@@ -246,8 +246,8 @@ body {
 }
 
 .card-top {
-  width: 180px;
-  height: 270px;
+  width: calc(3vw + 150px);
+  height: calc(4.5vw + 225px);
   background-color: #ffffff;
   text-align: center;
   border-radius: 14px;
@@ -263,7 +263,7 @@ body {
 
 .card-top img {
   margin-top: 8px;
-  width: 155px;
+  width: calc(2.6vw + 130px);
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -289,7 +289,7 @@ body {
 .btn-3d-wrapper {
   position: absolute;
   bottom: 14px;
-  width: 150px;
+  width: calc(2.5vw + 125px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
@@ -358,6 +358,7 @@ body {
 .custom-select {
   margin: 20px auto;
   max-width: 300px;
+  position: relative;
 }
 
 .selected-option {
@@ -403,7 +404,7 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 100;
   top: 100%;
-  left: -2px;
+  left: 0;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
@@ -448,7 +449,7 @@ body {
   background-color: var(--amarelo-principal);
   color: var(--azul-principal);
   font-weight: bold;
-  padding: 12px 20px;
+  padding: calc(0.2vw + 10px) calc(0.4vw + 15px);
   border-radius: 8px;
   text-decoration: none;
   box-shadow: 0 4px 12px rgba(247, 214, 71, 0.3);
@@ -493,6 +494,20 @@ body {
   /* Altura máxima para telas grandes */
   .slide-content img {
     max-height: 450px;
+  }
+  
+  /* Ajustes para cards em telas grandes */
+  .card-top {
+    width: calc(3vw + 150px);
+    height: calc(4.5vw + 225px);
+  }
+  
+  .card-top img {
+    width: calc(2.6vw + 130px);
+  }
+  
+  .btn-3d-wrapper {
+    width: calc(2.5vw + 125px);
   }
 }
 
@@ -569,6 +584,20 @@ body {
     height: 35px;
     font-size: 1.5rem;
   }
+  
+  /* Ajustes para cards em telas médias */
+  .card-top {
+    width: 180px;
+    height: 270px;
+  }
+  
+  .card-top img {
+    width: 155px;
+  }
+  
+  .btn-3d-wrapper {
+    width: 150px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -621,6 +650,11 @@ body {
     height: 30px;
     font-size: 1.2rem;
   }
+  
+  /* Ajustes para botões em dispositivos móveis pequenos */
+  .btn-3d-wrapper {
+    width: 170px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -653,5 +687,10 @@ body {
     width: 28px;
     height: 28px;
     font-size: 1rem;
+  }
+  
+  /* Ajustes para botões em dispositivos muito pequenos */
+  .btn-3d-wrapper {
+    width: 150px;
   }
 }
