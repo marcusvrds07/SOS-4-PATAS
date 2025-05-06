@@ -97,17 +97,34 @@
       </div>          
       <div class="pagination">
         {% if animals.has_previous %}
-          <a href="?page={{ animals.previous_page_number }}&tipo_id={{ first_type.id }}#adoption">Anterior</a>
+          <button type="button" class="arrow-btn" id="prevPage">‹</button>
+        {% else %}
+          <button type="button" class="arrow-btn disabled" disabled>‹</button>
         {% endif %}
-  
-        {% if animals.paginator.num_pages > 1 %}
-          <span>Página {{ animals.number }} de {{ animals.paginator.num_pages }}</span>
-        {% endif %}
-  
+      
+        <form id="pageForm" class="page-form" method="get" action="">
+          <input type="hidden" name="tipo_id" value="{{ first_type.id }}">
+          <input
+            type="number"
+            name="page"
+            id="pageInput"
+            value="{{ animals.number }}"
+            min="1"
+            max="{{ animals.paginator.num_pages }}"
+            data-current="{{ animals.number }}">
+        </form>
+      
+        <span class="divider">|</span>
+        <span class="page-total display-box">{{ animals.paginator.num_pages }}</span>
+      
         {% if animals.has_next %}
-          <a href="?page={{ animals.next_page_number }}&tipo_id={{ first_type.id }}#adoption">Próxima</a>
+          <button type="button" class="arrow-btn" id="nextPage">›</button>
+        {% else %}
+          <button type="button" class="arrow-btn disabled" disabled>›</button>
         {% endif %}
-      </div>
+      </div>      
+
+      
     {% endif %}
   </section>
 </div>

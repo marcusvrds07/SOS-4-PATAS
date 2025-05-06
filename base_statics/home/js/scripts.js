@@ -102,54 +102,96 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   const input = document.getElementById("pageInput");
-  const form = document.getElementById("pageForm");
-  const max = parseInt(input.max);
-  const min = parseInt(input.min) || 1;
   const prevBtn = document.getElementById("prevPage");
   const nextBtn = document.getElementById("nextPage");
+  const form = document.getElementById("pageForm");
 
-  function clamp(val) {
-    return Math.min(max, Math.max(min, val));
-  }
-
-  // Atualiza página via submit
-  function goToPage(page) {
-    input.value = clamp(page);
-    form.submit();
-  }
+  const min = parseInt(input.getAttribute("min"));
+  const max = parseInt(input.getAttribute("max"));
+  const current = parseInt(input.dataset.current);
+  let clickedArrow = false;
 
   input.addEventListener("input", function () {
-    let val = input.value.replace(/^0+/, '');
-    if (!val || isNaN(val)) {
-      input.value = "";
-      return;
-    }
-    const intVal = parseInt(val);
-    if (intVal >= min && intVal <= max) {
-      input.value = intVal;
-    } else {
-      input.value = input.value.slice(0, -1);
+    let value = input.value;
+    value = value.replace(/[^0-9]/g, "");
+    if (value !== "") {
+      let intVal = parseInt(value);
+      if (intVal < min) {
+        input.value = "";
+      } else if (intVal > max) {
+        input.value = value.slice(0, -1);
+      } else {
+        input.value = intVal;
+      }
     }
   });
 
   input.addEventListener("keydown", function (e) {
-    let val = parseInt(input.value) || min;
+    let val = parseInt(input.value) || current;
     if (e.key === "ArrowUp") {
       e.preventDefault();
-      if (val < max) goToPage(val + 1);
+      if (val < max) input.value = val + 1;
     } else if (e.key === "ArrowDown") {
       e.preventDefault();
-      if (val > min) goToPage(val - 1);
+      if (val > min) input.value = val - 1;
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      let page = parseInt(input.value);
+      if (page >= min && page <= max) {
+        goToPage(page);
+      } else {
+        input.value = input.dataset.current;
+      }
     }
   });
 
-  prevBtn.addEventListener("click", function () {
-    const current = parseInt(input.value) || min;
-    if (current > min) goToPage(current - 1);
+  input.addEventListener("blur", function () {
+    if (clickedArrow) {
+      clickedArrow = false;
+      return;
+    }
+
+    const typedPage = parseInt(input.value);
+    const currentPage = parseInt(input.dataset.current);
+
+    if (!typedPage) {
+      input.value = currentPage;
+      return;
+    }
+
+    if (typedPage >= min && typedPage <= max) {
+      if (typedPage !== currentPage) {
+        goToPage(typedPage);
+      }
+    } else {
+      input.value = currentPage;
+    }
   });
 
-  nextBtn.addEventListener("click", function () {
-    const current = parseInt(input.value) || min;
-    if (current < max) goToPage(current + 1);
-  });
+  if (prevBtn) {
+    prevBtn.addEventListener("mousedown", function () {
+      clickedArrow = true;
+    });
+    prevBtn.addEventListener("click", function () {
+      const current = parseInt(input.dataset.current);
+      if (current > min) goToPage(current - 1);
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("mousedown", function () {
+      clickedArrow = true;
+    });
+    nextBtn.addEventListener("click", function () {
+      const current = parseInt(input.dataset.current);
+      if (current < max) goToPage(current + 1);
+    });
+  }
+
+  function goToPage(page) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("page", page);
+    form.querySelector("input[name='page']").value = page;
+    form.submit();
+  }
 });

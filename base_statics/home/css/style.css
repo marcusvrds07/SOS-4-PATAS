@@ -443,53 +443,87 @@ body {
 
 .pagination {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin: 30px 0;
-  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 40px 0;
+  font-family: 'Poppins', sans-serif;
+  margin-left: 2.5px;
+  color: var(--azul-principal);
 }
 
-.pagination a {
-  position: relative;
+/* Botões de navegação */
+.arrow-btn {
+  width: 36px;
+  height: 36px;
   background-color: var(--amarelo-principal);
   color: var(--azul-principal);
+  font-size: 18px;
   font-weight: bold;
-  padding: calc(0.2vw + 10px) calc(0.4vw + 15px);
+  border: none;
   border-radius: 8px;
-  text-decoration: none;
-  box-shadow: 0 4px 12px rgba(247, 214, 71, 0.3);
-  transition: all 0.2s ease;
-  overflow: hidden;
-  z-index: 1;
+  box-shadow: 0 4px 8px rgba(25, 84, 203, 0.25);
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
-.pagination a::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: 0.5s;
-  z-index: -1;
+.arrow-btn:hover {
+  background-color: #f4c900;
 }
 
-.pagination a:hover {
-  background-color: var(--amarelo-principal);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
+.arrow-btn.disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
-.pagination a:hover::before {
-  left: 100%;
-}
-
-.pagination span {
+/* Input da página atual */
+.page-form input[type="number"] {
   color: var(--azul-principal);
-  font-weight: bold;
+  width: 50px;
+  height: 36px;
+  padding: 18px 0px;
+  text-align: center;
+  border: none;
+  background-color: #eee;
+  font-size: 16px;
+  font-weight: 500;
+  border-bottom: 2px solid var(--azul-principal);
+  border-radius: 8px;
+  outline: none;
+  -moz-appearance: textfield;
+  position: relative;
+  top: 8px;
 }
+
+/* Remove spinners Chrome */
+.page-form input::-webkit-outer-spin-button,
+.page-form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Estilo igual para o número total */
+.display-box {
+  width: 50px;
+  height: 36px;
+  background-color: #eee;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 36px;
+  border-bottom: 2px solid var(--azul-principal);
+  cursor: default;
+}
+
+.divider {
+  font-size: 18px;
+  font-weight: 300;
+  color: #555;
+}
+
 
 @media (min-width: 1400px) {
   .slide-content img {
@@ -616,16 +650,6 @@ body {
   
   .navbar {
     padding: 12px 15px;
-  }
-  
-  .pagination {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .pagination a {
-    width: 100%;
-    text-align: center;
   }
   
   .selected-option {
