@@ -1,10 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <html lang="pt-br">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SOS 4PATAS</title>
     <link rel="stylesheet" href="{% static "home/css/style.css" %}">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
 </head>
@@ -15,7 +15,12 @@
       <span class="sos">SOS</span><br>
       <span class="patas">4PATAS</span>
     </div>
-    <nav class="nav-menu">
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-menu" id="nav-menu">
       <a href="#">Home</a>
       <a href="#">Contato</a>
       <a href="#">Doar</a>
@@ -38,8 +43,8 @@
         </div>
       </div>
     </div>
-    <button class="seta esquerda" onclick="prevSlide()">&#10094;</button>
-    <button class="seta direita" onclick="nextSlide()">&#10095;</button>
+    <button class="seta esquerda" onclick="prevSlide()">&lt;</button>
+    <button class="seta direita" onclick="nextSlide()">&gt;</button>
   </div>  
 </div>
 
@@ -102,6 +107,88 @@
   </section>
 </div>
 
-<script src='{% static "home/js/scripts.js" %}'></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Menu sanduíche
+    const menuToggle = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("nav-menu");
+    
+    if (menuToggle) {
+      menuToggle.addEventListener("click", function() {
+        navMenu.classList.toggle("active");
+        
+        const spans = this.querySelectorAll("span");
+        if (navMenu.classList.contains("active")) {
+          spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
+          spans[1].style.opacity = "0";
+          spans[2].style.transform = "rotate(-45deg) translate(7px, -6px)";
+        } else {
+          spans[0].style.transform = "none";
+          spans[1].style.opacity = "1";
+          spans[2].style.transform = "none";
+        }
+      });
+      
+      // Fechar menu ao clicar em um link
+      const navLinks = navMenu.querySelectorAll("a");
+      navLinks.forEach(link => {
+        link.addEventListener("click", function() {
+          navMenu.classList.remove("active");
+          const spans = menuToggle.querySelectorAll("span");
+          spans[0].style.transform = "none";
+          spans[1].style.opacity = "1";
+          spans[2].style.transform = "none";
+        });
+      });
+    }
+    
+    // Dropdown de seleção
+    const selectedOption = document.querySelector('.selected-option');
+    const options = document.querySelector('.options');
+    const arrow = document.querySelector('.arrow');
+    
+    if (selectedOption) {
+      selectedOption.addEventListener('click', function() {
+        options.classList.toggle('open');
+        arrow.classList.toggle('rotate');
+      });
+    }
+    
+    // Carrossel
+    let slideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const carroussel = document.getElementById('carroussel');
+    
+    if (carroussel) {
+      function showSlide(n) {
+        slideIndex = n;
+        carroussel.style.transform = `translateX(-${slideIndex * 100}%)`;
+      }
+      
+      window.nextSlide = function() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        showSlide(slideIndex);
+      };
+      
+      window.prevSlide = function() {
+        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+        showSlide(slideIndex);
+      };
+      
+      // Auto slide
+      setInterval(nextSlide, 5000);
+    }
+    
+    // Navbar scroll
+    window.addEventListener("scroll", function() {
+      const navbar = document.getElementById("navbar");
+      if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    });
+  });
+</script>
 </body>
 </html>
