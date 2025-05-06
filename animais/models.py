@@ -24,13 +24,12 @@ class Animais(models.Model):
         verbose_name = "Animal"
         verbose_name_plural = 'Animais'
 
-    nome = models.CharField(max_length=100, help_text='Digite o seu nome')
+    nome = models.CharField(max_length=100)
     anos = models.IntegerField()
     meses = models.IntegerField(validators=[
             MinValueValidator(0),
             MaxValueValidator(11)
         ],
-        help_text="Informe a idade em meses (entre 0 e 11)"
     )
     sexo = models.CharField(choices=[('Fêmea', 'Fêmea'), ('Macho', 'Macho')])
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
