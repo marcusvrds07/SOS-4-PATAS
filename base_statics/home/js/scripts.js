@@ -111,6 +111,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const current = parseInt(input.dataset.current);
   let clickedArrow = false;
 
+  // Validação ao digitar
   input.addEventListener("input", function () {
     let value = input.value;
     value = value.replace(/[^0-9]/g, "");
@@ -126,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Setas ↑ ↓ no teclado (não envia o form)
   input.addEventListener("keydown", function (e) {
     let val = parseInt(input.value) || current;
     if (e.key === "ArrowUp") {
