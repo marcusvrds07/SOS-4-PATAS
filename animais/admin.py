@@ -25,9 +25,8 @@ class tipoAnimal(admin.ModelAdmin):
 
 @admin.register(models.Animais)
 class AnimalAdmin(admin.ModelAdmin):
-    # change_form_template = "admin/animais/animais/change_form.html"
     inlines = [AnimalImageInline]
-    list_display = 'id', 'nome', 'idade', 'preview',
+    list_display = 'id', 'nome', 'anos', 'meses', 'preview',
     ordering = ['-id']
     form = AnimalForm
 

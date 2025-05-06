@@ -52,10 +52,21 @@
 
     <div class="details-section">
         <h1>{{ animal.nome }} <span class="animal-id">#{{ animal.id }}</span></h1>
-        <p class="info-item"><strong>Idade:</strong> {{ animal.idade }}</p>
+        <p class="info-item"><strong>Idade:</strong> 
+            {% if animal.anos > 0 %} 
+                {% if animal.meses > 0 %}
+                    {{animal.anos}} ano(s) e {{ animal.meses}} mes(es) 
+                {% else %}
+                    {{animal.anos}} ano(s)
+                {% endif %}
+            {% else %}
+            {{ animal.meses }} mes(es)
+            {% endif %}
+        </p>
+        <p class="info-item"><strong>Sexo:</strong> {{ animal.sexo }}</p>
         <p class="info-item"><strong>Porte:</strong> {{ animal.porte }}</p>
         <p class="info-item"><strong>Espécie:</strong> {{ animal.especie }}</p>
-        <p class="description"><strong>Descrição:</strong> {{ animal.descricao|linebreaksbr }}</p>
+        <p class="description"><strong>Descrição:</strong> {% if animal.descricao %}{{ animal.descricao|linebreaksbr }} {% else %} Nenhuma descrição foi definida! {% endif %}</p>
 
         <a href="#" class="button" id="adotar-btn">Quero adotar</a>
     </div>

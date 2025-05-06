@@ -1,5 +1,6 @@
 from django.db import models
 import os
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
@@ -24,7 +25,14 @@ class Animais(models.Model):
         verbose_name_plural = 'Animais'
 
     nome = models.CharField(max_length=100, help_text='Digite o seu nome')
-    idade = models.IntegerField()
+    anos = models.IntegerField()
+    meses = models.IntegerField(validators=[
+            MinValueValidator(0),
+            MaxValueValidator(11)
+        ],
+        help_text="Informe a idade em meses (entre 0 e 11)"
+    )
+    sexo = models.CharField(choices=[('Fêmea', 'Fêmea'), ('Macho', 'Macho')])
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
     especie = models.CharField(max_length=30)
     descricao = models.TextField(blank=True)
