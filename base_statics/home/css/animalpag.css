@@ -110,6 +110,10 @@ body {
   color: var(--amarelo-principal);
 }
 
+#quero-adotar{
+  font-weight: bold;
+}
+
 .btn-doacao {
   background-color: var(--amarelo-principal);
   color: var(--azul-principal) !important;
