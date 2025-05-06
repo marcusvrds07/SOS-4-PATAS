@@ -1,66 +1,61 @@
+
 :root {
   --amarelo-principal: #f7d647;
   --azul-principal: #1954cb;
   --background-color: #ffffff;
   --shadow-color: rgba(9, 45, 115, 0.15);
+  --whatsapp-color: #25D366;
+  --whatsapp-hover: #1fba58;
+  --transition-default: all 0.3s ease;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: "Comfortaa", cursive;
-  margin: 0;
-  padding: 0;
   background-color: var(--background-color);
   color: var(--azul-principal);
   min-height: 100vh;
   display: flex;
-  justify-content: center;
-  padding: 20px 0;
-  padding-top: 100px;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 20px 40px;
 }
+
 
 .navbar {
   position: fixed;
   top: 0;
-  width: calc(100% - 40px);
+  left: 0;
+  width: 100%;
   background-color: var(--azul-principal);
   padding: 15px 20px;
   color: white;
-  transition: all 0.4s ease;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 999;
+  transition: var(--transition-default);
 }
 
 .navbar.scrolled {
-  background-color: var(--azul-principal);
-  padding: 10px 40px;
-  font-size: 20px;
+  padding: 10px 20px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-#quero-adotar {
-  color: var(--azul-principal);
-  font-weight: bold;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-#quero-adotar:hover {
-  background-color: #e5c53c;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
-}
-
-.title_span {
-  text-align: center;
-}
 
 .logo-link {
   text-decoration: none;
   cursor: pointer;
   display: block;
+}
+
+.title_span {
+  text-align: center;
 }
 
 .sos {
@@ -71,6 +66,7 @@ body {
   top: 5px;
   left: 0;
   margin-bottom: -5px;
+  transition: var(--transition-default);
 }
 
 .patas {
@@ -78,8 +74,11 @@ body {
   font-style: normal;
   font-size: 25px;
   color: var(--azul-principal);
-  text-shadow: -1px -1px 0 var(--amarelo-principal), 1px -1px 0 var(--amarelo-principal), -1px 1px 0
-    var(--amarelo-principal), 1px 1px 0 var(--amarelo-principal);
+  text-shadow: -1px -1px 0 var(--amarelo-principal), 
+               1px -1px 0 var(--amarelo-principal), 
+               -1px 1px 0 var(--amarelo-principal), 
+               1px 1px 0 var(--amarelo-principal);
+  transition: var(--transition-default);
 }
 
 .logo-link:hover .sos {
@@ -87,7 +86,15 @@ body {
 }
 
 .logo-link:hover .patas {
-  text-shadow: -1px -1px 0 #ffe066, 1px -1px 0 #ffe066, -1px 1px 0 #ffe066, 1px 1px 0 #ffe066;
+  text-shadow: -1px -1px 0 #ffe066, 
+               1px -1px 0 #ffe066, 
+               -1px 1px 0 #ffe066, 
+               1px 1px 0 #ffe066;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
 }
 
 .nav-menu a {
@@ -95,14 +102,45 @@ body {
   text-decoration: none;
   margin: 0 10px;
   font-weight: 500;
+  white-space: nowrap;
+  transition: var(--transition-default);
+}
+
+.nav-menu a:hover {
+  color: var(--amarelo-principal);
 }
 
 .btn-doacao {
   background-color: var(--amarelo-principal);
-  color: var(--azul-principal);
+  color: var(--azul-principal) !important;
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: bold;
+  transition: var(--transition-default);
+}
+
+.btn-doacao:hover {
+  background-color: #e5c53c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 3px;
+  transition: var(--transition-default);
 }
 
 .container {
@@ -115,18 +153,21 @@ body {
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 8px 24px var(--shadow-color);
+  margin-top: 20px;
 }
+
 
 .image-section {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 15px;
   width: 40%;
   max-width: 450px;
+  min-width: 280px;
+  flex: 1;
 }
 
 .image-container {
-  margin-top: 5px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -153,6 +194,7 @@ body {
   border: 3px solid white;
 }
 
+
 .arrow-btn {
   position: absolute;
   top: 50%;
@@ -171,10 +213,19 @@ body {
   align-items: center;
   justify-content: center;
   line-height: 1;
+  transition: var(--transition-default);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .arrow-btn:hover {
   background-color: rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.arrow-btn:active {
+  transform: translateY(-50%) scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .prev-btn {
@@ -184,6 +235,7 @@ body {
 .next-btn {
   right: 10px;
 }
+
 
 .gallery {
   display: flex;
@@ -199,7 +251,7 @@ body {
   object-position: center;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: var(--transition-default);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border: 2px solid white;
 }
@@ -210,25 +262,52 @@ body {
   border-color: var(--amarelo-principal);
 }
 
+.gallery p {
+  width: 100%;
+  text-align: center;
+  color: var(--azul-principal);
+  font-style: italic;
+  padding: 15px;
+  background-color: rgba(9, 45, 115, 0.05);
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+
 .details-section {
   flex: 1;
   padding: 20px;
-  align-self: flex-start;
-  margin-top: 5px;
   background-color: white;
   border-radius: 14px;
   box-shadow: 0 6px 16px var(--shadow-color);
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
 }
 
 .details-section h1 {
   font-size: 32px;
   color: var(--azul-principal);
   margin-bottom: 20px;
-  margin-top: 0;
   border-bottom: 3px solid var(--amarelo-principal);
   padding-bottom: 10px;
-  display: inline-block;
+  word-break: break-word;
+  text-align: center;
+  align-self: center;
 }
+
+.animal-id {
+  font-size: 0.7em;
+  color: var(--azul-principal);
+  background-color: var(--amarelo-principal);
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: normal;
+}
+
 
 .details-section p {
   margin: 10px 0;
@@ -240,6 +319,7 @@ body {
   padding: 8px 12px;
   border-radius: 8px;
   border-left: 3px solid var(--amarelo-principal);
+  flex-wrap: wrap;
 }
 
 .description {
@@ -262,6 +342,7 @@ body {
   padding-right: 5px;
 }
 
+
 .button {
   margin-top: 25px;
   padding: 14px 28px;
@@ -271,13 +352,16 @@ body {
   border-radius: 8px;
   text-decoration: none;
   font-size: 16px;
-  display: inline-block;
+  display: block;
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--transition-default);
   box-shadow: 0 4px 12px rgba(9, 45, 115, 0.3);
   position: relative;
   overflow: hidden;
+  align-self: center;
+  text-align: center;
+  width: fit-content;
 }
 
 .button::before {
@@ -301,36 +385,220 @@ body {
   left: 100%;
 }
 
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  z-index: 1001;
+  max-width: 500px;
+  width: 90%;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  color: var(--azul-principal);
+  font-size: 24px;
+  margin: 0;
+  border-bottom: 3px solid var(--amarelo-principal);
+  padding-bottom: 8px;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--azul-principal);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition-default);
+}
+
+.close-modal:hover {
+  background-color: rgba(9, 45, 115, 0.1);
+}
+
+.modal-content {
+  margin-bottom: 25px;
+}
+
+.modal-content p {
+  line-height: 1.6;
+  color: var(--azul-principal);
+  margin-bottom: 15px;
+  background-color: rgba(9, 45, 115, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--azul-principal);
+}
+
+.whatsapp-btn {
+  background-color: var(--whatsapp-color);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-default);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  text-align: center;
+}
+
+.whatsapp-btn:hover {
+  background-color: var(--whatsapp-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: 95%;
+    padding: 25px;
+    gap: 30px;
+  }
+}
+
 @media (max-width: 900px) {
+  body {
+    padding-top: 80px;
+  }
+  
   .container {
     flex-direction: column;
     align-items: center;
-    gap: 30px;
     padding: 20px;
+    gap: 25px;
   }
 
   .image-section {
     width: 100%;
+    max-width: 100%;
+    order: 2;
   }
 
   .details-section {
     width: 100%;
-    margin-top: 0;
+    order: 1;
+  }
+  
+  .navbar {
+    padding: 12px 15px;
+  }
+  
+  .sos {
+    font-size: 22px;
+  }
+  
+  .patas {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+  
+  .nav-menu {
+    position: fixed;
+    top: 70px;
+    left: -100%;
+    width: 100%;
+    background-color: var(--azul-principal);
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    transition: var(--transition-default);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .nav-menu.active {
+    left: 0;
+  }
+  
+  .nav-menu a {
+    margin: 10px 0;
+    font-size: 16px;
+  }
+  
+  .btn-doacao {
+    margin-top: 10px;
+  }
+  
+  .navbar.scrolled {
+    padding: 10px 15px;
+  }
+  
+  .navbar.scrolled .nav-menu {
+    top: 60px;
+  }
+  
+  .details-section h1 {
+    font-size: 28px;
+  }
+  
+  .modal {
+    width: 95%;
+    padding: 25px;
   }
 }
 
 @media (max-width: 600px) {
+  body {
+    padding-top: 70px;
+  }
+  
   .container {
     width: 95%;
     padding: 15px;
-  }
-
-  .gallery-title {
-    font-size: 28px;
+    gap: 20px;
   }
 
   .details-section h1 {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .details-section p {
@@ -338,9 +606,9 @@ body {
   }
 
   .arrow-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
   }
 
   .navbar {
@@ -356,11 +624,105 @@ body {
   }
 
   .nav-menu a {
-    margin: 0 5px;
-    font-size: 14px;
+    margin: 8px 0;
+    font-size: 15px;
   }
 
   .btn-doacao {
     padding: 8px 15px;
+    font-size: 14px;
+  }
+  
+  .modal {
+    padding: 20px;
+  }
+  
+  .modal-title {
+    font-size: 20px;
+  }
+  
+  .modal-content p {
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  .whatsapp-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .animal-id {
+    font-size: 0.65em;
+    padding: 2px 6px;
+  }
+  
+  .gallery img {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-section h1 {
+    font-size: 22px;
+  }
+  
+  .button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+  
+  .arrow-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+  
+  .modal-title {
+    font-size: 18px;
+  }
+  
+  .close-modal {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+  
+  .gallery {
+    gap: 8px;
+  }
+  
+  .gallery img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 360px) {
+  .sos {
+    font-size: 18px;
+  }
+  
+  .patas {
+    font-size: 18px;
+  }
+  
+  .details-section {
+    padding: 15px;
+  }
+  
+  .details-section h1 {
+    font-size: 20px;
+  }
+  
+  .details-section p {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+  
+  .modal-content p {
+    font-size: 13px;
   }
 }

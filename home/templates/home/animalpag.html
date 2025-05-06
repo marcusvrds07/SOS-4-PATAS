@@ -17,7 +17,12 @@
             <span class="patas">4PATAS</span>
         </div>
     </a>
-    <nav class="nav-menu">
+    <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <nav class="nav-menu" id="nav-menu">
         <a href="{% url 'home:index' %}">Home</a>
         <a href="#">Contato</a>
         <a href="#">Doar</a>
@@ -27,12 +32,13 @@
 
 <div class="container">
     <div class="image-section">
-        <!-- <h1 class="gallery-title">GALERIA</h1> -->
         <div class="image-container">
             <div class="main-image-wrapper">
                 <img id="mainImage" class="main-img" src="{{ animal.foto.url }}" alt="Foto da Capa de um Cachorro">
+                {% if animal.images.all %}
                 <button class="arrow-btn prev-btn">&#10094;</button>
                 <button class="arrow-btn next-btn">&#10095;</button>
+                {% endif %}
             </div>
             <div class="gallery">
                 {% for img in animal.images.all %}
@@ -45,13 +51,27 @@
     </div>
 
     <div class="details-section">
-        <h1>{{ animal.nome }}</h1>
+        <h1>{{ animal.nome }} <span class="animal-id">#{{ animal.id }}</span></h1>
         <p class="info-item"><strong>Idade:</strong> {{ animal.idade }}</p>
         <p class="info-item"><strong>Porte:</strong> {{ animal.porte }}</p>
         <p class="info-item"><strong>Espécie:</strong> {{ animal.especie }}</p>
         <p class="description"><strong>Descrição:</strong> {{ animal.descricao }}</p>
 
-        <a href="#" class="button">Quero adotar</a>
+        <a href="#" class="button" id="adotar-btn">Quero adotar</a>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title">Adoção - SOS 4PATAS</h2>
+            <button class="close-modal" id="close-modal">&times;</button>
+        </div>
+        <div class="modal-content">
+            <p>Você será redirecionado para enviar uma mensagem diretamente para a SOS 4PATAS via WhatsApp.</p>
+            <p>Ao clicar em "Enviar", você será conectado com nossa equipe para iniciar o processo de adoção do(a) <strong>{{ animal.nome }} (ID: #{{ animal.id }})</strong>.</p>
+        </div>
+        <a href="#" class="whatsapp-btn" id="whatsapp-btn">Enviar Mensagem</a>
     </div>
 </div>
 
@@ -61,47 +81,83 @@
         const thumbnails = document.querySelectorAll(".thumbnail");
         const prevBtn = document.querySelector(".prev-btn");
         const nextBtn = document.querySelector(".next-btn");
+        const adotarBtn = document.getElementById("adotar-btn");
+        const modalOverlay = document.getElementById("modal-overlay");
+        const closeModal = document.getElementById("close-modal");
+        const whatsappBtn = document.getElementById("whatsapp-btn");
+        const menuToggle = document.getElementById("menu-toggle");
+        const navMenu = document.getElementById("nav-menu");
         
-        function swapWithThumbnail(thumbnailIndex) {
-            if (thumbnailIndex >= 0 && thumbnailIndex < thumbnails.length) {
-                const tempSrc = mainImage.src;
-                mainImage.src = thumbnails[thumbnailIndex].src;
-                thumbnails[thumbnailIndex].src = tempSrc;
-            }
+        if (menuToggle) {
+            menuToggle.addEventListener("click", function() {
+                navMenu.classList.toggle("active");
+                
+                const spans = this.querySelectorAll("span");
+                if (navMenu.classList.contains("active")) {
+                    spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
+                    spans[1].style.opacity = "0";
+                    spans[2].style.transform = "rotate(-45deg) translate(7px, -6px)";
+                } else {
+                    spans[0].style.transform = "none";
+                    spans[1].style.opacity = "1";
+                    spans[2].style.transform = "none";
+                }
+            });
+            
+            // Fechar menu ao clicar em um link
+            const navLinks = navMenu.querySelectorAll("a");
+            navLinks.forEach(link => {
+                link.addEventListener("click", function() {
+                    navMenu.classList.remove("active");
+                    const spans = menuToggle.querySelectorAll("span");
+                    spans[0].style.transform = "none";
+                    spans[1].style.opacity = "1";
+                    spans[2].style.transform = "none";
+                });
+            });
         }
         
-        prevBtn.addEventListener("click", function() {
-            if (thumbnails.length === 0) return;
-            
-            swapWithThumbnail(thumbnails.length - 1);
-            
-
-            const lastThumbnailSrc = thumbnails[thumbnails.length - 1].src;
-            for (let i = thumbnails.length - 1; i > 0; i--) {
-                thumbnails[i].src = thumbnails[i - 1].src;
+        if (thumbnails.length > 0) {
+            function swapWithThumbnail(thumbnailIndex) {
+                if (thumbnailIndex >= 0 && thumbnailIndex < thumbnails.length) {
+                    const tempSrc = mainImage.src;
+                    mainImage.src = thumbnails[thumbnailIndex].src;
+                    thumbnails[thumbnailIndex].src = tempSrc;
+                }
             }
-            thumbnails[0].src = lastThumbnailSrc;
-        });
-        
-        nextBtn.addEventListener("click", function() {
-            if (thumbnails.length === 0) return;
             
-            swapWithThumbnail(0);
-            
-            const firstThumbnailSrc = thumbnails[0].src;
-            for (let i = 0; i < thumbnails.length - 1; i++) {
-                thumbnails[i].src = thumbnails[i + 1].src;
+            if (prevBtn) {
+                prevBtn.addEventListener("click", function() {
+                    swapWithThumbnail(thumbnails.length - 1);
+                    
+                    const lastThumbnailSrc = thumbnails[thumbnails.length - 1].src;
+                    for (let i = thumbnails.length - 1; i > 0; i--) {
+                        thumbnails[i].src = thumbnails[i - 1].src;
+                    }
+                    thumbnails[0].src = lastThumbnailSrc;
+                });
             }
-            thumbnails[thumbnails.length - 1].src = firstThumbnailSrc;
-        });
-        
-        thumbnails.forEach(function (thumb) {
-            thumb.addEventListener("click", function () {
-                const tempSrc = mainImage.src;
-                mainImage.src = this.src;
-                this.src = tempSrc;
+            
+            if (nextBtn) {
+                nextBtn.addEventListener("click", function() {
+                    swapWithThumbnail(0);
+                    
+                    const firstThumbnailSrc = thumbnails[0].src;
+                    for (let i = 0; i < thumbnails.length - 1; i++) {
+                        thumbnails[i].src = thumbnails[i + 1].src;
+                    }
+                    thumbnails[thumbnails.length - 1].src = firstThumbnailSrc;
+                });
+            }
+            
+            thumbnails.forEach(function (thumb) {
+                thumb.addEventListener("click", function () {
+                    const tempSrc = mainImage.src;
+                    mainImage.src = this.src;
+                    this.src = tempSrc;
+                });
             });
-        });
+        }
         
         window.addEventListener("scroll", function() {
             const navbar = document.getElementById("navbar");
@@ -110,6 +166,42 @@
             } else {
                 navbar.classList.remove("scrolled");
             }
+        });
+        
+        adotarBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            modalOverlay.style.display = "block";
+            document.body.style.overflow = "hidden";
+        });
+        
+        closeModal.addEventListener("click", function() {
+            modalOverlay.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+        
+        modalOverlay.addEventListener("click", function(e) {
+            if (e.target === modalOverlay) {
+                modalOverlay.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        });
+        
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape" && modalOverlay.style.display === "block") {
+                modalOverlay.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        });
+        
+        whatsappBtn.addEventListener("click", function(e) {
+            e.preventDefault();
+            const phoneNumber = "21968049191"; // Numero de tel
+            const animalNome = "{{ animal.nome }}";
+            const animalId = "{{ animal.id }}";
+            const message = `Olá, SOS 4PATAS! Estou interessado(a) em adotar o(a) *${animalNome} (Número identificador: #${animalId})*. Gostaria de saber mais informações sobre o processo de adoção e como posso conhecê-lo(a) pessoalmente. Obrigado(a)!`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
         });
     });
 </script>
