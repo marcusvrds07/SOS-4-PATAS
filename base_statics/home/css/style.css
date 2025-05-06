@@ -280,7 +280,7 @@ body {
 }
 
 .animal-name {
-  margin: 10px 0;
+  margin: 7.5px 0;
   font-size: 16px;
   color: var(--azul-principal);
   font-weight: bold;
@@ -290,6 +290,16 @@ body {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+}
+
+.animal-info {
+  font-size: 14px;
+  color: var(--azul-principal);
+  text-align: center;
+  font-weight: 500;
+  margin: 0;
+  padding: 0 5px;
+  line-height: 1.4;
 }
 
 .btn-3d-wrapper {
