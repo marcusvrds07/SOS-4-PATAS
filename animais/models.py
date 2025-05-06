@@ -19,6 +19,7 @@ class tipoAnimal(models.Model):
     def __str__(self):
         return f'{self.tipo_animal}'
 
+#new branch
 class Animais(models.Model):
     class Meta:
         verbose_name = "Animal"
