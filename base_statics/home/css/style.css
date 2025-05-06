@@ -225,6 +225,7 @@ body {
 }
 
 #adoption {
+  scroll-margin-top: 85px;
   margin: 40px 0;
 }
 

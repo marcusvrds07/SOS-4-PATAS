@@ -193,7 +193,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function goToPage(page) {
     const url = new URL(window.location.href);
     url.searchParams.set("page", page);
+    url.hash = "adoption";
     form.querySelector("input[name='page']").value = page;
-    form.submit();
+    window.location.href = url.toString();
   }
 });
