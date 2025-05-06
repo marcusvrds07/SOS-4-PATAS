@@ -244,8 +244,10 @@ body {
 .gallery {
   display: flex;
   gap: 12px;
-  flex-wrap: wrap;
+  max-width: 100%;
+  overflow-x: auto;
   justify-content: center;
+  padding: 2px 2px 2px 2px;
 }
 
 .gallery img {

@@ -1,4 +1,4 @@
-{% load static %}
+'{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -106,82 +106,6 @@
   </section>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const menuToggle = document.getElementById("menu-toggle");
-    const navMenu = document.getElementById("nav-menu");
-    
-    if (menuToggle) {
-      menuToggle.addEventListener("click", function() {
-        navMenu.classList.toggle("active");
-        
-        const spans = this.querySelectorAll("span");
-        if (navMenu.classList.contains("active")) {
-          spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
-          spans[1].style.opacity = "0";
-          spans[2].style.transform = "rotate(-45deg) translate(7px, -6px)";
-        } else {
-          spans[0].style.transform = "none";
-          spans[1].style.opacity = "1";
-          spans[2].style.transform = "none";
-        }
-      });
-      
-      const navLinks = navMenu.querySelectorAll("a");
-      navLinks.forEach(link => {
-        link.addEventListener("click", function() {
-          navMenu.classList.remove("active");
-          const spans = menuToggle.querySelectorAll("span");
-          spans[0].style.transform = "none";
-          spans[1].style.opacity = "1";
-          spans[2].style.transform = "none";
-        });
-      });
-    }
-    
-    const selectedOption = document.querySelector('.selected-option');
-    const options = document.querySelector('.options');
-    const arrow = document.querySelector('.arrow');
-    
-    if (selectedOption) {
-      selectedOption.addEventListener('click', function() {
-        options.classList.toggle('open');
-        arrow.classList.toggle('rotate');
-      });
-    }
-    
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const carroussel = document.getElementById('carroussel');
-    
-    if (carroussel) {
-      function showSlide(n) {
-        slideIndex = n;
-        carroussel.style.transform = `translateX(-${slideIndex * 100}%)`;
-      }
-      
-      window.nextSlide = function() {
-        slideIndex = (slideIndex + 1) % slides.length;
-        showSlide(slideIndex);
-      };
-      
-      window.prevSlide = function() {
-        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-        showSlide(slideIndex);
-      };
-      
-      setInterval(nextSlide, 5000);
-    }
-    
-    window.addEventListener("scroll", function() {
-      const navbar = document.getElementById("navbar");
-      if (window.scrollY > 50) {
-        navbar.classList.add("scrolled");
-      } else {
-        navbar.classList.remove("scrolled");
-      }
-    });
-  });
-</script>
+<script src='{% static "home/js/scripts.js" %}'></script>
 </body>
 </html>
