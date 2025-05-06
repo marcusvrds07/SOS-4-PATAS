@@ -92,8 +92,9 @@
             </div>
           </div>
         {% empty %}
+          <p style="text-align: center; color: red; font-weight: bold;">Não há animais disponíveis nesse tipo de animal ainda.</p>
         {% endfor %}
-      </div>      
+      </div>          
       <div class="pagination">
         {% if animals.has_previous %}
           <a href="?page={{ animals.previous_page_number }}&tipo_id={{ first_type.id }}#adoption">Anterior</a>
