@@ -37,13 +37,17 @@ class Animais(models.Model):
     tipo_animal = models.ForeignKey(tipoAnimal, on_delete=models.SET_NULL, null=True)
     disponivel_para_adocao = models.BooleanField(default=True)
     foto = models.ImageField(upload_to=capa_upload_path)
-    data_cadastro = models.DateField(auto_now_add=True)
     data_nascimento = models.DateField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
-        if self.idade_anos is not None and self.idade_meses is not None:
-             total_idade = relativedelta(years=self.idade_anos, months=self.idade_meses)
-             self.data_nascimento = date.today() - total_idade
+        if self.idade_anos is not None or self.idade_meses is not None:
+             
+            if self.idade_anos == None:
+                self.idade_anos = 0
+            elif self.idade_meses == None:
+                self.idade_meses = 0
+            total_idade = relativedelta(years=self.idade_anos, months=self.idade_meses)
+            self.data_nascimento = date.today() - total_idade
 
         if not self.pk and self.foto:
             foto_temp = self.foto

@@ -52,16 +52,7 @@
     <div class="details-section">
         <h1>{{ animal.nome }} <span class="animal-id">#{{ animal.id }}</span></h1>
         <p class="info-item"><strong>Idade:</strong>
-            {% if animal.anos > 0 %}
-              {% if animal.meses > 0 %}
-                {{ animal.anos }} {% if animal.anos == 1 %}ano{% else %}anos{% endif %}, 
-                {{ animal.meses }} {% if animal.meses == 1 %}mês{% else %}meses{% endif %}
-              {% else %}
-                {{ animal.anos }} {% if animal.anos == 1 %}ano{% else %}anos{% endif %}
-              {% endif %}
-            {% else %}
-              {{ animal.meses }} {% if animal.meses == 1 %}mês{% else %}meses{% endif %}
-            {% endif %}
+            {{animal.data_nascimento}}
           </p>                                      
         <p class="info-item"><strong>Sexo:</strong> {{ animal.sexo }}</p>
         <p class="info-item"><strong>Porte:</strong> {{ animal.porte }}</p>

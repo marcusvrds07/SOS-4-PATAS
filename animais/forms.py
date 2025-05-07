@@ -2,8 +2,8 @@ from django import forms
 from animais.models import Animais
 
 class AnimalForm(forms.ModelForm):
-    idade_anos = forms.IntegerField(min_value=0, label="Idade (anos)")
-    idade_meses = forms.IntegerField(min_value=0, max_value=11, label="Idade (meses)")
+    idade_anos = forms.IntegerField(min_value=0, label="Anos", required=False)
+    idade_meses = forms.IntegerField(min_value=0, max_value=11, label="Meses", required=False)
 
     class Meta:
         model = Animais
