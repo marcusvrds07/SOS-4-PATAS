@@ -13,9 +13,10 @@ body {
   margin: 0;
   box-sizing: border-box;
   background-color: white;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   overflow-x: hidden;
   width: 100%;
+  padding-top: 65px;
 }
 
 .navbar {
@@ -164,7 +165,7 @@ body {
 
 .carroussel-container {
   width: 100%;
-  margin-top: 70px;
+  margin-top: 0;
   position: relative;
   overflow: hidden;
 }
@@ -460,7 +461,6 @@ body {
   color: var(--azul-principal);
 }
 
-/* Botões de navegação */
 .arrow-btn {
   width: 36px;
   height: 36px;
@@ -486,7 +486,6 @@ body {
   box-shadow: none;
 }
 
-/* Input da página atual */
 .page-form input[type="number"] {
   color: var(--azul-principal);
   width: 50px;
@@ -505,14 +504,12 @@ body {
   top: 8px;
 }
 
-/* Remove spinners Chrome */
 .page-form input::-webkit-outer-spin-button,
 .page-form input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Estilo igual para o número total */
 .display-box {
   width: 50px;
   height: 36px;
