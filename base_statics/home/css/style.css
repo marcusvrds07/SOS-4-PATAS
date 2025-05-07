@@ -713,9 +713,8 @@ body {
   }
 }
 
-/* Footer geral */
 .footer {
-  background-color: #0d47a1;
+  background-color: var(--azul-principal);
   color: #fff;
   padding: 40px 20px 20px;
   font-family: 'Comfortaa', cursive;
@@ -748,7 +747,7 @@ body {
 
 .footer-social h4 {
   margin-bottom: 10px;
-  color: #ffeb3b;
+  color: var(--amarelo-principal);
 }
 
 .footer-social a {
@@ -759,13 +758,17 @@ body {
 }
 
 .footer-social a:hover {
-  color: #ffeb3b;
+  color: var(--amarelo-principal);
 }
 
 
 .footer-contact p {
   font-size: 14px;
   margin-bottom: 6px;
+}
+
+.footer-contact h4 {
+  color: var(--amarelo-principal);
 }
 
 .footer-bottom {
@@ -777,7 +780,6 @@ body {
   color: #ccc;
 }
 
-/* Responsivo */
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
