@@ -78,12 +78,7 @@
               <img src="{{ animal.foto.url }}" alt="animal">
               <h3 class="animal-name">{{ animal.nome }}</h3>
               <p class="animal-info">
-                {% if animal.anos > 0 %}
-                  {{ animal.anos }}{% if animal.anos == 1 %} ano{% else %} anos{% endif %}
-                {% elif animal.meses > 0 %}
-                  {{ animal.meses }}{% if animal.meses == 1 %} mês{% else %} meses{% endif %}
-                {% endif %}
-                • {{ animal.sexo }}
+                {{animal.data_nascimento}} • {{ animal.sexo }}
               </p>
               <a href="{% url 'home:animal_detail' animal.id %}" class="btn-3d-wrapper">
                 <div class="btn-base"></div>

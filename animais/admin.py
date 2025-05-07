@@ -26,7 +26,8 @@ class tipoAnimal(admin.ModelAdmin):
 @admin.register(models.Animais)
 class AnimalAdmin(admin.ModelAdmin):
     inlines = [AnimalImageInline]
-    list_display = 'id', 'nome', 'anos', 'meses', 'preview',
+    list_display = 'id', 'nome', 'preview', 'data_nascimento',
+    readonly_fields = ['data_nascimento']
     ordering = ['-id']
     form = AnimalForm
 
