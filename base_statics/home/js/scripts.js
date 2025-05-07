@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.getElementById("navbar")
   const carroussel = document.getElementById("carroussel")
   const slides = document.querySelectorAll(".slide")
+  const carrousselContainer = document.querySelector(".carroussel-container")
 
   let slideIndex = 0
 
@@ -73,28 +74,89 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateCarouselImages() {
       const screenWidth = window.innerWidth
 
+      // Aplicar estilo de card para todos os dispositivos móveis
+      if (screenWidth <= 768) {
+        if (!carrousselContainer.classList.contains("card-style")) {
+          carrousselContainer.classList.add("card-style")
+        }
+      } else {
+        carrousselContainer.classList.remove("card-style")
+      }
+
       slides.forEach((slide, index) => {
         const imgElement = slide.querySelector("img")
         if (imgElement) {
-          if (screenWidth <= 414) {
-            let sizePrefix
+          let sizePrefix
 
-            if (screenWidth <= 320) {
-              sizePrefix = "pequeno"
-            } else if (screenWidth <= 375) {
-              sizePrefix = "medio"
-            } else {
-              sizePrefix = "grande"
-            }
-
-            const newSrc = `/static/home/img/carrossel${index + 1}_${sizePrefix}.png`
-            imgElement.setAttribute("src", newSrc)
+          if (screenWidth <= 320) {
+            sizePrefix = "pequeno"
+          } else if (screenWidth <= 375) {
+            sizePrefix = "medio"
+          } else if (screenWidth <= 430) {
+            sizePrefix = "grande"
+          } else if (screenWidth <= 768) {
+            // Para dispositivos maiores que 430px mas ainda móveis, use as imagens grandes
+            sizePrefix = "grande"
           } else {
+            // Para telas maiores que 768px, use as imagens originais
             imgElement.setAttribute("src", originalSources[index])
+            return
           }
+
+          const newSrc = `/static/home/img/carrossel${index + 1}_${sizePrefix}.png`
+          imgElement.setAttribute("src", newSrc)
         }
       })
     }
+
+    // Adicionar estilos CSS para o card do carrossel
+    const style = document.createElement("style")
+    style.textContent = `
+      /* Se sua navbar for fixa no topo, você precisa compensar o espaço dela no body */
+      body {
+        padding-top: 80px; /* ajuste conforme a altura real da sua navbar */
+      }
+    
+      .card-style {
+        max-width: 90%;
+        margin: 40px auto; /* Aumentado de 20px para 40px */
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 6px 16px rgba(9, 45, 115, 0.15);
+        background-color: white;
+      }
+    
+      .card-style .carroussel {
+        width: 100%;
+        display: flex;
+      }
+    
+      .card-style .slide {
+        flex: 0 0 100%;
+        min-width: 100%;
+      }
+    
+      @media (max-width: 768px) {
+        .card-style {
+          margin-top: 40px; /* Aumentado de 20px para 40px */
+        }
+      
+        .card-style .slide-content img {
+          border-radius: 0;
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+        }
+    
+        .card-style .seta {
+          width: 30px;
+          height: 30px;
+          font-size: 1.2rem;
+        }
+      }
+    `
+
+    document.head.appendChild(style)
 
     updateCarouselImages()
 
