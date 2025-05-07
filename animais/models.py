@@ -46,8 +46,12 @@ class Animais(models.Model):
                 self.idade_anos = 0
             elif self.idade_meses == None:
                 self.idade_meses = 0
-            total_idade = relativedelta(years=self.idade_anos, months=self.idade_meses)
-            self.data_nascimento = date.today() - total_idade
+
+            if self.idade_anos > 0 or self.idade_meses > 0: 
+                total_idade = relativedelta(years=self.idade_anos, months=self.idade_meses)
+                self.data_nascimento = date.today() - total_idade
+            else:
+                self.data_nascimento = None
 
         if not self.pk and self.foto:
             foto_temp = self.foto
