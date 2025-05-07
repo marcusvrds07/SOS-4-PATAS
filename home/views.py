@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from animais.models import Animais, tipoAnimal
 from django.core.paginator import Paginator
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 
@@ -38,6 +40,23 @@ def home(request):
         paginator = Paginator(animais, 10)
         page_num = request.GET.get('page', 1)
         page_obj = paginator.get_page(page_num)
+
+        for animal in page_obj:
+            days = relativedelta(date.today(), animal.data_nascimento)
+            year = 'ano'
+            month = 'mês'
+
+            if days.years > 0:
+                if days.years > 1:
+                    year = 'anos'
+                animal.data_nascimento = f'{days.years} {year}'
+            else:
+                if days.months > 1:
+                        month = 'meses'
+                animal.data_nascimento = f'{days.months} {month}'
+
+
+
 
         # Contexto para o template
         context = {
