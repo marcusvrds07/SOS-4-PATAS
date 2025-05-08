@@ -16,7 +16,7 @@ body {
   font-family: "Comfortaa", cursive;
   overflow-x: hidden;
   width: 100%;
-  padding-top: 65px;  
+  padding-top: 65px;
 }
 
 .navbar {
@@ -32,12 +32,12 @@ body {
   justify-content: space-between;
   align-items: center;
   z-index: 999;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
-#quero-adotar{
+#quero-adotar {
   color: var(--azul-principal);
   font-weight: bold;
   position: relative;
@@ -81,7 +81,7 @@ body {
   font-size: 25px;
   position: relative;
   top: 5px;
-  left: 0; 
+  left: 0;
   margin-bottom: -5px;
   transition: all 0.3s ease;
 }
@@ -173,18 +173,15 @@ body {
   max-width: 90%;
   margin: 0 auto 40px;
   border-radius: 14px;
-  box-shadow: 
-    0 10px 25px rgba(9, 45, 115, 0.2),
-    0 6px 12px rgba(9, 45, 115, 0.15),
-    0 4px 6px rgba(247, 214, 71, 0.1),
-    0 0 0 1px rgba(9, 45, 115, 0.05);
+  box-shadow: 0 10px 25px rgba(9, 45, 115, 0.2), 0 6px 12px rgba(9, 45, 115, 0.15), 0 4px 6px rgba(247, 214, 71, 0.1), 0
+    0 0 1px rgba(9, 45, 115, 0.05);
   background-color: white;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   position: relative;
 }
 
 .carroussel-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -198,10 +195,7 @@ body {
 
 @media (min-width: 769px) {
   .carroussel-container:hover {
-    box-shadow: 
-      0 15px 35px rgba(9, 45, 115, 0.25),
-      0 8px 16px rgba(9, 45, 115, 0.2),
-      0 4px 8px rgba(247, 214, 71, 0.15),
+    box-shadow: 0 15px 35px rgba(9, 45, 115, 0.25), 0 8px 16px rgba(9, 45, 115, 0.2), 0 4px 8px rgba(247, 214, 71, 0.15),
       0 0 0 1px rgba(9, 45, 115, 0.07);
     transform: translateY(-2px);
   }
@@ -238,7 +232,7 @@ body {
 
 .seta:hover {
   background-color: rgba(0, 0, 0, 0.5);
-  transform: translateY(-50%) scale(1.15); 
+  transform: translateY(-50%) scale(1.15);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -493,7 +487,6 @@ body {
   justify-content: center;
   gap: 12px;
   margin: 40px 0;
-  margin-left: 2.5px;
   color: var(--azul-principal);
 }
 
@@ -509,6 +502,9 @@ body {
   box-shadow: 0 4px 8px rgba(25, 84, 203, 0.25);
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .arrow-btn:hover {
@@ -522,11 +518,17 @@ body {
   box-shadow: none;
 }
 
+.page-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .page-form input[type="number"] {
   color: var(--azul-principal);
   width: 50px;
   height: 36px;
-  padding: 18px 0px;
+  padding: 0;
   text-align: center;
   border: none;
   background-color: #eee;
@@ -535,9 +537,7 @@ body {
   border-bottom: 2px solid var(--azul-principal);
   border-radius: 8px;
   outline: none;
-  -moz-appearance: textfield;
-  position: relative;
-  top: 8px;
+  box-sizing: border-box;
 }
 
 .page-form input::-webkit-outer-spin-button,
@@ -557,12 +557,16 @@ body {
   font-weight: 600;
   line-height: 36px;
   cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .divider {
   width: 1px;
   height: 36px;
   background-color: var(--azul-principal);
+  margin: 0 8px;
 }
 
 .slide {
@@ -589,7 +593,7 @@ body {
   background-color: var(--azul-principal);
   color: #fff;
   padding: 40px 20px 20px;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -651,20 +655,156 @@ body {
   color: #ccc;
 }
 
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  z-index: 1001;
+  max-width: 500px;
+  width: 90%;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  color: var(--azul-principal);
+  font-size: 24px;
+  margin: 0;
+  border-bottom: 3px solid var(--amarelo-principal);
+  padding-bottom: 8px;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--azul-principal);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  background-color: rgba(9, 45, 115, 0.1);
+}
+
+.modal-content {
+  margin-bottom: 25px;
+}
+
+.modal-content p {
+  line-height: 1.6;
+  color: var(--azul-principal);
+  margin-bottom: 15px;
+  background-color: rgba(9, 45, 115, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--azul-principal);
+}
+
+.contact-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  text-align: center;
+  flex: 1;
+}
+
+.whatsapp-btn:hover {
+  background-color: #1fba58;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+}
+
+.instagram-btn {
+  background-color: #e1306c;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+  text-align: center;
+  flex: 1;
+}
+
+.instagram-btn:hover {
+  background-color: #c13584;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
+}
+
 @media (min-width: 1400px) {
   .slide-content img {
     max-height: 450px;
   }
-  
+
   .card-top {
     width: calc(3vw + 150px);
     height: calc(4.5vw + 225px);
   }
-  
+
   .card-top img {
     width: calc(2.6vw + 130px);
   }
-  
+
   .btn-3d-wrapper {
     width: calc(2.5vw + 125px);
   }
@@ -680,7 +820,7 @@ body {
   .cards-grid {
     grid-template-columns: repeat(3, minmax(200px, 1fr));
   }
-  
+
   .slide-content img {
     max-height: 350px;
   }
@@ -690,13 +830,10 @@ body {
   .carroussel-main {
     padding-top: 50px;
   }
-  
+
   .carroussel-container {
     max-width: 80%;
-    box-shadow: 
-      0 15px 30px rgba(9, 45, 115, 0.2),
-      0 8px 16px rgba(9, 45, 115, 0.15),
-      0 4px 8px rgba(247, 214, 71, 0.1),
+    box-shadow: 0 15px 30px rgba(9, 45, 115, 0.2), 0 8px 16px rgba(9, 45, 115, 0.15), 0 4px 8px rgba(247, 214, 71, 0.1),
       0 0 0 1px rgba(9, 45, 115, 0.05);
   }
 }
@@ -705,12 +842,12 @@ body {
   .carroussel-main {
     padding-top: 40px;
   }
-  
+
   .carroussel-container {
     max-width: 85%;
     margin: 0 auto 40px;
   }
-  
+
   .slide-content img {
     max-height: 380px;
     width: auto;
@@ -722,21 +859,18 @@ body {
   .carroussel-main {
     padding-top: 40px;
   }
-  
+
   .carroussel-container {
     max-width: 90%;
     margin: 0 auto 40px;
-    box-shadow: 
-      0 8px 20px rgba(9, 45, 115, 0.18),
-      0 4px 10px rgba(9, 45, 115, 0.12),
-      0 2px 4px rgba(247, 214, 71, 0.08),
+    box-shadow: 0 8px 20px rgba(9, 45, 115, 0.18), 0 4px 10px rgba(9, 45, 115, 0.12), 0 2px 4px rgba(247, 214, 71, 0.08),
       0 0 0 1px rgba(9, 45, 115, 0.05);
   }
-  
+
   .menu-toggle {
     display: flex;
   }
-  
+
   .nav-menu {
     position: fixed;
     top: 70px;
@@ -749,51 +883,51 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
-  
+
   .nav-menu.active {
     left: 0;
   }
-  
+
   .nav-menu a {
     margin: 10px 0;
     font-size: 16px;
   }
-  
+
   .btn-doacao {
     margin-top: 10px;
   }
-  
+
   .navbar.scrolled {
     padding: 10px 15px;
   }
-  
+
   .navbar.scrolled .nav-menu {
     top: 60px;
   }
-  
+
   .slide-content img {
     max-height: 300px;
   }
-  
+
   .seta {
     width: 35px;
     height: 35px;
     font-size: 1.5rem;
   }
-  
+
   .card-top {
     width: 180px;
     height: 270px;
   }
-  
+
   .card-top img {
     width: 155px;
   }
-  
+
   .btn-3d-wrapper {
     width: 150px;
   }
-  
+
   .footer-container {
     flex-direction: column;
     align-items: center;
@@ -803,6 +937,58 @@ body {
   .footer-logo img {
     margin: 0 auto;
   }
+
+  .modal {
+    width: 95%;
+    padding: 25px;
+  }
+
+  .pagination {
+    gap: 8px;
+  }
+
+  .display-box,
+  .page-form input[type="number"] {
+    width: 40px;
+    height: 36px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-buttons {
+    flex-direction: column;
+  }
+
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .modal {
+    padding: 20px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+  }
+
+  .modal-content p {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .pagination {
+    gap: 6px;
+  }
+
+  .arrow-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -810,40 +996,69 @@ body {
     width: 200px;
     height: 290px;
   }
-  
+
   .card-top img {
     width: 175px;
   }
-  
+
   .slide-content img {
     max-height: 250px;
   }
-  
+
   .sos {
     font-size: 22px;
   }
-  
+
   .patas {
     font-size: 22px;
   }
-  
+
   .navbar {
     padding: 12px 15px;
   }
-  
+
   .selected-option {
     max-width: 250px;
     margin: 0 auto;
   }
-  
+
   .seta {
     width: 30px;
     height: 30px;
     font-size: 1.2rem;
   }
-  
+
   .btn-3d-wrapper {
     width: 170px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .close-modal {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+
+  .pagination {
+    gap: 4px;
+  }
+
+  .display-box,
+  .page-form input[type="number"] {
+    width: 36px;
+    height: 32px;
+    font-size: 13px;
+  }
+
+  .arrow-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
   }
 }
 
@@ -852,34 +1067,54 @@ body {
     width: 180px;
     height: 270px;
   }
-  
+
   .card-top img {
     width: 155px;
   }
-  
+
   .slide-content img {
     max-height: 200px;
   }
-  
+
   .sos {
     font-size: 20px;
   }
-  
+
   .patas {
     font-size: 20px;
   }
-  
+
   .navbar {
     padding: 10px;
   }
-  
+
   .seta {
     width: 28px;
     height: 28px;
     font-size: 1rem;
   }
-  
+
   .btn-3d-wrapper {
     width: 150px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modal-content p {
+    font-size: 13px;
+  }
+
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .modal-header {
+    margin-bottom: 15px;
+  }
+
+  .modal-content {
+    margin-bottom: 15px;
   }
 }

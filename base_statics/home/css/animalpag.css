@@ -494,8 +494,15 @@ body {
   border-left: 3px solid var(--azul-principal);
 }
 
+.contact-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  flex-direction: column;
+}
+
 .whatsapp-btn {
-  background-color: var(--whatsapp-color);
+  background-color: #25d366;
   color: white;
   padding: 14px 28px;
   border-radius: 8px;
@@ -504,9 +511,32 @@ body {
   display: block;
   border: none;
   cursor: pointer;
-  transition: var(--transition-default);
+  transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
   text-align: center;
+  width: 100%;
+}
+
+.instagram-btn {
+  background-color: #e1306c;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+  text-align: center;
+  width: 100%;
+}
+
+.instagram-btn:hover {
+  background-color: #e1306c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
 }
 
 .whatsapp-btn:hover {
@@ -560,6 +590,13 @@ body {
 }
 
 @media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 768px) {
   .menu-toggle {
     display: flex;
   }
@@ -609,134 +646,59 @@ body {
 }
 
 @media (max-width: 600px) {
-  body {
-    padding-top: 70px;
-  }
-  
-  .container {
-    width: 95%;
-    padding: 15px;
-    gap: 20px;
+  .contact-buttons {
+    flex-direction: column;
   }
 
-  .details-section h1 {
-    font-size: 24px;
-  }
-
-  .details-section p {
-    font-size: 15px;
-  }
-
-  .arrow-btn {
-    width: 35px;
-    height: 35px;
-    font-size: 18px;
-  }
-
-  .navbar {
-    padding: 10px 15px;
-  }
-
-  .sos {
-    font-size: 20px;
-  }
-
-  .patas {
-    font-size: 20px;
-  }
-
-  .nav-menu a {
-    margin: 8px 0;
-    font-size: 15px;
-  }
-
-  .btn-doacao {
-    padding: 8px 15px;
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: 12px 20px;
     font-size: 14px;
+    width: 100%;
   }
-  
+
   .modal {
     padding: 20px;
   }
-  
+
   .modal-title {
     font-size: 20px;
   }
-  
+
   .modal-content p {
     font-size: 14px;
     padding: 10px;
   }
-  
-  .whatsapp-btn {
-    padding: 12px 20px;
-    font-size: 14px;
-    width: 100%;
-  }
-
-  .animal-id {
-    font-size: 0.65em;
-    padding: 2px 6px;
-  }
-  
 }
 
 @media (max-width: 480px) {
-  .details-section h1 {
-    font-size: 22px;
-  }
-  
-  .button {
-    width: 100%;
-    padding: 12px 20px;
-    font-size: 15px;
-  }
-  
-  .arrow-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 16px;
-  }
-  
   .modal-title {
     font-size: 18px;
   }
-  
+
   .close-modal {
     width: 35px;
     height: 35px;
     font-size: 24px;
   }
-  
-  .gallery {
-    gap: 8px;
-  }
-  
 }
 
 @media (max-width: 360px) {
-  .sos {
-    font-size: 18px;
-  }
-  
-  .patas {
-    font-size: 18px;
-  }
-  
-  .details-section {
-    padding: 15px;
-  }
-  
-  .details-section h1 {
-    font-size: 20px;
-  }
-  
-  .details-section p {
-    font-size: 14px;
-    padding: 8px 10px;
-  }
-  
   .modal-content p {
     font-size: 13px;
+  }
+
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .modal-header {
+    margin-bottom: 15px;
+  }
+
+  .modal-content {
+    margin-bottom: 15px;
   }
 }

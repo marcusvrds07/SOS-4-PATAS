@@ -1,4 +1,4 @@
-'{% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -21,7 +21,7 @@
     </div>
     <nav class="nav-menu" id="nav-menu">
       <a href="#">Home</a>
-      <a href="#">Contato</a>
+      <a href="#" id="contato-link">Contato</a>
       <a href="#">Doar</a>
       <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
     </nav>
@@ -148,7 +148,56 @@
   </div>
 </footer>
 
+<div class="modal-overlay" id="contato-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Contato - SOS 4 PATAS</h2>
+      <button class="close-modal" id="close-contato-modal">&times;</button>
+    </div>
+    <div class="modal-content">
+      <p>Entre em contato conosco através dos seguintes canais:</p>
+      <p><strong>WhatsApp:</strong> (51) 99999-9999</p>
+      <p><strong>Instagram:</strong> @sos4patasitaipuacu</p>
+    </div>
+    <div class="contact-buttons">
+      <a href="https://wa.me/5551999999999" class="whatsapp-btn" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/sos4patasitaipuacu" class="instagram-btn" target="_blank">Instagram</a>
+    </div>
+  </div>
+</div>
 
 <script src='{% static "home/js/scripts.js" %}'></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const contatoLink = document.getElementById("contato-link");
+    const contatoModalOverlay = document.getElementById("contato-modal-overlay");
+    const closeContatoModal = document.getElementById("close-contato-modal");
+    
+    contatoLink.addEventListener("click", function(e) {
+      e.preventDefault();
+      contatoModalOverlay.style.display = "block";
+      document.body.style.overflow = "hidden";
+    });
+    
+    closeContatoModal.addEventListener("click", function() {
+      contatoModalOverlay.style.display = "none";
+      document.body.style.overflow = "auto";
+    });
+    
+    contatoModalOverlay.addEventListener("click", function(e) {
+      if (e.target === contatoModalOverlay) {
+        contatoModalOverlay.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+    });
+    
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && contatoModalOverlay.style.display === "block") {
+        contatoModalOverlay.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+    });
+  });
+</script>
 </body>
 </html>

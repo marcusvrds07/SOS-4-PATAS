@@ -9,6 +9,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelectorAll(".slide")
   const carrousselContainer = document.querySelector(".carroussel-container")
 
+  const contatoLink = document.getElementById("contato-link")
+  const contatoModalOverlay = document.getElementById("contato-modal-overlay")
+  const closeContatoModal = document.getElementById("close-contato-modal")
+
+  if (contatoLink && contatoModalOverlay && closeContatoModal) {
+    contatoLink.addEventListener("click", (e) => {
+      e.preventDefault()
+      contatoModalOverlay.style.display = "block"
+      document.body.style.overflow = "hidden"
+    })
+
+    closeContatoModal.addEventListener("click", () => {
+      contatoModalOverlay.style.display = "none"
+      document.body.style.overflow = "auto"
+    })
+
+    contatoModalOverlay.addEventListener("click", (e) => {
+      if (e.target === contatoModalOverlay) {
+        contatoModalOverlay.style.display = "none"
+        document.body.style.overflow = "auto"
+      }
+    })
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && contatoModalOverlay.style.display === "block") {
+        contatoModalOverlay.style.display = "none"
+        document.body.style.overflow = "auto"
+      }
+    })
+  }
+
   let slideIndex = 0
 
   function resetHamburgerIcon(spans) {
@@ -101,109 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
     }
-
-    const style = document.createElement("style")
-    style.textContent = `
-      body {
-        padding-top: 80px;
-      }
-
-      .card-style {
-        max-width: 90%;
-        margin: 0 auto 40px;
-        border-radius: 14px;
-        overflow: hidden;
-        box-shadow: 
-          0 10px 25px rgba(9, 45, 115, 0.2),
-          0 6px 12px rgba(9, 45, 115, 0.15),
-          0 4px 6px rgba(247, 214, 71, 0.1),
-          0 0 0 1px rgba(9, 45, 115, 0.05);
-        background-color: white;
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
-        position: relative;
-      }
-
-      .card-style::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
-        border-top-left-radius: 14px;
-        border-top-right-radius: 14px;
-        pointer-events: none;
-      }
-
-      .card-style .carroussel {
-        width: 100%;
-        display: flex;
-      }
-
-      .card-style .slide {
-        flex: 0 0 100%;
-        min-width: 100%;
-      }
-      
-      @media (min-width: 1367px) {
-        .card-style {
-          max-width: 80%;
-          margin: 0 auto 40px;
-          box-shadow: 
-            0 15px 30px rgba(9, 45, 115, 0.2),
-            0 8px 16px rgba(9, 45, 115, 0.15),
-            0 4px 8px rgba(247, 214, 71, 0.1),
-            0 0 0 1px rgba(9, 45, 115, 0.05);
-        }
-        
-        .card-style .slide-content img {
-          max-height: 450px;
-          width: auto;
-          max-width: 100%;
-        }
-      }
-      
-      @media (min-width: 769px) and (max-width: 1366px) {
-        .card-style {
-          max-width: 85%;
-          margin: 0 auto 40px;
-        }
-        
-        .card-style .slide-content img {
-          max-height: 380px;
-          width: auto;
-          max-width: 100%;
-        }
-      }
-
-      @media (max-width: 768px) {
-        .card-style {
-          margin: 0 auto 40px;
-          box-shadow: 
-            0 8px 20px rgba(9, 45, 115, 0.18),
-            0 4px 10px rgba(9, 45, 115, 0.12),
-            0 2px 4px rgba(247, 214, 71, 0.08),
-            0 0 0 1px rgba(9, 45, 115, 0.05);
-        }
-      
-        .card-style .slide-content img {
-          border-radius: 0;
-          width: 100%;
-          height: auto;
-          object-fit: cover;
-        }
-
-        .card-style .seta {
-          width: 30px;
-          height: 30px;
-          font-size: 1.2rem;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-        }
-      }
-    `
-
-    document.head.appendChild(style)
 
     updateCarouselImages()
 
