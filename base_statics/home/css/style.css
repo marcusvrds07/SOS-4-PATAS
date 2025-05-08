@@ -883,3 +883,190 @@ body {
     width: 150px;
   }
 }
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  z-index: 1001;
+  max-width: 500px;
+  width: 90%;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  color: var(--azul-principal);
+  font-size: 24px;
+  margin: 0;
+  border-bottom: 3px solid var(--amarelo-principal);
+  padding-bottom: 8px;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--azul-principal);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  background-color: rgba(9, 45, 115, 0.1);
+}
+
+.modal-content {
+  margin-bottom: 25px;
+}
+
+.modal-content p {
+  line-height: 1.6;
+  color: var(--azul-principal);
+  margin-bottom: 15px;
+  background-color: rgba(9, 45, 115, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--azul-principal);
+}
+
+.contact-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  text-align: center;
+  flex: 1;
+}
+
+.whatsapp-btn:hover {
+  background-color: #1fba58;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+}
+
+.instagram-btn {
+  background-color: #e1306c;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+  text-align: center;
+  flex: 1;
+}
+
+.instagram-btn:hover {
+  background-color: #c13584;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    padding: 25px;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal {
+    padding: 20px;
+  }
+
+  .modal-title {
+    font-size: 20px;
+  }
+
+  .modal-content p {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .contact-buttons {
+    flex-direction: column;
+  }
+
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-title {
+    font-size: 18px;
+  }
+
+  .close-modal {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modal-content p {
+    font-size: 13px;
+  }
+}
