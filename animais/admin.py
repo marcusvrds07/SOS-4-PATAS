@@ -28,6 +28,9 @@ class AnimalAdmin(admin.ModelAdmin):
     inlines = [AnimalImageInline]
     list_display = 'id', 'nome', 'preview', 'data_nascimento',
     readonly_fields = ['data_nascimento']
+    search_fields = ['nome', 'id', 'data_nascimento']
+    list_filter = ['tipo_animal']
+    list_per_page = 5
     ordering = ['-id']
     form = AnimalForm
 

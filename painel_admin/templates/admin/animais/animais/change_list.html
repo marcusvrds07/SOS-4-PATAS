@@ -1,0 +1,61 @@
+{% extends "partials/sidebar.html" %}
+{% load admin_list static %}
+
+{% block extrastyle %}
+  <link rel="stylesheet" href="{% static "global/css/change_list.css" %}">
+  {% endblock extrastyle %}
+{% block content-pad %}
+  <h1>Gerenciar Animais</h1>
+
+  <form method="get">
+    <input type="text" name="q" placeholder="Buscar..." value="{{ cl.query }}">
+    <button type="submit">Buscar</button>
+  </form>
+
+  <form method="post" action="">
+    {% csrf_token %}
+    {% result_list cl %}
+  </form>
+
+  {% if cl.paginator.num_pages > 1 %}
+  <div class="pagination-container">
+    <h4>VOCÊ ESTÁ NA PÁGINA</h4>
+    <div class="pagination">
+
+      {% if cl.page_num > 1 %}
+        <button type="button" class="arrow-btn" id="prevPage">‹</button>
+      {% else %}
+        <button type="button" class="arrow-btn disabled" disabled>‹</button>
+      {% endif %}
+
+      <form id="pageForm" class="page-form" method="get">
+        {% for key, value in cl.params.items %}
+          {% if key != 'p' and key != 'all' %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}">
+          {% endif %}
+        {% endfor %}
+        <input
+          type="number"
+          name="p"
+          id="pageInput"
+          value="{{ cl.page_num }}"
+          min="1"
+          max="{{ cl.paginator.num_pages }}"
+          data-current="{{ cl.page_num }}">
+      </form>
+
+      <span class="divider"></span>
+      <span class="page-total display-box">{{ cl.paginator.num_pages }}</span>
+
+      {% if cl.page_num < cl.paginator.num_pages %}
+        <button type="button" class="arrow-btn" id="nextPage">›</button>
+      {% else %}
+        <button type="button" class="arrow-btn disabled" disabled>›</button>
+      {% endif %}
+
+      <button type="button" class="show-all-btn" id="showAll">Mostrar tudo</button>
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}

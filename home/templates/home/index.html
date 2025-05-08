@@ -87,9 +87,11 @@
             </div>
           </div>
         {% empty %}
-          <p style="text-align: center; color: red; font-weight: bold;">Não há animais disponíveis nesse tipo de animal ainda.</p>
+          <p style="text-align: center; color: red; font-weight: bold;">Não há animais disponíveis nesse tipo de categoria ainda.</p>
         {% endfor %}
-      </div>          
+      </div>
+
+      {% if animals.paginator.num_pages > 1 %}
       <div class="pagination-container">
         <h4>VOCÊ ESTÁ NA PÁGINA</h4>
         <div class="pagination">
@@ -120,7 +122,8 @@
             <button type="button" class="arrow-btn disabled" disabled>›</button>
           {% endif %}
         </div>
-      </div>     
+      </div>
+      {% endif %} 
 
       
     {% endif %}
