@@ -74,13 +74,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function updateCarouselImages() {
       const screenWidth = window.innerWidth
 
-      // Aplicar estilo de card para todos os dispositivos móveis
-      if (screenWidth <= 768) {
-        if (!carrousselContainer.classList.contains("card-style")) {
-          carrousselContainer.classList.add("card-style")
-        }
-      } else {
-        carrousselContainer.classList.remove("card-style")
+      if (!carrousselContainer.classList.contains("card-style")) {
+        carrousselContainer.classList.add("card-style")
       }
 
       slides.forEach((slide, index) => {
@@ -95,10 +90,8 @@ document.addEventListener("DOMContentLoaded", () => {
           } else if (screenWidth <= 430) {
             sizePrefix = "grande"
           } else if (screenWidth <= 768) {
-            // Para dispositivos maiores que 430px mas ainda móveis, use as imagens grandes
             sizePrefix = "grande"
           } else {
-            // Para telas maiores que 768px, use as imagens originais
             imgElement.setAttribute("src", originalSources[index])
             return
           }
@@ -109,36 +102,89 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     }
 
-    // Adicionar estilos CSS para o card do carrossel
     const style = document.createElement("style")
     style.textContent = `
-      /* Se sua navbar for fixa no topo, você precisa compensar o espaço dela no body */
       body {
-        padding-top: 80px; /* ajuste conforme a altura real da sua navbar */
+        padding-top: 80px;
       }
-    
+
       .card-style {
         max-width: 90%;
-        margin: 40px auto; /* Aumentado de 20px para 40px */
+        margin: 0 auto 40px;
         border-radius: 14px;
         overflow: hidden;
-        box-shadow: 0 6px 16px rgba(9, 45, 115, 0.15);
+        box-shadow: 
+          0 10px 25px rgba(9, 45, 115, 0.2),
+          0 6px 12px rgba(9, 45, 115, 0.15),
+          0 4px 6px rgba(247, 214, 71, 0.1),
+          0 0 0 1px rgba(9, 45, 115, 0.05);
         background-color: white;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        position: relative;
       }
-    
+
+      .card-style::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+        border-top-left-radius: 14px;
+        border-top-right-radius: 14px;
+        pointer-events: none;
+      }
+
       .card-style .carroussel {
         width: 100%;
         display: flex;
       }
-    
+
       .card-style .slide {
         flex: 0 0 100%;
         min-width: 100%;
       }
-    
+      
+      @media (min-width: 1367px) {
+        .card-style {
+          max-width: 80%;
+          margin: 0 auto 40px;
+          box-shadow: 
+            0 15px 30px rgba(9, 45, 115, 0.2),
+            0 8px 16px rgba(9, 45, 115, 0.15),
+            0 4px 8px rgba(247, 214, 71, 0.1),
+            0 0 0 1px rgba(9, 45, 115, 0.05);
+        }
+        
+        .card-style .slide-content img {
+          max-height: 450px;
+          width: auto;
+          max-width: 100%;
+        }
+      }
+      
+      @media (min-width: 769px) and (max-width: 1366px) {
+        .card-style {
+          max-width: 85%;
+          margin: 0 auto 40px;
+        }
+        
+        .card-style .slide-content img {
+          max-height: 380px;
+          width: auto;
+          max-width: 100%;
+        }
+      }
+
       @media (max-width: 768px) {
         .card-style {
-          margin-top: 40px; /* Aumentado de 20px para 40px */
+          margin: 0 auto 40px;
+          box-shadow: 
+            0 8px 20px rgba(9, 45, 115, 0.18),
+            0 4px 10px rgba(9, 45, 115, 0.12),
+            0 2px 4px rgba(247, 214, 71, 0.08),
+            0 0 0 1px rgba(9, 45, 115, 0.05);
         }
       
         .card-style .slide-content img {
@@ -147,11 +193,12 @@ document.addEventListener("DOMContentLoaded", () => {
           height: auto;
           object-fit: cover;
         }
-    
+
         .card-style .seta {
           width: 30px;
           height: 30px;
           font-size: 1.2rem;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
         }
       }
     `
