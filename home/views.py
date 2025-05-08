@@ -57,9 +57,6 @@ def home(request):
             else:
                 animal.data_nascimento = 'Não informado'
 
-
-
-
         # Contexto para o template
         context = {
             'first_type': type_selected,
