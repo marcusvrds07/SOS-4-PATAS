@@ -19,11 +19,10 @@ caminho_imagens = 'base_statics/home/img/pack_de_cachorros'
 imagens_disponiveis = os.listdir(caminho_imagens)
 
 
-qtd = int(input('Digite a quantidade de cachorros que deseja gerar: '))
 escolha_tipo = input('tipo animal: ')
 tipo = tipoAnimal.objects.get(tipo_animal=escolha_tipo)
 
-for i in range(qtd):
+for i in range(10):
     idade_anos = random.randint(0, 10)
     idade_meses = random.randint(0, 11)
     data_nascimento = date.today() - relativedelta(years=idade_anos, months=idade_meses)
