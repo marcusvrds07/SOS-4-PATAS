@@ -13,11 +13,20 @@
   </form>
 
   <form method="post" action="">
-    {% csrf_token %}
-    {% result_list cl %}
+    <div class="table-wrapper">
+      {% csrf_token %}
+      {% result_list cl %}
+    </div>
   </form>
 
-  {% if cl.paginator.num_pages > 1 %}
+  {% if not cl.params.all|stringformat:"s" %}
+  <div class="pagination-container">
+    <h4>EXIBINDO TODOS OS REGISTROS</h4>
+    <div class="pagination">
+      <button type="button" class="arrow-btn" id="backToPaged">Voltar à paginação</button>
+    </div>
+  </div>
+{% elif cl.paginator.num_pages > 1 %}
   <div class="pagination-container">
     <h4>VOCÊ ESTÁ NA PÁGINA</h4>
     <div class="pagination">
@@ -57,5 +66,18 @@
     </div>
   </div>
 {% endif %}
+
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('action-toggle');
+    const checks = document.querySelectorAll('.action-select');
+
+    if (toggle && checks.length) {
+      toggle.addEventListener('change', function () {
+        checks.forEach(c => c.checked = toggle.checked);
+      });
+    }
+  });
+</script>
 
 {% endblock %}

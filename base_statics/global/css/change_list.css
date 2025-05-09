@@ -1,63 +1,132 @@
-/* Título da página */
 h1 {
-  font-size: 28px;
-  color: #1d3557;
-  margin-bottom: 20px;
-}
+    font-size: 32px;
+    color: #1d3557;
+    font-weight: bold;
+    margin: 30px 0 20px;
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  
+  form[method="get"] {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    padding: 0 8px;
+  }
+  
+  form[method="get"] input[type="text"] {
+    flex: 1;
+    padding: 12px 16px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+  }
+  
+  form[method="get"] input[type="text"]:focus {
+    border-color: #1d3557;
+    outline: none;
+  }
+  
+  form[method="get"] button {
+    background-color: #f7d647;
+    color: #1d3557;
+    padding: 11px 22px;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.2s;
+    box-shadow: 0 4px 8px rgba(25, 84, 203, 0.15);
+  }
+  
+  form[method="get"] button:hover {
+    background-color: #ffe100;
+    box-shadow: 0 6px 12px rgba(25, 84, 203, 0.25);
+  }
+  
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+  }
+  
+  .grp-module,
+  .grp-changelist-results,
+  #result_list {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    table-layout: fixed;
+  }
+  
+  #result_list thead {
+    background-color: #f7d647;
+  }
+  
+  #result_list th {
+    padding: 16px 18px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #1d3557;
+    text-transform: uppercase;
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  #result_list thead a {
+    color: #1d3557;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  #result_list thead a:hover {
+    color: #0b2545;
+  }
+  
+  #result_list td {
+    padding: 16px 18px;
+    font-size: 15px;
+    color: #333;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: white;
+  }
+  
+  .field-id {
+    background-color: white !important;
+  }
+  
+  #result_list img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: none;
+    background-color: transparent;
+    padding: 0;
+  }
 
-/* Formulário de busca */
-form[method="get"] {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
+  .field-acoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 4rem;
+  }
 
-form[method="get"] input[type="text"] {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-form[method="get"] button {
-  background-color: #1d3557;
-  color: white;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-form[method="get"] button:hover {
-  background-color: #0b2545;
-}
-
-/* Resultado da listagem */
-.grp-module, .grp-changelist-results, #result_list {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: white;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
-
-#result_list th,
-#result_list td {
-  padding: 12px 15px;
-  border-bottom: 1px solid #eee;
-}
-
-#result_list th {
-  background-color: #eaeff5;
-  font-weight: 600;
-  color: #333;
-}
-
-#result_list tr:hover {
-  background-color: #f1f7ff;
-}
+  .action-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
 
 .pagination-container h4 {
     text-align: center;
@@ -116,7 +185,7 @@ form[method="get"] button:hover {
     outline: none;
     -moz-appearance: textfield;
     position: relative;
-    top: 10px;
+    top: 14px;
   }
   
   .page-form input::-webkit-outer-spin-button,
@@ -161,3 +230,6 @@ form[method="get"] button:hover {
     background-color: #154aa6;
   }
   
+  #backToPaged {
+    width: 171px;
+  }

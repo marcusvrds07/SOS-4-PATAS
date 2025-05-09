@@ -67,80 +67,103 @@ function isSamePassword() {
     menu.classList.toggle("active")
   }
   
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.getElementById("pageInput")
-  if (!input) return
-
-  const prevBtn = document.getElementById("prevPage")
-  const nextBtn = document.getElementById("nextPage")
-  const form = document.getElementById("pageForm")
-  const showAllBtn = document.getElementById("showAll")
-
-  const min = Number(input.min)
-  const max = Number(input.max)
-  const current = Number(input.dataset.current)
-  let clickedArrow = false
-
-  input.addEventListener("input", () => {
-    let val = input.value.replace(/[^0-9]/g, "")
-    input.value = val
-  })
-
-  input.addEventListener("keydown", (e) => {
-    const val = Number(input.value) || current
-    if (e.key === "ArrowUp" && val < max) input.value = val + 1
-    if (e.key === "ArrowDown" && val > min) input.value = val - 1
-    if (e.key === "Enter") {
-      e.preventDefault()
+  document.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("pageInput")
+    const prevBtn = document.getElementById("prevPage")
+    const nextBtn = document.getElementById("nextPage")
+    const form = document.getElementById("pageForm")
+    const showAllBtn = document.getElementById("showAll")
+    const backToPagedBtn = document.getElementById("backToPaged")
+    
+    if (backToPagedBtn) {
+      backToPagedBtn.addEventListener("click", () => {
+        const url = new URL(window.location.href)
+        url.searchParams.delete("all")
+        url.searchParams.set("p", "1")
+        window.location.href = url.toString()
+      })
+    }    
+  
+    if (!input) return
+  
+    const min = Number(input.min)
+    const max = Number(input.max)
+    const current = Number(input.dataset.current)
+    let clickedArrow = false
+  
+    input.addEventListener("input", () => {
+      const val = input.value
+      const numeric = val.replace(/[^0-9]/g, "")
+      if (numeric === "") {
+        input.value = ""
+        return
+      }
+  
+      const num = Number(numeric)
+  
+      if (num >= min && num <= max) {
+        input.value = numeric
+      } else {
+        input.value = input.value.slice(0, -1)
+      }
+    })
+  
+    input.addEventListener("keydown", (e) => {
+      const val = Number(input.value) || current
+      if (e.key === "ArrowUp" && val < max) input.value = val + 1
+      if (e.key === "ArrowDown" && val > min) input.value = val - 1
+      if (e.key === "Enter") {
+        e.preventDefault()
+        const page = Number(input.value)
+        if (page >= min && page <= max) {
+          goToPage(page)
+        } else {
+          input.value = current
+        }
+      }
+    })
+  
+    input.addEventListener("blur", () => {
+      if (clickedArrow) {
+        clickedArrow = false
+        return
+      }
       const page = Number(input.value)
-      if (page >= min && page <= max) {
+      if (page && page !== current && page >= min && page <= max) {
         goToPage(page)
       } else {
         input.value = current
       }
-    }
-  })
-
-  input.addEventListener("blur", () => {
-    if (clickedArrow) {
-      clickedArrow = false
-      return
-    }
-    const page = Number(input.value)
-    if (page && page !== current && page >= min && page <= max) {
-      goToPage(page)
-    } else {
-      input.value = current
-    }
-  })
-
-  if (prevBtn) {
-    prevBtn.addEventListener("mousedown", () => (clickedArrow = true))
-    prevBtn.addEventListener("click", () => {
-      if (current > min) goToPage(current - 1)
     })
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener("mousedown", () => (clickedArrow = true))
-    nextBtn.addEventListener("click", () => {
-      if (current < max) goToPage(current + 1)
-    })
-  }
-
-  if (showAllBtn) {
-    showAllBtn.addEventListener("click", () => {
+  
+    if (prevBtn) {
+      prevBtn.addEventListener("mousedown", () => (clickedArrow = true))
+      prevBtn.addEventListener("click", () => {
+        if (current > min) goToPage(current - 1)
+      })
+    }
+  
+    if (nextBtn) {
+      nextBtn.addEventListener("mousedown", () => (clickedArrow = true))
+      nextBtn.addEventListener("click", () => {
+        if (current < max) goToPage(current + 1)
+      })
+    }
+  
+    if (showAllBtn) {
+      showAllBtn.addEventListener("click", () => {
+        const url = new URL(window.location.href)
+        url.searchParams.delete("p")
+        url.searchParams.set("all", "")
+        window.location.href = url.toString()
+      })
+    }
+  
+    function goToPage(page) {
       const url = new URL(window.location.href)
-      url.searchParams.delete("p")
-      url.searchParams.set("all", "")
+      url.searchParams.set("p", page)
+      url.searchParams.delete("all")
       window.location.href = url.toString()
-    })
-  }
-
-  function goToPage(page) {
-    const url = new URL(window.location.href)
-    url.searchParams.set("p", page)
-    url.searchParams.delete("all")
-    window.location.href = url.toString()
-  }
-})
+    }
+  })
+  
