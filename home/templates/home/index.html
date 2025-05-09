@@ -1,32 +1,17 @@
+{% extends "home/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS 4 PATAS</title>
-    <link rel="stylesheet" href="{% static "home/css/style.css" %}">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-</head>
-<body>
 
-  <div class="navbar" id="navbar">
-    <div class="logo">
-      <img src="{% static 'home/img/sos.png' %}" alt="SOS 4PATAS">
-  </div>
-    <div class="menu-toggle" id="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <nav class="nav-menu" id="nav-menu">
-      <a href="#">Home</a>
-      <a href="#" id="contato-link">Contato</a>
-      <a href="#">Doar</a>
-      <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
-    </nav>
-  </div>
-  
+{% block title %}Home - SOS 4 PATAS{% endblock title %}{{animal.nome}}
+
+
+{% block navbar_links %}
+  <a href="#">Home</a>
+  <a href="#" id="contato-link">Contato</a>
+  <a href="#">Doar</a>
+  <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
+{% endblock navbar_links %}
+
+{% block content-base %}
 <div class="carroussel-main">
   <div class="carroussel-container">
     <div class="carroussel" id="carroussel">
@@ -130,26 +115,7 @@
   </section>
 </div>
 
-<footer class="footer">
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="{% static 'home/img/sos.png' %}" alt="Logo SOS 4 PATAS">
-      <p>SOS 4 PATAS<br>Conectando animais a novos lares.</p>
-    </div>
-    <div class="footer-social">
-      <h4>Siga no Instagram</h4>
-      <a href="https://instagram.com/sos4patasitaipuacu" target="_blank">@sos4patasitaipuacu</a>
-    </div>     
-    <div class="footer-contact">
-      <h4>Contato</h4>
-      <p>Email: contato@sos4patas.org</p>
-      <p>WhatsApp: (51) 99999-9999</p>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025 SOS 4 PATAS. Todos os direitos reservados.</p>
-  </div>
-</footer>
+{% include "home/partials/footer.html" %}
 
 <div class="modal-overlay" id="contato-modal-overlay">
   <div class="modal">
@@ -169,38 +135,11 @@
   </div>
 </div>
 
+{% endblock content-base %}
+{% block script %}
 <script src='{% static "home/js/scripts.js" %}'></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const contatoLink = document.getElementById("contato-link");
-    const contatoModalOverlay = document.getElementById("contato-modal-overlay");
-    const closeContatoModal = document.getElementById("close-contato-modal");
-    
-    contatoLink.addEventListener("click", function(e) {
-      e.preventDefault();
-      contatoModalOverlay.style.display = "block";
-      document.body.style.overflow = "hidden";
-    });
-    
-    closeContatoModal.addEventListener("click", function() {
-      contatoModalOverlay.style.display = "none";
-      document.body.style.overflow = "auto";
-    });
-    
-    contatoModalOverlay.addEventListener("click", function(e) {
-      if (e.target === contatoModalOverlay) {
-        contatoModalOverlay.style.display = "none";
-        document.body.style.overflow = "auto";
-      }
-    });
-    
-    document.addEventListener("keydown", function(e) {
-      if (e.key === "Escape" && contatoModalOverlay.style.display === "block") {
-        contatoModalOverlay.style.display = "none";
-        document.body.style.overflow = "auto";
-      }
-    });
-  });
-</script>
+<script src='{% static "home/js/partials-js/hamburguer.js" %}'></script>
+<script src='{% static "home/js/partials-js/modal.js" %}'></script>
 </body>
 </html>
+{% endblock script %}
