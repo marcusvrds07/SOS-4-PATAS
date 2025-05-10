@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro de Animal - Gestão de Animais</title>
+  <title>{% block title %}Cadastro de Animal - SOS 4 PATAS{% endblock title %}</title>
   
   <link rel="stylesheet" href="{% static 'global/css/admin_index.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -43,21 +43,16 @@
                       <table>
                         <tbody>
                           {% for model in app.models %}
-                            <li class="model-item">
+                            {% if model.admin_url %}
+                              <li class="model-item" onclick="window.location.href='{{model.admin_url}}'">
+                            {% else %}
+                               <li class="model-item" id='no-perm'></li>
+                            {% endif %}
                               <span class="model-name">{{ model.name }}</span>
                               <span class="model-actions">
-                                {% if model.admin_url %}
-                                  <a href="{{ model.admin_url }}" class="icon-btn" title="Consultar">
-                                    <i class="fas fa-search"></i>
-                                  </a>
-                                {% else %}
-                                  <span class="icon-btn no-access" title="Sem permissão">
-                                    <i class="fas fa-search"></i>
-                                  </span>
-                                {% endif %}
           
                                 {% if model.add_url %}
-                                  <a href="{{ model.add_url }}" class="icon-btn" title="Adicionar">
+                                  <a href="{{ model.add_url }}" class="icon-btn" title="Adicionar {{ model.name }}">
                                     <i class="fas fa-plus"></i>
                                   </a>
                                 {% else %}
@@ -84,24 +79,23 @@
               <i class="fas fa-users-cog"></i> Gerência <i class="arrow down"></i>
             </button>
             <ul class="submenu" id="management">
-              <li class="model-item">
+              <li class="model-item"
+                  onclick="window.location.href='{% url 'admin:auth_group_changelist' %}'">
                 <span class="model-name">Grupos</span>
                 <span class="model-actions">
-                  <a href="{% url 'admin:auth_group_changelist' %}" class="icon-btn" title="Consultar">
-                    <i class="fas fa-search"></i>
-                  </a>
-                  <a href="{% url 'admin:auth_group_add' %}" class="icon-btn" title="Adicionar">
+                  <a href="{% url 'admin:auth_group_add' %}"
+                    class="icon-btn"
+                    title="Adicionar Grupos"
+                    onclick="event.stopPropagation();">
                     <i class="fas fa-plus"></i>
                   </a>
                 </span>
               </li>
-              <li class="model-item">
+
+              <li class="model-item" onclick="window.location.href='{% url 'admin:auth_user_changelist' %}'">
                 <span class="model-name">Usuários</span>
                 <span class="model-actions">
-                  <a href="{% url 'admin:auth_user_changelist' %}" class="icon-btn" title="Consultar">
-                    <i class="fas fa-search"></i>
-                  </a>
-                  <a href="{% url 'admin:auth_user_add' %}" class="icon-btn" title="Adicionar">
+                  <a href="{% url 'admin:auth_user_add' %}" class="icon-btn" title="Adicionar Usuários" onclick="event.stopPropagation();">
                     <i class="fas fa-plus"></i>
                   </a>
                 </span>

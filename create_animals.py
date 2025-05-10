@@ -13,16 +13,28 @@ from animais.models import Animais, tipoAnimal
 nomes = ['Luna', 'Thor', 'Mel', 'Bob', 'Nina', 'Rex', 'Bela', 'Toby', 'Lola', 'Max']
 sexos = ['Fêmea', 'Macho']
 portes = ['Pequeno', 'Médio', 'Grande']
-especies = ['Cachorro', 'Gato']
+racas = ['Cachorro', 'Gato']
 
 caminho_imagens = 'base_statics/home/img/pack_de_cachorros' 
 imagens_disponiveis = os.listdir(caminho_imagens)
 
+tipos = list(tipoAnimal.objects.values_list('nome', flat=True))
 
-escolha_tipo = input('tipo animal: ')
-tipo = tipoAnimal.objects.get(tipo_animal=escolha_tipo)
+qtd = 0
+while True:
+    qtd = int(input('Digite um número de 1-10 para quantidade de animais que deseja gerar: '))
+    if 1 <= qtd <= 10:
+        break
 
-for i in range(10):
+print("Raças disponíveis:", ", ".join(racas))
+
+while True:
+    escolha_tipo = input("Escolha um tipo (digite exatamente): ").strip()
+    if escolha_tipo in tipos:
+        tipo = tipoAnimal.objects.get(nome=escolha_tipo)
+        break
+
+for i in range(qtd):
     idade_anos = random.randint(0, 10)
     idade_meses = random.randint(0, 11)
     data_nascimento = date.today() - relativedelta(years=idade_anos, months=idade_meses)
@@ -31,9 +43,9 @@ for i in range(10):
         nome=nomes[i],
         sexo=random.choice(sexos),
         porte=random.choice(portes),
-        especie=random.choice(especies),
+        raca=random.choice(racas),
         descricao=f"Animal gerado automaticamente para testes ({i})",
-        tipo_animal=tipo,
+        especie=tipo,
         disponivel_para_adocao=True,
         data_nascimento=data_nascimento
     )

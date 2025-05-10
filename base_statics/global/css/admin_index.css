@@ -56,9 +56,10 @@ body {
 .options h2 {
   font-size: 14px;
   color: #f7d647;
-  margin: 10px 0 20px 10px;
+  margin: 10px 0 20px 0px;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 .menu-item {
@@ -140,6 +141,11 @@ body {
   justify-content: space-between;
   color: #fff;
   transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+#no-perm {
+  cursor: default;
 }
 
 .model-item:hover {

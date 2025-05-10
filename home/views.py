@@ -13,7 +13,7 @@ def home(request):
     context = {}
 
     for type in types:
-        total = Animais.objects.filter(tipo_animal=type, disponivel_para_adocao=True).count()
+        total = Animais.objects.filter(especie=type, disponivel_para_adocao=True).count()
         
         data_types.append({
             'type': type,
@@ -34,7 +34,7 @@ def home(request):
     
     if type_selected:
         # Filtra os animais disponíveis para adoção
-        animais = Animais.objects.filter(tipo_animal=type_selected, disponivel_para_adocao=True)
+        animais = Animais.objects.filter(especie=type_selected, disponivel_para_adocao=True)
 
         # Paginação dos resultados
         paginator = Paginator(animais, 10)

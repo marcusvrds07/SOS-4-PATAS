@@ -15,29 +15,31 @@ def capa_upload_path(instance, filename):
     return os.path.join('foto_capa', str(instance.id), filename)
 
 class tipoAnimal(models.Model):
+    class Meta:
+        verbose_name = "Categoria do Animal"
+        verbose_name_plural = 'Categorias dos Animais'
     
-    tipo_animal = models.CharField(max_length=50)
+    nome = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'{self.tipo_animal}'
+        return f'{self.nome}'
 
-#new branch
 class Animais(models.Model):
     class Meta:
         verbose_name = "Animal"
         verbose_name_plural = 'Animais'
 
+    foto = models.ImageField(upload_to=capa_upload_path)
     nome = models.CharField(max_length=100)
     idade_anos = None
     idade_meses = None
+    data_nascimento = models.DateField(blank=True, null=True)
     sexo = models.CharField(choices=[('Fêmea', 'Fêmea'), ('Macho', 'Macho')])
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
-    especie = models.CharField(max_length=30)
-    descricao = models.TextField(blank=True)
-    tipo_animal = models.ForeignKey(tipoAnimal, on_delete=models.SET_NULL, null=True)
+    raca = models.CharField(max_length=30)
+    especie = models.ForeignKey(tipoAnimal, on_delete=models.SET_NULL, null=True)
     disponivel_para_adocao = models.BooleanField(default=True)
-    foto = models.ImageField(upload_to=capa_upload_path)
-    data_nascimento = models.DateField(blank=True, null=True)
+    descricao = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         if self.idade_anos is not None or self.idade_meses is not None:

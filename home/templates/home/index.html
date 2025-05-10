@@ -42,13 +42,13 @@
     {% else %}
       <div class="custom-select" id="customSelect">
         <div class="selected-option">
-          <span id="select-text">{{ first_type.tipo_animal }}</span>
+          <span id="select-text">{{ first_type.nome }}</span>
           <i class="arrow down"></i>
           <div class="options">
             {% for data_type in data_types %}
                 <div class="categoria">
                   <a href="?tipo_id={{ data_type.type.id }}#adoption" class="option">
-                    {{ data_type.type.tipo_animal }}
+                    {{ data_type.type.nome }}
                   </a>
                 </div>
             {% endfor %}

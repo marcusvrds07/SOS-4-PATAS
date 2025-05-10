@@ -23,7 +23,7 @@ class AnimalImageInline(admin.TabularInline):
 
 @admin.register(models.tipoAnimal)
 class tipoAnimal(admin.ModelAdmin):
-    list_display = 'tipo_animal',
+    list_display = 'nome',
 
 @admin.register(models.Animais)
 class AnimalAdmin(admin.ModelAdmin):
@@ -31,7 +31,7 @@ class AnimalAdmin(admin.ModelAdmin):
     list_display = 'id', 'nome', 'data_nascimento', 'preview', 'acoes', 
     readonly_fields = ['data_nascimento']
     search_fields = ['nome', 'id', 'data_nascimento']
-    list_filter = ['tipo_animal']
+    list_filter = ['especie']
     list_per_page = 5
     ordering = ['-id']
     form = AnimalForm

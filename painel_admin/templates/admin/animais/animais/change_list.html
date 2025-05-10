@@ -66,9 +66,11 @@
     </div>
   </div>
 {% endif %}
+{% endblock %}
 
-<script>
-  window.addEventListener('DOMContentLoaded', function () {
+{% block extrajs %}
+  <script>
+      window.addEventListener('DOMContentLoaded', function () {
     const toggle = document.getElementById('action-toggle');
     const checks = document.querySelectorAll('.action-select');
 
@@ -78,6 +80,6 @@
       });
     }
   });
-</script>
+  </script>
+{% endblock extrajs %}
 
-{% endblock %}
