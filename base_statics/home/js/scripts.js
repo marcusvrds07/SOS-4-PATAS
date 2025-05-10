@@ -80,7 +80,6 @@
     if (navbar) navbar.classList.toggle("scrolled", window.scrollY > 50)
     closeSelect()
   })
-})
 
 // Sessão: Paginação
 document.addEventListener("DOMContentLoaded", () => {
