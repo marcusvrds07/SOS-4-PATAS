@@ -1,237 +1,84 @@
+{% extends "home/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ animal.nome }}</title>
-    <link rel="stylesheet" href="{% static 'home/css/animalpag.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-</head>
-<body>
 
-<div class="navbar" id="navbar">
-    <a href="#" class="logo-link" id="logo-link">
-        <div class="title_span">
-            <span class="sos">SOS</span><br>
-            <span class="patas">4PATAS</span>
+{% block title %}{{animal.nome}} - SOS 4 PATAS{% endblock title %}{{animal.nome}}
+
+{% block head-links %}
+    <link rel="stylesheet" href="{% static 'home/css/animalpag.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/partials-css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/partials-css/footer.css' %}">
+{% endblock head-links %}
+
+{% block logo %}
+    <a href="{% url "home:index" %}" class="logo-link" id="logo-link">
+        <div class="logo">
+            <img src="{% static 'home/img/sos.png' %}" alt="SOS 4PATAS">
         </div>
     </a>
-    <div class="menu-toggle" id="menu-toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <nav class="nav-menu" id="nav-menu">
-        <a href="{% url 'home:index' %}">Home</a>
-        <a href="#">Contato</a>
-        <a href="#">Doar</a>
-        <a href="#" class="btn-doacao" id="quero-adotar">Voltar</a>
-    </nav>
-</div>
+{% endblock logo %}
 
-<div class="container">
-    <div class="image-section">
-        <div class="image-container">
-            <div class="main-image-wrapper">
-                <img id="mainImage" class="main-img" src="{{ animal.foto.url }}" alt="Foto da Capa de um Cachorro">
-                {% if animal.images.all %}
-                <button class="arrow-btn prev-btn">&#10094;</button>
-                <button class="arrow-btn next-btn">&#10095;</button>
-                {% endif %}
-            </div>
-            <div class="gallery">
-                {% for img in animal.images.all %}
-                    <img class="thumbnail" src="{{ img.image.url }}" alt="Foto do animal">
-                {% empty %}
-                    <p>Não há imagens na galeria ainda.</p>
-                {% endfor %}
+{% block navbar_links %}
+    <a href="#" class="btn-doacao" id="quero-adotar">Voltar</a>
+{% endblock navbar_links %}
+
+
+{% block content-base %}
+    <div class="container">
+        <div class="image-section">
+            <div class="image-container">
+                <div class="main-image-wrapper">
+                    <img id="mainImage" class="main-img" src="{{ animal.foto.url }}" alt="Foto da Capa de um Cachorro">
+                    {% if animal.images.all %}
+                    <button class="arrow-btn prev-btn">&#10094;</button>
+                    <button class="arrow-btn next-btn">&#10095;</button>
+                    {% endif %}
+                </div>
+                <div class="gallery">
+                    {% for img in animal.images.all %}
+                        <img class="thumbnail" src="{{ img.image.url }}" alt="Foto do animal">
+                    {% empty %}
+                        <p>Não há imagens na galeria ainda.</p>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="details-section">
-        <h1>{{ animal.nome }} <span class="animal-id">#{{ animal.id }}</span></h1>
-        <p class="info-item"><strong>Idade:</strong> 
-            {% if animal.anos > 0 %} 
-                {% if animal.meses > 0 %}
-                    {{animal.anos}} ano(s) e {{ animal.meses}} mes(es) 
-                {% else %}
-                    {{animal.anos}} ano(s)
-                {% endif %}
-            {% else %}
-            {{ animal.meses }} mes(es)
-            {% endif %}
-        </p>
-        <p class="info-item"><strong>Sexo:</strong> {{ animal.sexo }}</p>
-        <p class="info-item"><strong>Porte:</strong> {{ animal.porte }}</p>
-        <p class="info-item"><strong>Espécie:</strong> {{ animal.especie }}</p>
-        <p class="description"><strong>Descrição:</strong> {% if animal.descricao %}{{ animal.descricao|linebreaksbr }} {% else %} Nenhuma descrição foi definida! {% endif %}</p>
+        <div class="details-section">
+            <h1>{{ animal.nome }} <span class="animal-id">#{{ animal.id }}</span></h1>
+            <p class="info-item"><strong>Idade:</strong>
+                {{animal.data_nascimento}}
+            </p>                                      
+            <p class="info-item"><strong>Sexo:</strong> {{ animal.sexo }}</p>
+            <p class="info-item"><strong>Porte:</strong> {{ animal.porte }}</p>
+            <p class="info-item"><strong>Raça:</strong> {{ animal.raca }}</p>
+            <p class="description"><strong>Descrição:</strong> {% if animal.descricao %}{{ animal.descricao|linebreaksbr }} {% else %} Nenhuma descrição foi definida! {% endif %}</p>
 
-        <a href="#" class="button" id="adotar-btn">Quero adotar</a>
-    </div>
-</div>
-
-<div class="modal-overlay" id="modal-overlay">
-    <div class="modal">
-        <div class="modal-header">
-            <h2 class="modal-title">Adoção - SOS 4PATAS</h2>
-            <button class="close-modal" id="close-modal">&times;</button>
+            <a href="#" class="button" id="adotar-btn">Quero adotar</a>
         </div>
-        <div class="modal-content">
-            <p>Você será redirecionado para enviar uma mensagem diretamente para a SOS 4PATAS via WhatsApp.</p>
-            <p>Ao clicar em "Enviar", você será conectado com nossa equipe para iniciar o processo de adoção do(a) <strong>{{ animal.nome }} (ID: #{{ animal.id }})</strong>.</p>
-        </div>
-        <a href="#" class="whatsapp-btn" id="whatsapp-btn">Enviar Mensagem</a>
     </div>
-</div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let previousPage = document.referrer || "{% url 'home:index' %}";
-        let urlObj = new URL(previousPage);
-        urlObj.hash = "adoption";
-        previousPage = urlObj.toString();
-        
-        const logoLink = document.getElementById("logo-link");
-        const voltarBtn = document.getElementById("quero-adotar");
-        
-        logoLink.addEventListener("click", function(e) {
-            e.preventDefault();
-            window.location.href = previousPage;
-        });
-        
-        voltarBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            window.location.href = previousPage;
-        });
-        
-        const mainImage = document.getElementById("mainImage");
-        const thumbnails = document.querySelectorAll(".thumbnail");
-        const prevBtn = document.querySelector(".prev-btn");
-        const nextBtn = document.querySelector(".next-btn");
-        const adotarBtn = document.getElementById("adotar-btn");
-        const modalOverlay = document.getElementById("modal-overlay");
-        const closeModal = document.getElementById("close-modal");
-        const whatsappBtn = document.getElementById("whatsapp-btn");
-        const menuToggle = document.getElementById("menu-toggle");
-        const navMenu = document.getElementById("nav-menu");
-        
-        if (menuToggle) {
-            menuToggle.addEventListener("click", function() {
-                navMenu.classList.toggle("active");
-                
-                const spans = this.querySelectorAll("span");
-                if (navMenu.classList.contains("active")) {
-                    spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
-                    spans[1].style.opacity = "0";
-                    spans[2].style.transform = "rotate(-45deg) translate(7px, -6px)";
-                } else {
-                    spans[0].style.transform = "none";
-                    spans[1].style.opacity = "1";
-                    spans[2].style.transform = "none";
-                }
-            });
-            
-            const navLinks = navMenu.querySelectorAll("a");
-            navLinks.forEach(link => {
-                link.addEventListener("click", function() {
-                    navMenu.classList.remove("active");
-                    const spans = menuToggle.querySelectorAll("span");
-                    spans[0].style.transform = "none";
-                    spans[1].style.opacity = "1";
-                    spans[2].style.transform = "none";
-                });
-            });
-        }
-        
-        if (thumbnails.length > 0) {
-            function swapWithThumbnail(thumbnailIndex) {
-                if (thumbnailIndex >= 0 && thumbnailIndex < thumbnails.length) {
-                    const tempSrc = mainImage.src;
-                    mainImage.src = thumbnails[thumbnailIndex].src;
-                    thumbnails[thumbnailIndex].src = tempSrc;
-                }
-            }
-            
-            if (prevBtn) {
-                prevBtn.addEventListener("click", function() {
-                    swapWithThumbnail(thumbnails.length - 1);
-                    
-                    const lastThumbnailSrc = thumbnails[thumbnails.length - 1].src;
-                    for (let i = thumbnails.length - 1; i > 0; i--) {
-                        thumbnails[i].src = thumbnails[i - 1].src;
-                    }
-                    thumbnails[0].src = lastThumbnailSrc;
-                });
-            }
-            
-            if (nextBtn) {
-                nextBtn.addEventListener("click", function() {
-                    swapWithThumbnail(0);
-                    
-                    const firstThumbnailSrc = thumbnails[0].src;
-                    for (let i = 0; i < thumbnails.length - 1; i++) {
-                        thumbnails[i].src = thumbnails[i + 1].src;
-                    }
-                    thumbnails[thumbnails.length - 1].src = firstThumbnailSrc;
-                });
-            }
-            
-            thumbnails.forEach(function (thumb) {
-                thumb.addEventListener("click", function () {
-                    const tempSrc = mainImage.src;
-                    mainImage.src = this.src;
-                    this.src = tempSrc;
-                });
-            });
-        }
-        
-        window.addEventListener("scroll", function() {
-            const navbar = document.getElementById("navbar");
-            if (window.scrollY > 50) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
-        });
-        
-        adotarBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            modalOverlay.style.display = "block";
-            document.body.style.overflow = "hidden";
-        });
-        
-        closeModal.addEventListener("click", function() {
-            modalOverlay.style.display = "none";
-            document.body.style.overflow = "auto";
-        });
-        
-        modalOverlay.addEventListener("click", function(e) {
-            if (e.target === modalOverlay) {
-                modalOverlay.style.display = "none";
-                document.body.style.overflow = "auto";
-            }
-        });
-        
-        document.addEventListener("keydown", function(e) {
-            if (e.key === "Escape" && modalOverlay.style.display === "block") {
-                modalOverlay.style.display = "none";
-                document.body.style.overflow = "auto";
-            }
-        });
-        
-        whatsappBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            const phoneNumber = "21968049191";
-            const animalNome = "{{ animal.nome }}";
-            const animalId = "{{ animal.id }}";
-            const message = `Olá, SOS 4PATAS! Estou interessado(a) em adotar o(a) *${animalNome} (Número identificador: #${animalId})*. Gostaria de saber mais informações sobre o processo de adoção e como posso conhecê-lo(a) pessoalmente. Obrigado(a)!`;
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            window.open(whatsappUrl, '_blank');
-        });
-    });
-</script>
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Adoção - SOS 4 PATAS</h2>
+                <button class="close-modal" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <p>Você será redirecionado para enviar uma mensagem diretamente para a SOS 4 PATAS via WhatsApp.</p>
+                <p>Ao clicar em "Enviar", você será conectado com nossa equipe para iniciar o processo de adoção do(a) <strong>{{ animal.nome }} (ID: #{{ animal.id }})</strong>.</p>
+            </div>
+            <a href="#" class="whatsapp-btn" id="whatsapp-btn">Enviar Mensagem</a>
+        </div>
+    </div>
+
+    {% include "home/partials/footer.html" %}
+
+{% endblock content-base %}
+
+{% block script %}
+<script src='{% static "home/js/animalpag.js" %}'></script>
+<script src='{% static "home/js/partials-js/hamburguer.js" %}'></script>
+<script src='{% static "home/js/partials-js/modal.js" %}'></script>
 </body>
 </html>
+{% endblock script %}

@@ -1,32 +1,17 @@
+{% extends "home/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOS 4PATAS</title>
-    <link rel="stylesheet" href="{% static "home/css/style.css" %}">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
-</head>
-<body>
 
-  <div class="navbar" id="navbar">
-    <div class="title_span">
-      <img src="{% static 'home/img/sos.png' %}" alt="SOS 4PATAS">
-  </div>
-    <div class="menu-toggle" id="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <nav class="nav-menu" id="nav-menu">
-      <a href="#">Home</a>
-      <a href="#">Contato</a>
-      <a href="#">Doar</a>
-      <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
-    </nav>
-  </div>
-  
+{% block title %}Home - SOS 4 PATAS{% endblock title %}{{animal.nome}}
+
+
+{% block navbar_links %}
+  <a href="#">Home</a>
+  <a href="#" id="contato-link">Contato</a>
+  <a href="#">Doar</a>
+  <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
+{% endblock navbar_links %}
+
+{% block content-base %}
 <div class="carroussel-main">
   <div class="carroussel-container">
     <div class="carroussel" id="carroussel">
@@ -57,20 +42,19 @@
     {% else %}
       <div class="custom-select" id="customSelect">
         <div class="selected-option">
-          <span id="select-text">{{ first_type.tipo_animal }}</span>
+          <span id="select-text">{{ first_type.nome }}</span>
           <i class="arrow down"></i>
           <div class="options">
             {% for data_type in data_types %}
                 <div class="categoria">
                   <a href="?tipo_id={{ data_type.type.id }}#adoption" class="option">
-                    {{ data_type.type.tipo_animal }}
+                    {{ data_type.type.nome }}
                   </a>
                 </div>
             {% endfor %}
           </div>
         </div>
       </div>
-  
       <div class="cards-grid">
         {% for animal in animals %}
           <div class="card-wrapper">
@@ -78,6 +62,9 @@
             <div class="card-top">
               <img src="{{ animal.foto.url }}" alt="animal">
               <h3 class="animal-name">{{ animal.nome }}</h3>
+              <p class="animal-info">
+                {{animal.data_nascimento}} • {{ animal.sexo }}
+              </p>
               <a href="{% url 'home:animal_detail' animal.id %}" class="btn-3d-wrapper">
                 <div class="btn-base"></div>
                 <div class="btn-top"><span>Ver mais</span></div>
@@ -85,103 +72,74 @@
             </div>
           </div>
         {% empty %}
-          <p id='unavailable'>Não há animais disponíveis para adoção nesta categoria.</p>
+          <p style="text-align: center; color: red; font-weight: bold;">Não há animais disponíveis nesse tipo de categoria ainda.</p>
         {% endfor %}
       </div>
-  
-      <div class="pagination">
-        {% if animals.has_previous %}
-          <a href="?page={{ animals.previous_page_number }}&tipo_id={{ first_type.id }}#adoption">Anterior</a>
-        {% endif %}
-  
-        {% if animals.paginator.num_pages > 1 %}
-          <span>Página {{ animals.number }} de {{ animals.paginator.num_pages }}</span>
-        {% endif %}
-  
-        {% if animals.has_next %}
-          <a href="?page={{ animals.next_page_number }}&tipo_id={{ first_type.id }}#adoption">Próxima</a>
-        {% endif %}
+
+      {% if animals.paginator.num_pages > 1 %}
+      <div class="pagination-container">
+        <h4>VOCÊ ESTÁ NA PÁGINA</h4>
+        <div class="pagination">
+          {% if animals.has_previous %}
+            <button type="button" class="arrow-btn" id="prevPage">‹</button>
+          {% else %}
+            <button type="button" class="arrow-btn disabled" disabled>‹</button>
+          {% endif %}
+        
+          <form id="pageForm" class="page-form" method="get" action="">
+            <input type="hidden" name="tipo_id" value="{{ first_type.id }}">
+            <input
+              type="number"
+              name="page"
+              id="pageInput"
+              value="{{ animals.number }}"
+              min="1"
+              max="{{ animals.paginator.num_pages }}"
+              data-current="{{ animals.number }}">
+          </form>
+        
+          <span class="divider"></span>
+          <span class="page-total display-box">{{ animals.paginator.num_pages }}</span>
+        
+          {% if animals.has_next %}
+            <button type="button" class="arrow-btn" id="nextPage">›</button>
+          {% else %}
+            <button type="button" class="arrow-btn disabled" disabled>›</button>
+          {% endif %}
+        </div>
       </div>
+      {% endif %} 
+
+      
     {% endif %}
   </section>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const menuToggle = document.getElementById("menu-toggle");
-    const navMenu = document.getElementById("nav-menu");
-    
-    if (menuToggle) {
-      menuToggle.addEventListener("click", function() {
-        navMenu.classList.toggle("active");
-        
-        const spans = this.querySelectorAll("span");
-        if (navMenu.classList.contains("active")) {
-          spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
-          spans[1].style.opacity = "0";
-          spans[2].style.transform = "rotate(-45deg) translate(7px, -6px)";
-        } else {
-          spans[0].style.transform = "none";
-          spans[1].style.opacity = "1";
-          spans[2].style.transform = "none";
-        }
-      });
-      
-      const navLinks = navMenu.querySelectorAll("a");
-      navLinks.forEach(link => {
-        link.addEventListener("click", function() {
-          navMenu.classList.remove("active");
-          const spans = menuToggle.querySelectorAll("span");
-          spans[0].style.transform = "none";
-          spans[1].style.opacity = "1";
-          spans[2].style.transform = "none";
-        });
-      });
-    }
-    
-    const selectedOption = document.querySelector('.selected-option');
-    const options = document.querySelector('.options');
-    const arrow = document.querySelector('.arrow');
-    
-    if (selectedOption) {
-      selectedOption.addEventListener('click', function() {
-        options.classList.toggle('open');
-        arrow.classList.toggle('rotate');
-      });
-    }
-    
-    let slideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-    const carroussel = document.getElementById('carroussel');
-    
-    if (carroussel) {
-      function showSlide(n) {
-        slideIndex = n;
-        carroussel.style.transform = `translateX(-${slideIndex * 100}%)`;
-      }
-      
-      window.nextSlide = function() {
-        slideIndex = (slideIndex + 1) % slides.length;
-        showSlide(slideIndex);
-      };
-      
-      window.prevSlide = function() {
-        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-        showSlide(slideIndex);
-      };
-      
-      setInterval(nextSlide, 5000);
-    }
-    
-    window.addEventListener("scroll", function() {
-      const navbar = document.getElementById("navbar");
-      if (window.scrollY > 50) {
-        navbar.classList.add("scrolled");
-      } else {
-        navbar.classList.remove("scrolled");
-      }
-    });
-  });
-</script>
+{% include "home/partials/footer.html" %}
+
+<div class="modal-overlay" id="contato-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Contato - SOS 4 PATAS</h2>
+      <button class="close-modal" id="close-contato-modal">&times;</button>
+    </div>
+    <div class="modal-content">
+      <p>Entre em contato conosco através dos seguintes canais:</p>
+      <p><strong>WhatsApp:</strong> (51) 99999-9999</p>
+      <p><strong>Instagram:</strong> @sos4patasitaipuacu</p>
+    </div>
+    <div class="contact-buttons">
+      <a href="https://wa.me/5551999999999" class="whatsapp-btn" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/sos4patasitaipuacu" class="instagram-btn" target="_blank">Instagram</a>
+    </div>
+  </div>
+</div>
+
+{% endblock content-base %}
+{% block script %}
+<script src='{% static "home/js/scripts.js" %}'></script>
+<script src='{% static "home/js/partials-js/hamburguer.js" %}'></script>
+<script src='{% static "home/js/partials-js/modal.js" %}'></script>
 </body>
 </html>
+{% endblock script %}

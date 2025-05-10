@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}SOS 4 PATAS{% endblock title %}
+    </title>
+    {% block head-links %}
+        <link rel="stylesheet" href="{% static "home/css/style.css" %}">
+        <link rel="stylesheet" href="{% static "home/css/partials-css/footer.css" %}">
+        <link rel="stylesheet" href="{% static "home/css/partials-css/navbar.css" %}">
+    {% endblock head-links %}
+    {% block font-links %}
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+    {% endblock font-links %}
+</head>
+<body>
+
+    {% block navbar %}
+    <div class="navbar" id="navbar">
+        {% block logo %}
+            <a href="#" class="logo-link" id="logo-link">
+                <div class="logo">
+                    <img src="{% static 'home/img/sos.png' %}" alt="SOS 4PATAS">
+                </div>
+            </a>
+        {% endblock logo %}
+        <div class="menu-toggle" id="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-menu" id="nav-menu">
+        {% block navbar_links %}{% endblock %}
+        </nav>
+    </div>
+    {% endblock navbar %}
+
+{% block content-base %}{% endblock content-base %}
+{% block script %}{% endblock script %}

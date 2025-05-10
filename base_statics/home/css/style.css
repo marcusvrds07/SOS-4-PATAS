@@ -1,3 +1,4 @@
+/* Sessão 1: Variáveis e estilos base */
 :root {
   --amarelo-principal: #f7d647;
   --azul-principal: #1954cb;
@@ -13,160 +14,59 @@ body {
   margin: 0;
   box-sizing: border-box;
   background-color: white;
-  font-family: 'Comfortaa', cursive;
+  font-family: "Comfortaa", cursive;
   overflow-x: hidden;
   width: 100%;
+  padding-top: 65px;
 }
 
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: var(--azul-principal);
-  padding: 15px 20px;
-  color: white;
-  transition: all 0.4s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 999;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.7);
-  box-sizing: border-box;
-}
 
-#quero-adotar{
-  color: var(--azul-principal);
-  font-weight: bold;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-#quero-adotar:hover {
-  background-color: #e5c53c;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
-}
-
-.navbar.scrolled {
-  background-color: #1954cb;
-  padding: 10px 20px;
-  font-size: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.title_span {
-  text-align: center;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.title_span img {
-  max-height: 60px;
-  width: auto;
-  transition: all 0.3s ease;
-}
-
-.title_span:hover img {
-  transform: scale(1.05);
-}
-
-.sos {
-  font-weight: bold;
-  color: var(--amarelo-principal);
-  font-size: 25px;
-  position: relative;
-  top: 5px;
-  left: 0; 
-  margin-bottom: -5px;
-  transition: all 0.3s ease;
-}
-
-.patas {
-  font-weight: 800;
-  font-style: normal;
-  font-size: 25px;
-  color: var(--azul-principal);
-  text-shadow: -1px -1px 0 var(--amarelo-principal), 1px -1px 0 var(--amarelo-principal), -1px 1px 0
-    var(--amarelo-principal), 1px 1px 0 var(--amarelo-principal);
-  transition: all 0.3s ease;
-}
-
-.title_span:hover .sos {
-  color: #ffe066;
-}
-
-.title_span:hover .patas {
-  text-shadow: -1px -1px 0 #ffe066, 1px -1px 0 #ffe066, -1px 1px 0 #ffe066, 1px 1px 0 #ffe066;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-}
-
-.nav-menu a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.nav-menu a:hover {
-  color: var(--amarelo-principal);
-}
-
-.btn-doacao {
-  background-color: var(--amarelo-principal);
-  color: var(--azul-principal);
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  border: none;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.2s ease;
-}
-
-.btn-doacao:hover {
-  background-color: #e5c53c;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
-}
-
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 30px;
-  height: 21px;
-  cursor: pointer;
-}
-
-.menu-toggle span {
-  display: block;
-  height: 3px;
-  width: 100%;
-  background-color: white;
-  border-radius: 3px;
-  transition: all 0.3s ease;
-}
-
+/* Sessão 2: Carrossel e Slides */
 .carroussel-main {
   width: 100%;
   overflow: hidden;
   position: relative;
+  padding-top: 40px;
 }
 
 .carroussel-container {
   width: 100%;
-  margin-top: 70px;
+  margin-top: 0;
   position: relative;
   overflow: hidden;
+  max-width: 90%;
+  margin: 0 auto 40px;
+  border-radius: 14px;
+  box-shadow:
+    0 10px 25px rgba(9, 45, 115, 0.2),
+    0 6px 12px rgba(9, 45, 115, 0.15),
+    0 4px 6px rgba(247, 214, 71, 0.1),
+    0 0 0 1px rgba(9, 45, 115, 0.05);
+  background-color: white;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+}
+
+.carroussel-container::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  pointer-events: none;
+}
+
+@media (min-width: 769px) {
+  .carroussel-container:hover {
+    box-shadow:
+      0 15px 35px rgba(9, 45, 115, 0.25),
+      0 8px 16px rgba(9, 45, 115, 0.2),
+      0 4px 8px rgba(247, 214, 71, 0.15),
+      0 0 0 1px rgba(9, 45, 115, 0.07);
+    transform: translateY(-2px);
+  }
 }
 
 .carroussel {
@@ -176,24 +76,27 @@ body {
 }
 
 .slide {
+  flex: 0 0 100%;
   min-width: 100%;
-  width: 100%;
-  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .slide-content {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  height: 100%;
 }
 
 .slide-content img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
-  display: block;
-  object-fit: cover;
-  max-height: calc(25vw + 150px);
+  object-fit: contain;
 }
 
+
+/* Sessão 3: Botões de setas do carrossel */
 .seta {
   position: absolute;
   top: 50%;
@@ -214,20 +117,25 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
 
 .seta:hover {
   background-color: rgba(0, 0, 0, 0.5);
+  transform: translateY(-50%) scale(1.15);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
-.direita {
-  right: 10px;
+.seta:active {
+  transform: translateY(-50%) scale(0.95);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.esquerda {
-  left: 10px;
-}
+.esquerda { left: 10px; }
+.direita  { right: 10px; }
 
+
+/* Sessão 4: Layout principal e seção de adoção */
 .main {
   max-width: 1400px;
   margin: 0 auto;
@@ -235,14 +143,17 @@ body {
 }
 
 #adoption {
+  scroll-margin-top: 85px;
   margin: 40px 0;
 }
 
+
+/* Sessão 5: Grid de cartões de animais */
 .cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  gap: 50px;
   margin: 30px auto;
   max-width: 1200px;
 }
@@ -272,7 +183,7 @@ body {
   margin-top: 8px;
   width: calc(2.6vw + 130px);
   height: auto;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1/1;
   object-fit: cover;
   object-position: center;
   border-radius: 10px;
@@ -280,18 +191,30 @@ body {
 }
 
 .animal-name {
-  margin: 10px 0;
+  margin: 7.5px 0 3px;
+  padding: 0 5px;
   font-size: 16px;
   color: var(--azul-principal);
   font-weight: bold;
   text-align: center;
-  padding: 0 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
 
+.animal-info {
+  font-size: 14px;
+  color: var(--azul-principal);
+  text-align: center;
+  font-weight: 500;
+  margin: 2px 0 0;
+  padding: 0 5px;
+  line-height: 1.4;
+}
+
+
+/* Sessão 6: Botão 3D "Ver mais" */
 .btn-3d-wrapper {
   position: absolute;
   bottom: 14px;
@@ -325,11 +248,9 @@ body {
 .btn-3d-wrapper .btn-top::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: 0.5s;
 }
 
@@ -350,6 +271,8 @@ body {
   font-weight: bold;
 }
 
+
+/* Sessão 7: Mensagem "indisponível" */
 #unavailable {
   text-align: center;
   margin: 30px auto;
@@ -361,6 +284,8 @@ body {
   max-width: 600px;
 }
 
+
+/* Sessão 8: Custom Select */
 .custom-select {
   margin: 20px auto;
   max-width: 300px;
@@ -398,7 +323,6 @@ body {
 
 .down {
   transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
 }
 
 .options {
@@ -409,8 +333,7 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 100;
-  top: 100%;
-  left: 0;
+  top: 100%; left: 0;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
@@ -441,84 +364,257 @@ body {
   transform: rotate(-135deg);
 }
 
+
+/* Sessão 9: Paginação */
+.pagination-container h4 {
+  text-align: center;
+  position: relative;
+  top: 30px;
+  font-size: 12px;
+  color: var(--azul-principal);
+}
+
 .pagination {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin: 30px 0;
-  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 40px 0;
+  color: var(--azul-principal);
 }
 
-.pagination a {
-  position: relative;
+.arrow-btn {
+  width: 36px;
+  height: 36px;
   background-color: var(--amarelo-principal);
   color: var(--azul-principal);
+  font-size: 18px;
   font-weight: bold;
-  padding: calc(0.2vw + 10px) calc(0.4vw + 15px);
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(25, 84, 203, 0.25);
+  cursor: pointer;
+  transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-btn:hover {
+  background-color: #f4c900;
+}
+
+.arrow-btn.disabled {
+  background-color: #eee;
+  color: #aaa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.page-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-form input[type="number"] {
+  color: var(--azul-principal);
+  width: 50px;
+  height: 36px;
+  padding: 0;
+  text-align: center;
+  border: none;
+  background-color: #eee;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--azul-principal);
+  border-radius: 8px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.page-form input::-webkit-outer-spin-button,
+.page-form input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.display-box {
+  width: 50px;
+  height: 36px;
+  background-color: #eee;
+  border-bottom: 2px solid var(--azul-principal);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 36px;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider {
+  width: 1px;
+  height: 36px;
+  background-color: var(--azul-principal);
+  margin: 0 8px;
+}
+
+
+/* Sessão 10: Modais */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  z-index: 1001;
+  max-width: 500px;
+  width: 90%;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  color: var(--azul-principal);
+  font-size: 24px;
+  margin: 0;
+  border-bottom: 3px solid var(--amarelo-principal);
+  padding-bottom: 8px;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--azul-principal);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  background-color: rgba(9, 45, 115, 0.1);
+}
+
+.modal-content {
+  margin-bottom: 25px;
+}
+
+.modal-content p {
+  line-height: 1.6;
+  color: var(--azul-principal);
+  margin-bottom: 15px;
+  background-color: rgba(9, 45, 115, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--azul-principal);
+}
+
+.contact-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+  color: white;
+  padding: 14px 28px;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0 4px 12px rgba(247, 214, 71, 0.3);
-  transition: all 0.2s ease;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.pagination a::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: 0.5s;
-  z-index: -1;
-}
-
-.pagination a:hover {
-  background-color: var(--amarelo-principal);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.4);
-}
-
-.pagination a:hover::before {
-  left: 100%;
-}
-
-.pagination span {
-  color: var(--azul-principal);
   font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  text-align: center;
+  flex: 1;
 }
 
+.whatsapp-btn:hover {
+  background-color: #1fba58;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+}
+
+.instagram-btn {
+  background-color: #e1306c;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+  text-align: center;
+  flex: 1;
+}
+
+.instagram-btn:hover {
+  background-color: #c13584;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
+}
+
+/* Sessão 11: Responsividade (media queries na ordem original) */
 @media (min-width: 1400px) {
-  .cards-grid {
-    grid-template-columns: repeat(5, minmax(200px, 1fr));
-  }
-  
   .slide-content img {
     max-height: 450px;
   }
-  
   .card-top {
     width: calc(3vw + 150px);
     height: calc(4.5vw + 225px);
   }
-  
   .card-top img {
     width: calc(2.6vw + 130px);
   }
-  
   .btn-3d-wrapper {
     width: calc(2.5vw + 125px);
   }
 }
 
 @media (max-width: 1200px) {
-  .cards-grid {
-    grid-template-columns: repeat(4, minmax(200px, 1fr));
-  }
-  
   .slide-content img {
     max-height: 400px;
   }
@@ -528,133 +624,163 @@ body {
   .cards-grid {
     grid-template-columns: repeat(3, minmax(200px, 1fr));
   }
-  
   .slide-content img {
     max-height: 350px;
   }
 }
 
+@media (min-width: 1367px) {
+  .carroussel-main {
+    padding-top: 50px;
+  }
+  .carroussel-container {
+    max-width: 80%;
+    box-shadow:
+      0 15px 30px rgba(9, 45, 115, 0.2),
+      0 8px 16px rgba(9, 45, 115, 0.15),
+      0 4px 8px rgba(247, 214, 71, 0.1),
+      0 0 0 1px rgba(9, 45, 115, 0.05);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1366px) {
+  .carroussel-main {
+    padding-top: 40px;
+  }
+  .carroussel-container {
+    max-width: 85%;
+    margin: 0 auto 40px;
+  }
+  .slide-content img {
+    max-height: 380px;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: flex;
+  .carroussel-main {
+    padding-top: 40px;
   }
-  
-  .nav-menu {
-    position: fixed;
-    top: 70px;
-    left: -100%;
-    width: 100%;
-    background-color: var(--azul-principal);
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  .carroussel-container {
+    max-width: 90%;
+    margin: 0 auto 40px;
+    box-shadow:
+      0 8px 20px rgba(9, 45, 115, 0.18),
+      0 4px 10px rgba(9, 45, 115, 0.12),
+      0 2px 4px rgba(247, 214, 71, 0.08),
+      0 0 0 1px rgba(9, 45, 115, 0.05);
   }
-  
-  .nav-menu.active {
-    left: 0;
-  }
-  
-  .nav-menu a {
-    margin: 10px 0;
-    font-size: 16px;
-  }
-  
-  .btn-doacao {
-    margin-top: 10px;
-  }
-  
-  .navbar.scrolled {
-    padding: 10px 15px;
-  }
-  
-  .navbar.scrolled .nav-menu {
-    top: 60px;
-  }
-  
-  .cards-grid {
-    grid-template-columns: repeat(2, minmax(180px, 1fr));
-    gap: 20px;
-  }
-  
   .slide-content img {
     max-height: 300px;
   }
-  
   .seta {
     width: 35px;
     height: 35px;
     font-size: 1.5rem;
   }
-  
   .card-top {
     width: 180px;
     height: 270px;
   }
-  
   .card-top img {
     width: 155px;
   }
-  
   .btn-3d-wrapper {
     width: 150px;
+  }
+  .modal {
+    width: 95%;
+    padding: 25px;
+  }
+  .pagination {
+    gap: 8px;
+  }
+  .display-box,
+  .page-form input[type="number"] {
+    width: 40px;
+    height: 36px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-buttons {
+    flex-direction: column;
+  }
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    width: 100%;
+  }
+  .modal {
+    padding: 20px;
+  }
+  .modal-title {
+    font-size: 20px;
+  }
+  .modal-content p {
+    font-size: 14px;
+    padding: 10px;
+  }
+  .pagination {
+    gap: 6px;
+  }
+  .arrow-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
   }
 }
 
 @media (max-width: 576px) {
-  .cards-grid {
-    grid-template-columns: repeat(1, minmax(180px, 1fr));
-  }
-  
   .card-top {
     width: 200px;
     height: 290px;
   }
-  
   .card-top img {
     width: 175px;
   }
-  
   .slide-content img {
     max-height: 250px;
   }
-  
-  .sos {
-    font-size: 22px;
-  }
-  
-  .patas {
-    font-size: 22px;
-  }
-  
-  .navbar {
-    padding: 12px 15px;
-  }
-  
-  .pagination {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .pagination a {
-    width: 100%;
-    text-align: center;
-  }
-  
   .selected-option {
     max-width: 250px;
     margin: 0 auto;
   }
-  
   .seta {
     width: 30px;
     height: 30px;
     font-size: 1.2rem;
   }
-  
   .btn-3d-wrapper {
     width: 170px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-title {
+    font-size: 18px;
+  }
+  .close-modal {
+    width: 35px;
+    height: 35px;
+    font-size: 24px;
+  }
+  .pagination {
+    gap: 4px;
+  }
+  .display-box,
+  .page-form input[type="number"] {
+    width: 36px;
+    height: 32px;
+    font-size: 13px;
+  }
+  .arrow-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
   }
 }
 
@@ -663,34 +789,35 @@ body {
     width: 180px;
     height: 270px;
   }
-  
   .card-top img {
     width: 155px;
   }
-  
   .slide-content img {
     max-height: 200px;
   }
-  
-  .sos {
-    font-size: 20px;
-  }
-  
-  .patas {
-    font-size: 20px;
-  }
-  
-  .navbar {
-    padding: 10px;
-  }
-  
   .seta {
     width: 28px;
     height: 28px;
     font-size: 1rem;
   }
-  
   .btn-3d-wrapper {
     width: 150px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modal-content p {
+    font-size: 13px;
+  }
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+  .modal-header {
+    margin-bottom: 15px;
+  }
+  .modal-content {
+    margin-bottom: 15px;
   }
 }

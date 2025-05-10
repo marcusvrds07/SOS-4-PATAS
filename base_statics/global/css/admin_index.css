@@ -3,24 +3,31 @@ body {
   padding: 0;
   font-family: "Comfortaa", sans-serif;
   background-color: #eef1f6;
+  height: 100%;
+  width: 100%;
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 260px 1fr;
+  margin-left: 290px;
+  width: calc(100% - 290px);
   height: 100%;
-  width: 100%;
   min-height: 100vh;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
-
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 260px;
+  overflow-y: auto;
   background: #1954cb;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 20px 15px;
   box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .logo-container {
@@ -49,9 +56,10 @@ body {
 .options h2 {
   font-size: 14px;
   color: #f7d647;
-  margin: 10px 0 20px 10px;
+  margin: 10px 0 20px 0px;
   text-transform: uppercase;
   letter-spacing: 1px;
+  text-align: center;
 }
 
 .menu-item {
@@ -133,6 +141,11 @@ body {
   justify-content: space-between;
   color: #fff;
   transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+#no-perm {
+  cursor: default;
 }
 
 .model-item:hover {
@@ -168,19 +181,18 @@ body {
 }
 
 .content {
+  flex: 1;
   display: flex;
-  width: 100%;
-  height: 100%;
   justify-content: center;
-  align-items: center;
+  padding: 20px 0px;
+  box-sizing: border-box;
 }
-
 .content-pad {
   display: flex;
   flex-direction: column;
   position: relative;
   height: auto;
-  min-height: 93%;
+  min-height: 100%;
   width: 95%;
   padding: 20px;
   background-color: rgb(251, 251, 251);
