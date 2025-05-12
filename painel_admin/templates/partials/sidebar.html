@@ -7,9 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Cadastro de Animal - SOS 4 PATAS{% endblock title %}</title>
   
-  <link rel="stylesheet" href="{% static 'global/css/partials-css/sidebar.css' %}">
+  <link rel="stylesheet" href="{% static 'global/css/admin_index.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
 
   {% block extrastyle %}{% endblock %}
 </head>
@@ -32,33 +31,48 @@
         <div class="options">
           <h2>Administração</h2>
 
-        {% if app_list %}
           <div class="menu-item">
             <button class="menu-button" onclick="toggleMenu('tables', this)">
               <i class="fas fa-database"></i> Base de Dados <i class="arrow down"></i>
             </button>
             <ul class="submenu" id="tables">
-              {% for app in app_list %}
-                {% if app.app_label != 'auth' %}
-                  {% for model in app.models %}
-                    {% if model.admin_url %}
-                      <li class="model-item" onclick="location.href='{{ model.admin_url }}'">
-                        <span class="model-name">{{ model.name }}</span>
-                        <span class="model-actions">
-                          {% if model.add_url %}
-                            <a href="{{ model.add_url }}" class="icon-btn" title="Adicionar {{ model.name }}">
-                              <i class="fas fa-plus"></i>
-                            </a>
-                          {% endif %}
-                        </span>
-                      </li>
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
+              {% if app_list %}
+                {% for app in app_list %}
+                  {% if app.app_label != 'auth' %}
+                    <div class="app-{{ app.app_label }} module">
+                      <table>
+                        <tbody>
+                          {% for model in app.models %}
+                            {% if model.admin_url %}
+                              <li class="model-item" onclick="window.location.href='{{model.admin_url}}'">
+                            {% else %}
+                               <li class="model-item" id='no-perm'></li>
+                            {% endif %}
+                              <span class="model-name">{{ model.name }}</span>
+                              <span class="model-actions">
+          
+                                {% if model.add_url %}
+                                  <a href="{{ model.add_url }}" class="icon-btn" title="Adicionar {{ model.name }}">
+                                    <i class="fas fa-plus"></i>
+                                  </a>
+                                {% else %}
+                                  <span class="icon-btn no-access" title="Sem permissão">
+                                    <i class="fas fa-plus"></i>
+                                  </span>
+                                {% endif %}
+                              </span>
+                            </li>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                <p>{% translate "You don't have permission to view or edit anything." %}</p>
+              {% endif %}
             </ul>
-          </div>
-        {% endif %}
+          </div>          
 
           <div class="menu-item">
             <button class="menu-button" onclick="toggleMenu('management', this)">
@@ -97,34 +111,11 @@
 
     <div class="content">
       <div class="content-pad">
-        <div class="profile">
-        {% if request.user.is_authenticated and request.user.profile.foto %}
-          <button class="profile-wrapper" onclick='menu_options()'>
-            <img src="{{ request.user.profile.foto.url }}" alt="Foto do usuário">
-          </button>
-        {% else %}
-          <button class="profile-wrapper" onclick='menu_options()'>
-            <img src="{% static "home/img/user-foto.png" %}" alt="Foto do usuário">
-          </button>
-        {% endif %}
-        <div class="menu-options">
-          <ul>
-            <li><a href="">Perfil</a></li>
-            <li><a href="">Alterar senha</a></li>
-            <li><form id="logout-form" method="post" action="{% url 'admin:logout' %}" class="logout-form">
-              {% csrf_token %}
-              <button type="submit" class="logout-button">
-                Sair
-              </button>
-            </form></li>
-          </ul>
-        </div>
-      </div>
         {% block content-pad %}{% endblock content-pad %}
     </div>
   </div>
+
   <script src="{% static 'global/js/scripts.js' %}"></script>
-  <script src="{% static 'global/js/partials-js/sidebar.js' %}"></script>
   {% block extrajs %}{% endblock extrajs %}
 </body>
 </html>
