@@ -33,6 +33,7 @@ urlpatterns = [
     
     path('admin/', dashboard_admin, name='admin-index'),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 
 #config para as imagens funcionar com link
