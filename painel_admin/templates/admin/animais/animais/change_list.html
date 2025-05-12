@@ -1,21 +1,50 @@
 {% extends "partials/sidebar.html" %}
 {% load admin_list static %}
 
-{% block extrastyle %}
-  <link rel="stylesheet" href="{% static "global/css/change_list.css" %}">
-  {% endblock extrastyle %}
-{% block content-pad %}
-  <h1>Gerenciar Animais</h1>
 
-  <form method="get">
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static "global/css/change_list.css" %}">
+{% endblock extrastyle %}
+{% block content-pad %}
+<h1>Gerenciar Animais</h1>
+
+<div class="search-content">
+  <form method="get" class="search-container">
     <input type="text" name="q" placeholder="Buscar..." value="{{ cl.query }}">
-    <button type="submit">Buscar</button>
+    <button type="submit"><i class="fas fa-search"></i> Buscar</button>
   </form>
 
-  <form method="post" action="">
-    <div class="table-wrapper">
-      {% csrf_token %}
-      {% result_list cl %}
+  {% if has_add_permission %}
+    <a href="{{ add_url }}" class="btn-add">
+      <i class="fas fa-plus"></i> Adicionar
+    </a>
+  {% endif %}
+</div>
+
+
+<form method="post" action="">
+  {% csrf_token %}
+  <div class="table-container">
+
+    {% if has_add_permission or perms.animais.delete_animais%}
+      <div class="actions-bar">
+        {% if perms.animais.delete_animais %}
+          <span id="selected-count">0 selecionados</span>
+          <button type="submit"
+          name="action"
+          value="delete_selected"
+          id="btn-remove"
+                  class="btn-action"
+                  disabled>
+            <i class="fas fa-trash"></i> Remover selecionados
+          </button>
+        {% endif %}
+      </div>
+    {% endif %} 
+  
+      <div class="table-wrapper">
+        {% result_list cl %}
+      </div>
     </div>
   </form>
 
@@ -80,6 +109,34 @@
       });
     }
   });
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const countEl  = document.getElementById('selected-count');
+  const btnRemove= document.getElementById('btn-remove');
+  const checkAll = document.getElementById('action-toggle');
+  const checks   = Array.from(document.querySelectorAll('input.action-select'));
+
+  function refreshActions() {
+    const checkedCount = checks.filter(c => c.checked).length;
+    countEl.textContent = checkedCount
+      ? `${checkedCount} selecionado${checkedCount>1?'s':''}`
+      : '0 selecionados';
+    btnRemove.disabled = checkedCount === 0;
+  }
+
+  checks.forEach(c => c.addEventListener('change', refreshActions));
+
+  if (checkAll) {
+    checkAll.addEventListener('change', () => {
+      checks.forEach(c => c.checked = checkAll.checked);
+      refreshActions();
+    });
+  }
+
+  refreshActions();
+});
+
   </script>
 {% endblock extrajs %}
 
