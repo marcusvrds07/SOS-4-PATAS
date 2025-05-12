@@ -1,5 +1,6 @@
 {% extends "partials/sidebar.html" %}
 {% load admin_list static %}
+{% load admin_urls %}
 
 
 {% block extrastyle %}
@@ -15,7 +16,7 @@
   </form>
 
   {% if has_add_permission %}
-    <a href="{{ add_url }}" class="btn-add">
+    <a href="{% url opts|admin_urlname:'add' %}" class="btn-add">
       <i class="fas fa-plus"></i> Adicionar
     </a>
   {% endif %}
