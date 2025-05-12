@@ -11,7 +11,10 @@
 
 <div class="search-content">
   <form method="get" class="search-container">
-    <input type="text" name="q" placeholder="Buscar..." value="{{ cl.query }}">
+    <div class="search-input-wrapper">
+      <input type="text" name="q" placeholder="Buscar..." value="{{ cl.query }}">
+      <i class="fas fa-filter" id="open-filters"></i>
+    </div>
     <button type="submit"><i class="fas fa-search"></i> Buscar</button>
   </form>
 
@@ -21,6 +24,23 @@
     </a>
   {% endif %}
 </div>
+
+<aside id="filters-sidebar" class="filters-sidebar">
+  <header>
+    <h2>Filtros</h2>
+    <button type="button" id="close-filters">&times;</button>
+  </header>
+
+  <ul class="filter-list">
+    {% for spec in cl.filter_specs %}
+      <li class="filter-item">
+        {% admin_list_filter cl spec %}
+      </li>
+    {% endfor %}
+  </ul>
+</aside>
+
+<div id="filters-overlay" class="filters-overlay"></div>
 
 
 <form method="post" action="">
@@ -136,6 +156,44 @@
   }
 
   refreshActions();
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const selects = document.querySelectorAll('.grp-filter-choice');
+    selects.forEach(select => {
+      select.addEventListener('change', function () {
+        if (this.value) {
+          window.location.href = this.value;
+        }
+      });
+    });
+  });
+
+  const sidebar = document.getElementById('filters-sidebar');
+const overlay = document.getElementById('filters-overlay');
+const openBtn = document.querySelector('.fa-filter');
+const closeBtn = document.getElementById('close-filters');
+
+openBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  sidebar.classList.add('open');
+  overlay.classList.add('open');
+});
+
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+});
+
+document.addEventListener('click', (e) => {
+  if (
+    sidebar.classList.contains('open') &&
+    !sidebar.contains(e.target) &&
+    !openBtn.contains(e.target)
+  ) {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  }
 });
 
   </script>
