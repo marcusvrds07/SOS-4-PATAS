@@ -99,7 +99,6 @@
       {% block extranav %}{% endblock extranav %}
 
     </nav>
-    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
     <div class="content">
       <div class="content-pad">
@@ -127,6 +126,8 @@
         </div>
       </div>
         {% block content-pad %}{% endblock content-pad %}
+
+        <div id="filters-overlay" class="filters-overlay"></div>
     </div>
   </div>
   <script src="{% static 'global/js/scripts.js' %}"></script>
