@@ -15,14 +15,15 @@
       <input type="text" name="q" placeholder="Buscar..." value="{{ cl.query }}">
       <i class="fas fa-filter" id="open-filters"></i>
     </div>
-    <button type="submit"><i class="fas fa-search"></i> Buscar</button>
+    <div class="search-buttons">
+      <button type="submit"><i class="fas fa-search"></i> Buscar</button>
+      {% if has_add_permission %}
+        <a href="{% url opts|admin_urlname:'add' %}" class="btn-add">
+          <i class="fas fa-plus" title='Adicionar'></i> Adicionar
+        </a>
+      {% endif %}
+    </div>
   </form>
-
-  {% if has_add_permission %}
-    <a href="{% url opts|admin_urlname:'add' %}" class="btn-add">
-      <i class="fas fa-plus"></i> Adicionar
-    </a>
-  {% endif %}
 </div>
 
 <aside id="filters-sidebar" class="filters-sidebar">
@@ -63,9 +64,12 @@
       </div>
     {% endif %} 
   
-      <div class="table-wrapper">
-        {% result_list cl %}
-      </div>
+    <div class="table-wrapper">
+      {% result_list cl %}
+
+      {% if cl.result_count == 0%}
+        <p class="no-results">Nenhum resultado encontrado.</p>
+      {% endif %} 
     </div>
   </form>
 
@@ -195,6 +199,19 @@ document.addEventListener('click', (e) => {
     overlay.classList.remove('open');
   }
 });
+
+ document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.search-container');
+    const input = form.querySelector('input[name="q"]');
+
+    form.addEventListener('submit', e => {
+      if (input.value.trim() === '') {
+        e.preventDefault();
+        window.location.href = window.location.pathname;
+      }
+    });
+  });
+
 
   </script>
 {% endblock extrajs %}

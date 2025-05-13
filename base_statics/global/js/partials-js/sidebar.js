@@ -10,3 +10,16 @@ document.addEventListener('DOMContentLoaded', () => {
     tablesMenu.appendChild(msg);
   }
 });
+
+// sidebar.js
+// =========================
+// Sessão: Controle do menu
+// =========================
+const sidebar_menu = document.querySelector('.sidebar');
+const backdrop = document.querySelector('.sidebar-top');
+const burger = document.getElementById('sidebar-hamburger');
+
+burger.addEventListener('click', () => {
+  sidebar_menu.classList.toggle('open');
+  backdrop.classList.toggle('show');
+});

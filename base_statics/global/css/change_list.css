@@ -71,6 +71,12 @@ form[method="get"] button:hover {
   box-shadow: 0 6px 12px rgba(25, 84, 203, 0.25);
 }
 
+.search-content a:hover {
+  background-color: var(--azul-hover);
+  box-shadow: 0 6px 12px rgba(25, 84, 203, 0.25);
+
+}
+ 
 /* Sessão 4: Container de tabela */
 .table-container {
   width: 100%;
@@ -120,6 +126,14 @@ form[method="get"] button:hover {
 
 #result_list thead {
   background-color: #f7d647;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
 }
 
 /* Sessão 6: Barra de ações */
@@ -189,8 +203,6 @@ form[method="get"] button:hover {
   box-shadow: 0 4px 12px rgba(25,84,203,0.2);
 }
 
-
-/* Resetando interferência do Django Admin */
 .filters-sidebar *,
 .filters-sidebar *::before,
 .filters-sidebar *::after {
@@ -198,7 +210,6 @@ form[method="get"] button:hover {
   box-sizing: border-box;
 }
 
-/* Sidebar container */
 .filters-sidebar {
   position: fixed;
   top: 0;
@@ -234,7 +245,6 @@ form[method="get"] button:hover {
   visibility: visible;
 }
 
-/* Header da sidebar */
 .filters-sidebar header {
   display: flex;
   justify-content: space-between;
@@ -252,7 +262,6 @@ form[method="get"] button:hover {
   cursor: pointer;
 }
 
-/* Lista de filtros */
 .filters-form {
   display: flex;
   flex-direction: column;
@@ -522,5 +531,75 @@ form[method="get"] button:hover {
     top: unset;
     background: #fff;
     z-index: 5;
+  }
+}
+
+@media (max-width: 830px) {
+
+  h1 {
+    font-size: 24px;
+    margin: 20px 0 12px;
+    text-align: center;
+  }
+
+  .search-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+
+  .search-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .search-buttons button,
+  .search-buttons .btn-add {
+    flex: 1;
+    text-align: center;
+  }
+
+  .table-wrapper,
+  .table-container {
+    width: 100%;
+  }
+
+  .btn-add {
+    margin-right: 5px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 430px) {
+  .actions-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  #selected-count {
+    text-align: center;
+  }
+
+  .btn-action {
+    width: 100%;
+    text-align: center;
+    max-width: 230px;
+    margin: 0 auto;
   }
 }

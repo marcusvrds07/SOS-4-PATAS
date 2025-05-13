@@ -19,7 +19,12 @@
   {% block breadcrumbs %}{% endblock %}
 
   <div class="container">
+
     <nav class="sidebar">
+      <button class="sidebar-hamburger" id="sidebar-hamburger">
+        <i class="fas fa-bars"></i>
+      </button>
+
       <div class="sidebar-top">
         <div class="logo-container">
           <a href="{% url 'home:index' %}">
@@ -94,6 +99,7 @@
       {% block extranav %}{% endblock extranav %}
 
     </nav>
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
     <div class="content">
       <div class="content-pad">

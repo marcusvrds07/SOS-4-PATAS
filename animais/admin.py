@@ -32,7 +32,7 @@ class AnimalAdmin(admin.ModelAdmin):
     list_display = 'id', 'nome', 'data_nascimento', 'preview', 'acoes', 
     readonly_fields = ['data_nascimento']
     search_fields = ['nome', 'id', 'data_nascimento']
-    list_filter = ['especie', 'raca']
+    list_filter = ['especie', 'raca', 'sexo', 'porte']
     list_per_page = 10
     ordering = ['-id']
     actions = [delete_selected]
