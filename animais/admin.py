@@ -100,3 +100,10 @@ class AnimalAdmin(admin.ModelAdmin):
 
         extra_context['app_list'] = list(self.admin_site.get_app_list(request))
         return super().changelist_view(request, extra_context=extra_context)
+    
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        if extra_context is None:
+            extra_context = {}
+
+        extra_context['app_list'] = list(self.admin_site.get_app_list(request))
+        return super().changeform_view(request, object_id, form_url, extra_context=extra_context)   
