@@ -33,7 +33,53 @@
 </div>
 
 <div class="main">
+<section class="aboutus-section">
+  <h2>SOBRE NÓS</h2>
+  <div class="aboutus-container">
+    <div class="aboutus-texto">
+      <p>
+        Na SOS 4 PATAS, acreditamos que todo animal merece amor, cuidado e uma nova chance.
+        Somos um grupo de voluntários movidos por um único propósito: resgatar vidas e transformá-las.
+        <br><br>
+        Nossa missão começa nas ruas de Itaipuaçu, em Maricá, onde muitos animais são deixados à própria sorte.
+        Quando encontramos um deles, machucado, assustado ou com fome, fazemos mais do que apenas acolher —
+        oferecemos um lar temporário cheio de carinho, alimento, segurança e esperança.
+        <br><br>
+        Enquanto buscamos famílias que possam adotá-los com responsabilidade, esses animais recebem todos os
+        cuidados que precisam para recomeçar. Cada adoção não é apenas uma vitória, é o início de um novo
+        capítulo para quem antes só conhecia o abandono.
+        <br><br>
+        Nosso trabalho é feito com o coração, e cada ajuda conta. Junte-se a nós nessa causa — porque adotar é um ato de amor.
+      </p>
+    </div>
+    <div class="aboutus-imagem">
+      <img src="{% static 'home/img/cachorro ong.jpg' %}" alt="Foto institucional da ONG">
+    </div>
+  </div>
+</section>
   
+<section class="momentos-section">
+  <h2>NOSSOS MOMENTOS</h2>
+  <div class="momentos-grid">
+    <div class="momento-item">
+      <img src="{% static 'home/img/sobre1.jpg' %}" alt="Resgate de animal">
+      <p>Resgate nas ruas</p>
+    </div>
+    <div class="momento-item">
+      <img src="{% static 'home/img/sobre2.jpg' %}" alt="Cuidados na ONG">
+      <p>Cuidados e carinho</p>
+    </div>
+    <div class="momento-item">
+      <img src="{% static 'home/img/sobre3.jpg' %}" alt="Adoção com alegria">
+      <p>Dia da adoção</p>
+    </div>
+    <div class="momento-item">
+      <img src="{% static 'home/img/sobre4.jpg' %}" alt="Voluntário ajudando">
+      <p>Trabalho dos voluntários</p>
+    </div>
+  </div>
+</section>
+
   <section id="adoption">
     {% if not has_types %}
       <p id="unavailable" style="text-align: center; color: red; font-weight: bold;">

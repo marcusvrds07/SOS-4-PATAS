@@ -74,6 +74,7 @@
     setInterval(window.nextSlide, 5000)
   }
 
+  
   // Sessão: Efeito de scroll
   const navbar = document.getElementById("navbar")
   window.addEventListener("scroll", () => {
