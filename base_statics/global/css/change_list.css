@@ -94,7 +94,6 @@ form[method="get"] button:hover {
 
 .table-wrapper thead {
   display: block;
-  padding-right: 13px;
 }
 
 .table-wrapper tbody {
@@ -352,6 +351,12 @@ form[method="get"] button:hover {
 
 
 /* Sessão 7: Células e conteúdo da tabela */
+
+#result_list a {
+  color: var(--thead-a-color);
+  text-decoration: none;
+}
+
 #result_list th {
   padding: 16px 18px;
   font-size: 14px;
@@ -388,6 +393,10 @@ form[method="get"] button:hover {
 .field-id a {
   text-decoration: none !important;
   color: #333;
+}
+
+.field-nome {
+  background: white;
 }
 
 #result_list img {
@@ -432,6 +441,7 @@ form[method="get"] button:hover {
   gap: 12px;
   margin: 40px 0;
   color: var(--azul-principal);
+  flex-wrap: wrap;
 }
 
 .arrow-btn {
@@ -577,11 +587,6 @@ form[method="get"] button:hover {
 
   .btn-add {
     margin-right: 5px;
-  }
-
-  .pagination {
-    flex-direction: column;
-    gap: 10px;
   }
 }
 

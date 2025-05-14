@@ -14,7 +14,7 @@ def animal_image_upload_path(instance, filename):
 def capa_upload_path(instance, filename):
     return os.path.join('foto_capa', str(instance.id), filename)
 
-class tipoAnimal(models.Model):
+class TipoAnimal(models.Model):
     class Meta:
         verbose_name = "Categoria do Animal"
         verbose_name_plural = 'Categorias dos Animais'
@@ -37,7 +37,7 @@ class Animais(models.Model):
     sexo = models.CharField(choices=[('Fêmea', 'Fêmea'), ('Macho', 'Macho')])
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
     raca = models.CharField(max_length=30)
-    especie = models.ForeignKey(tipoAnimal, on_delete=models.SET_NULL, null=True)
+    especie = models.ForeignKey(TipoAnimal, on_delete=models.SET_NULL, null=True)
     disponivel_para_adocao = models.BooleanField(default=True)
     descricao = models.TextField(blank=True)
 

@@ -147,6 +147,31 @@ body {
   margin: 40px 0;
 }
 
+.adoption-section h2 {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--azul-principal);
+  margin-bottom: 40px;
+  position: relative;
+  text-align: center;
+  text-transform: uppercase;
+  padding-bottom: 30px;
+}
+
+.adoption-section h2::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background-color: var(--amarelo-principal);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  margin-bottom: 30px;
+
+}
+
 
 /* Sessão 5: Grid de cartões de animais */
 .cards-grid {
@@ -599,7 +624,7 @@ body {
 
 /* Sessão 11: About Us */
 .aboutus-section {
-  padding: 80px 20px 60px;
+  padding: 40px 20px 60px;
   background-color: #ffffff;
   text-align: center;
 }
@@ -647,6 +672,7 @@ body {
   flex: 1 1 30%;
   max-width: 380px;
   min-width: 260px;
+  margin: 0 auto;
 }
 
 .aboutus-imagem img {

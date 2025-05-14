@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from animais.models import Animais, tipoAnimal
+from animais.models import Animais, TipoAnimal
 from django.core.paginator import Paginator
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -7,7 +7,7 @@ from dateutil.relativedelta import relativedelta
 # Create your views here.
 
 def home(request):
-    types = tipoAnimal.objects.all()
+    types = TipoAnimal.objects.all()
     type_id = request.GET.get('tipo_id')
     data_types = []
     context = {}
@@ -24,8 +24,8 @@ def home(request):
     if types:
         if type_id:
             try:
-                type_selected = tipoAnimal.objects.get(id=type_id)
-            except tipoAnimal.DoesNotExist:
+                type_selected = TipoAnimal.objects.get(id=type_id)
+            except TipoAnimal.DoesNotExist:
                 type_selected = types[0]
         else:
             type_selected = types[0]
