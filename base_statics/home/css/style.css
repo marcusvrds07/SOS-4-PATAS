@@ -597,7 +597,145 @@ body {
   box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
 }
 
-/* Sessão 11: Responsividade (media queries na ordem original) */
+/* Sessão 11: About Us */
+.aboutus-section {
+  padding: 80px 20px 60px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.aboutus-section h2 {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--azul-principal);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.aboutus-section h2::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background-color: var(--amarelo-principal);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.aboutus-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.aboutus-texto {
+  flex: 1 1 65%;
+  min-width: 320px;
+  font-size: 17px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.aboutus-imagem {
+  flex: 1 1 30%;
+  max-width: 380px;
+  min-width: 260px;
+}
+
+.aboutus-imagem img {
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .aboutus-imagem img {
+    max-height: 260px;
+  }
+}
+
+@media (max-width: 480px) {
+  .aboutus-imagem img {
+    max-height: 220px;
+  }
+}
+
+/* Sessão 12: Nossos Momentos */
+.momentos-section {
+  padding: 60px 20px 80px;
+  background-color: #f5f7fa;
+  text-align: center;
+}
+
+.momentos-section h2 {
+  font-size: 30px;
+  font-weight: bold;
+  color: var(--azul-principal);
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.momentos-section h2::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background-color: var(--amarelo-principal);
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.momentos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.momento-item {
+  background-color: #ffffff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  transition: transform 0.3s ease;
+}
+
+.momento-item:hover {
+  transform: translateY(-5px);
+}
+
+.momento-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+.momento-item p {
+  margin: 0;
+  padding: 15px 10px;
+  font-weight: bold;
+  color: var(--azul-principal);
+  font-size: 15px;
+  background-color: #fff;
+  border-top: 2px solid var(--amarelo-principal);
+}
+
+
+/* Sessão 13 : Responsividade (media queries na ordem original) */
 @media (min-width: 1400px) {
   .slide-content img {
     max-height: 450px;
