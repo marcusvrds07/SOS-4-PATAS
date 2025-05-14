@@ -41,8 +41,6 @@
   </ul>
 </aside>
 
-<div id="filters-overlay" class="filters-overlay"></div>
-
 
 <form method="post" action="">
   {% csrf_token %}
@@ -122,97 +120,5 @@
 {% endif %}
 {% endblock %}
 
-{% block extrajs %}
-  <script>
-      window.addEventListener('DOMContentLoaded', function () {
-    const toggle = document.getElementById('action-toggle');
-    const checks = document.querySelectorAll('.action-select');
-
-    if (toggle && checks.length) {
-      toggle.addEventListener('change', function () {
-        checks.forEach(c => c.checked = toggle.checked);
-      });
-    }
-  });
-
-
-  document.addEventListener('DOMContentLoaded', () => {
-  const countEl  = document.getElementById('selected-count');
-  const btnRemove= document.getElementById('btn-remove');
-  const checkAll = document.getElementById('action-toggle');
-  const checks   = Array.from(document.querySelectorAll('input.action-select'));
-
-  function refreshActions() {
-    const checkedCount = checks.filter(c => c.checked).length;
-    countEl.textContent = checkedCount
-      ? `${checkedCount} selecionado${checkedCount>1?'s':''}`
-      : '0 selecionados';
-    btnRemove.disabled = checkedCount === 0;
-  }
-
-  checks.forEach(c => c.addEventListener('change', refreshActions));
-
-  if (checkAll) {
-    checkAll.addEventListener('change', () => {
-      checks.forEach(c => c.checked = checkAll.checked);
-      refreshActions();
-    });
-  }
-
-  refreshActions();
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    const selects = document.querySelectorAll('.grp-filter-choice');
-    selects.forEach(select => {
-      select.addEventListener('change', function () {
-        if (this.value) {
-          window.location.href = this.value;
-        }
-      });
-    });
-  });
-
-  const sidebar = document.getElementById('filters-sidebar');
-const overlay = document.getElementById('filters-overlay');
-const openBtn = document.querySelector('.fa-filter');
-const closeBtn = document.getElementById('close-filters');
-
-openBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  sidebar.classList.add('open');
-  overlay.classList.add('open');
-});
-
-closeBtn.addEventListener('click', () => {
-  sidebar.classList.remove('open');
-  overlay.classList.remove('open');
-});
-
-document.addEventListener('click', (e) => {
-  if (
-    sidebar.classList.contains('open') &&
-    !sidebar.contains(e.target) &&
-    !openBtn.contains(e.target)
-  ) {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-  }
-});
-
- document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('.search-container');
-    const input = form.querySelector('input[name="q"]');
-
-    form.addEventListener('submit', e => {
-      if (input.value.trim() === '') {
-        e.preventDefault();
-        window.location.href = window.location.pathname;
-      }
-    });
-  });
-
-
-  </script>
-{% endblock extrajs %}
+{% block extrajs %}<script src='{% static "global/js/change_list.js" %}'></script>{% endblock extrajs %}
 
