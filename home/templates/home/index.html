@@ -1,13 +1,12 @@
 {% extends "home/base.html" %}
 {% load static %}
 
-{% block title %}Home - SOS 4 PATAS{% endblock title %}{{animal.nome}}
-
+{% block title %}Home - SOS 4 PATAS{% endblock title %}
 
 {% block navbar_links %}
   <a href="#">Home</a>
   <a href="#" id="contato-link">Contato</a>
-  <a href="#">Doar</a>
+  <a href="#doacao">Doar</a>
   <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
 {% endblock navbar_links %}
 
@@ -156,9 +155,23 @@
         </div>
       </div>
       {% endif %} 
-
-      
     {% endif %}
+  </section>
+
+  <section id="doacao" class="donation-section">
+    <h2>FAÇA UMA DOAÇÃO</h2>
+    <div class="donation-container">
+      <div class="donation-text">
+        <p>
+          Sua contribuição é fundamental para continuarmos nosso trabalho de resgate e cuidado dos animais.
+          Cada centavo faz diferença na vida desses bichinhos que tanto precisam de ajuda.
+        </p>
+      </div>
+      
+      <div class="donation-options">
+        <button id="doar-btn" class="btn-doacao btn-doacao-grande">Doar</button>
+      </div>
+    </div>
   </section>
 </div>
 
@@ -182,11 +195,29 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="doacao-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Doação - SOS 4 PATAS</h2>
+      <button class="close-modal" id="close-doacao-modal">&times;</button>
+    </div>
+    <div class="modal-content">
+      <p>Sua doação é essencial para mantermos nosso trabalho de resgate e cuidado dos animais abandonados.</p>
+      <p>Escaneie o QR Code abaixo para realizar sua doação via PIX:</p>
+      <div class="qrcode-container" style="text-align: center; margin: 20px 0;">
+        <img src="{% static 'home/img/qrcode.png' %}" alt="QR Code PIX" style="max-width: 200px; margin: 0 auto;">
+        <p class="pix-key" style="margin-top: 10px; font-weight: bold; color: var(--azul-principal);">PIX: 21968049191</p>
+      </div>
+    </div>
+    <div class="contact-buttons">
+      <button id="copy-pix-btn" class="btn-doacao">Copiar chave PIX</button>
+    </div>
+  </div>
+</div>
 {% endblock content-base %}
+
 {% block script %}
 <script src='{% static "home/js/scripts.js" %}'></script>
 <script src='{% static "home/js/partials-js/hamburguer.js" %}'></script>
 <script src='{% static "home/js/partials-js/modal.js" %}'></script>
-</body>
-</html>
 {% endblock script %}
