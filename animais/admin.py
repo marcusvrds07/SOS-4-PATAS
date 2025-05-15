@@ -48,9 +48,9 @@ class TipoAnimalAdmin(admin.ModelAdmin):
         except AttributeError:
             request = None
 
-        change_url = reverse('admin:animais_animais_change', args=[obj.pk])
-        delete_url = reverse('admin:animais_animais_delete', args=[obj.pk])
-        view_url = reverse('admin:animais_animais_change', args=[obj.pk])
+        change_url = reverse('admin:animais_tipoanimal_change', args=[obj.pk])
+        delete_url = reverse('admin:animais_tipoanimal_delete', args=[obj.pk])
+        view_url = reverse('admin:animais_tipoanimal_change', args=[obj.pk])
         edit_icon   = static('global/imgs/lapis.png')
         view_icon   = static('global/imgs/olho-admin.png')
         delete_icon = static('global/imgs/x.png')
