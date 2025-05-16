@@ -750,10 +750,19 @@ body {
 }
 
 .momentos-section {
-  padding: 60px 20px 80px;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  min-height: 100vh;
+  padding: 80px 40px;
   background-color: #f5f7fa;
   text-align: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  gap: 40px;
 }
+
 
 .momentos-section h2 {
   font-size: 30px;
@@ -767,7 +776,7 @@ body {
   content: "";
   width: 60px;
   height: 4px;
-  background-color: var(--amarelo-principal);
+  background-color: white;
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -779,8 +788,11 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 30px;
-  max-width: 1100px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .momento-item {
