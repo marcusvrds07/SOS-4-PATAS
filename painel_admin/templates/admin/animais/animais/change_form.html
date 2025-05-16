@@ -1,0 +1,140 @@
+{% extends "partials/sidebar.html" %}
+{% load admin_list static %}
+{% load admin_urls %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'global/css/change_form.css' %}">
+{% endblock %}
+
+{% block content-pad %}
+<div class="main-content">
+  <h1>{% if add %}Cadastrar Animal{% else %}Modificar Animal{% endif %}</h1>
+  <form method="post" enctype="multipart/form-data" class="animal-form">
+    {% csrf_token %}
+
+    {% if errors %}
+      <div class="form-error">
+        {{ adminform.form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    {% for fieldset in adminform %}
+      {% if fieldset.name == "Foto de Capa" %}
+      <section class="section">
+        <h2>{{ fieldset.name }}</h2>
+        <div class="cover-photo">
+          <label>
+            {% for line in fieldset %}
+              {% for field in line %}
+                {{ field.field.as_widget }}  <!-- aqui! -->
+                <div id="avatar" class="cover-avatar"
+                  {% if field.field.value %}
+                    style="background-image:url('{{ field.field.value.url }}');" class="cover-avatar image-set"
+                  {% endif %}
+                ></div>
+              {% endfor %}
+            {% endfor %}
+          </label>
+        </div>
+      </section>
+      {% elif fieldset.name == "Dados Básicos" %}
+        <section class="section">
+          <h2>{{ fieldset.name }}</h2>
+          <div class="grid-3">
+          {% for line in fieldset %}
+            {% for field in line %}
+              <div class="field">
+                {{ field.label_tag }}
+                {% if field.name == "especie" %}
+                  {{ field }}
+                {% else %}
+                  {{ field.field }}
+                {% endif %}
+                {{ field.errors }}
+              </div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+        </section>
+      {% elif fieldset.name == "Descrição" %}
+        <section class="section section-descricao">
+          <h2>{{ fieldset.name }}</h2>
+          {% for line in fieldset %}
+            {% for field in line %}
+              {{ field.field }}
+            {% endfor %}
+          {% endfor %}
+        </section>
+      {% elif fieldset.name == "Idade e Nascimento" %}
+        <section class="section">
+          <h2>{{ fieldset.name }}</h2>
+          <div class="grid-3">
+            {% for line in fieldset %}
+              {% for field in line %}
+                <div class="field">
+                  {{ field.label_tag }}
+                  {{ field.field }}
+                  {{ field.errors }}
+                </div>
+              {% endfor %}
+            {% endfor %}
+          </div>
+        </section>
+      {% elif fieldset.name == "Status" %}
+        <div class="actions">
+          {% for line in fieldset %}
+            {% for field in line %}
+              <div class="field checkbox-field">
+                {{ field.field }}
+                <label for="{{ field.id_for_label }}"></label>
+                <span>{{ field.label }}</span>
+              </div>
+            {% endfor %}
+          {% endfor %}
+          <input type="submit" class="btn save" value="Salvar">
+          <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+          <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+          {% if original and has_delete_permission %}
+            <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <!-- Inline formsets = Galeria de Imagens -->
+    {% if inline_admin_formsets %}
+    <section class="section section-galeria">
+      <h2>Galeria de Imagens</h2>
+      <div class="gallery">
+        {% for inline_admin_formset in inline_admin_formsets %}
+          {% include inline_admin_formset.opts.template %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </form>
+</div>
+
+<script>
+function previewAvatar(input) {
+  const avatar = document.getElementById('avatar');
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      avatar.style.backgroundImage = `url(${e.target.result})`;
+      avatar.classList.add('image-set');
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var fotoInput = document.querySelector('input[type="file"][name="foto"]');
+  if(fotoInput) {
+    fotoInput.addEventListener('change', function() { previewAvatar(this); });
+  }
+});
+
+{{ block.super }}
+  <script src="{% static 'admin/js/admin/RelatedObjectLookup.js' %}"></script>
+</script>
+{% endblock %}

@@ -165,3 +165,21 @@ class AnimalAdmin(admin.ModelAdmin):
 
         extra_context['app_list'] = list(self.admin_site.get_app_list(request))
         return super().changeform_view(request, object_id, form_url, extra_context=extra_context)
+    
+    fieldsets = (
+        ('Foto de Capa', {
+            'fields': ('foto',),
+        }),
+        ('Dados Básicos', {
+            'fields': ('nome', 'sexo', 'porte', 'raca', 'especie'),
+        }),
+        ('Descrição', {
+            'fields': ('descricao',),
+        }),
+        ('Idade e Nascimento', {
+            'fields': ('idade_anos', 'idade_meses', 'data_nascimento'),
+        }),
+        ('Status', {
+            'fields': ('disponivel_para_adocao',),
+        }),
+    )
