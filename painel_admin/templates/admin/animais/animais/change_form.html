@@ -84,9 +84,18 @@
       {% endfor %}
     </div>
   </section>
-
-
-      {% elif fieldset.name == "Status" %}
+  <!-- Inline formsets = Galeria de Imagens -->
+  {% elif inline_admin_formsets %}
+    <section class="section section-galeria">
+      <h2>Galeria de Imagens</h2>
+      <div class="gallery">
+        {% for inline_admin_formset in inline_admin_formsets %}
+          {% include inline_admin_formset.opts.template %}
+        {% endfor %}
+      </div>
+  </section>
+  {% endif %}
+  {% if fieldset.name == "Status" %}
         <div class="actions">
           {% for line in fieldset %}
             {% for field in line %}
@@ -106,18 +115,6 @@
         </div>
       {% endif %}
     {% endfor %}
-
-    <!-- Inline formsets = Galeria de Imagens -->
-    {% if inline_admin_formsets %}
-    <section class="section section-galeria">
-      <h2>Galeria de Imagens</h2>
-      <div class="gallery">
-        {% for inline_admin_formset in inline_admin_formsets %}
-          {% include inline_admin_formset.opts.template %}
-        {% endfor %}
-      </div>
-    </section>
-    {% endif %}
   </form>
 </div>
 
