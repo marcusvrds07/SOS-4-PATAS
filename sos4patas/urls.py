@@ -20,10 +20,15 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
 from painel_admin.views import dashboard_admin
+from animais.views import add_tipoanimal_ajax, edit_tipoanimal_ajax, delete_tipoanimal_ajax
 
 urlpatterns = [
     path('', include('home.urls')),
+    path('admin/animais/tipoanimal/delete_ajax/', delete_tipoanimal_ajax, name='delete_tipoanimal_ajax'),
+    path('admin/animais/tipoanimal/edit_ajax/', edit_tipoanimal_ajax, name='edit_tipoanimal_ajax'),
+    path('admin/animais/tipoanimal/add_ajax/', add_tipoanimal_ajax, name='add_tipoanimal_ajax'),
     path('grappelli/', include('grappelli.urls')),
+    
 
     # Suas URLs personalizadas que usam 'admin' mas são independentes do Django Admin
     path('admin/esqueceu-senha/', auth_views.PasswordResetView.as_view(), name='password_reset'),

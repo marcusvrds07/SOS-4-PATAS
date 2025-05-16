@@ -31,8 +31,6 @@ class Animais(models.Model):
 
     foto = models.ImageField(upload_to=capa_upload_path)
     nome = models.CharField(max_length=100)
-    idade_anos = None
-    idade_meses = None
     data_nascimento = models.DateField(blank=True, null=True)
     sexo = models.CharField(choices=[('Fêmea', 'Fêmea'), ('Macho', 'Macho')])
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
@@ -43,13 +41,11 @@ class Animais(models.Model):
 
     def save(self, *args, **kwargs):
         if self.idade_anos is not None or self.idade_meses is not None:
-             
-            if self.idade_anos == None:
+            if self.idade_anos is None:
                 self.idade_anos = 0
-            elif self.idade_meses == None:
+            if self.idade_meses is None:
                 self.idade_meses = 0
-
-            if self.idade_anos > 0 or self.idade_meses > 0: 
+            if self.idade_anos > 0 or self.idade_meses > 0:
                 total_idade = relativedelta(years=self.idade_anos, months=self.idade_meses)
                 self.data_nascimento = date.today() - total_idade
             else:
@@ -59,7 +55,6 @@ class Animais(models.Model):
             foto_temp = self.foto
             self.foto = None
             super().save(*args, **kwargs)
-
             self.foto = foto_temp
         super().save(*args, **kwargs)
         

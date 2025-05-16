@@ -89,7 +89,6 @@ def animal_detail(request, id):
             if days.months > 1:
                 month = 'meses'
             animal.data_nascimento = f'{days.years} {year} e {days.months} {month}'
-            print(animal.data_nascimento)
         else:
             if days.years > 1:
                     year = 'anos'

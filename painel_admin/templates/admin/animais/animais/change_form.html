@@ -65,21 +65,27 @@
             {% endfor %}
           {% endfor %}
         </section>
-      {% elif fieldset.name == "Idade e Nascimento" %}
-        <section class="section">
-          <h2>{{ fieldset.name }}</h2>
-          <div class="grid-3">
-            {% for line in fieldset %}
-              {% for field in line %}
-                <div class="field">
-                  {{ field.label_tag }}
-                  {{ field.field }}
-                  {{ field.errors }}
-                </div>
-              {% endfor %}
-            {% endfor %}
+{% elif fieldset.name == "Idade e Nascimento" %}
+  <section class="section">
+    <h2>{{ fieldset.name }}</h2>
+    <div class="grid-3">
+      {% for line in fieldset %}
+        {% for field in line %}
+          <div class="field">
+            {{ field.label_tag }}
+            {% if field.is_readonly %}
+              <span class="readonly-input">{{ field.contents }}</span>
+            {% else %}
+              {{ field.field }}
+            {% endif %}
+            {{ field.errors }}
           </div>
-        </section>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </section>
+
+
       {% elif fieldset.name == "Status" %}
         <div class="actions">
           {% for line in fieldset %}
@@ -115,26 +121,22 @@
   </form>
 </div>
 
-<script>
-function previewAvatar(input) {
-  const avatar = document.getElementById('avatar');
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      avatar.style.backgroundImage = `url(${e.target.result})`;
-      avatar.classList.add('image-set');
-    };
-    reader.readAsDataURL(input.files[0]);
-  }
-}
-document.addEventListener('DOMContentLoaded', function() {
-  var fotoInput = document.querySelector('input[type="file"][name="foto"]');
-  if(fotoInput) {
-    fotoInput.addEventListener('change', function() { previewAvatar(this); });
-  }
-});
+<div class="modal-overlay" id="crud-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="crud-modal-title">Título do Modal</h2>
+      <button class="close-modal" id="close-crud-modal">&times;</button>
+    </div>
+    <div class="modal-content" id="crud-modal-content">
+    </div>
+    <div class="crud-modal-buttons" id="crud-modal-buttons">
+    </div>
+  </div>
+</div>
 
-{{ block.super }}
-  <script src="{% static 'admin/js/admin/RelatedObjectLookup.js' %}"></script>
-</script>
 {% endblock %}
+
+{% block extrajs %}
+<script src='{% static "global/js/change_form.js" %}'></script>
+{% endblock extrajs %}
+
