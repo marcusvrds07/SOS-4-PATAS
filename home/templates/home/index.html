@@ -11,26 +11,38 @@
 {% endblock navbar_links %}
 
 {% block content-base %}
-<div class="carroussel-main">
-  <div class="carroussel-container">
-    <div class="carroussel" id="carroussel">
-      <div class="slide">
-        <div class="slide-content">
-          <img src="{% static 'home/img/sos-capa-banner.png' %}" alt="banner">
-        </div>
-      </div>
-  
-      <div class="slide">
-        <div class="slide-content">
-          <img src="{% static 'home/img/voluntariado.png' %}" alt="Seja um voluntario">
-        </div>
+<div class="carrossel">
+  <div class="carrossel-slides">
+    <div class="slide ativo">
+      <img src="{% static 'home/img/Pet-Shop.png' %}" alt="Pet 1">
+      <div class="slide-texto">
+        <h2>Salve os animais que vivem na rua</h2>
+        <p>Adotar faz a diferença. Doe amor, mude vidas!</p>
       </div>
     </div>
-    <button class="seta esquerda" onclick="prevSlide()">&lt;</button>
-    <button class="seta direita" onclick="nextSlide()">&gt;</button>
-  </div>  
+    <div class="slide">
+      <img src="{% static 'seu_app/img/slide2.jpg' %}" alt="Pet 2">
+      <div class="slide-texto">
+        <h2>Adote. Transforme um destino.</h2>
+        <p>Cada pet espera por uma chance. Seja essa chance!</p>
+      </div>
+    </div>
+    <div class="slide">
+      <img src="{% static 'seu_app/img/slide3.jpg' %}" alt="Pet 3">
+      <div class="slide-texto">
+        <h2>Resgate e adoção: o melhor caminho!</h2>
+        <p>Um lar muda tudo. Adote um animal resgatado.</p>
+      </div>
+    </div>
+  </div>
+  <button class="seta esquerda">&#10094;</button>
+  <button class="seta direita">&#10095;</button>
+  <div class="bolinhas">
+    <span class="bolinha ativa"></span>
+    <span class="bolinha"></span>
+    <span class="bolinha"></span>
+  </div>
 </div>
-
 <div class="main">
 <section class="aboutus-section">
   <h2>SOBRE NÓS</h2>
