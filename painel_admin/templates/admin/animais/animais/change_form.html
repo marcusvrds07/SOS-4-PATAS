@@ -8,7 +8,25 @@
 
 {% block content-pad %}
 <div class="main-content">
-  <h1>{% if add %}Cadastrar Animal{% else %}Modificar Animal{% endif %}</h1>
+  <h1>{% if add %}Cadastrar Animal{% else %}Modificar Animal
+     
+    {% endif %}</h1>
+    <label id="available"> Disponivel Para Adoção:
+      {% for fieldset in adminform %}
+      {% if fieldset.name == "Status" %}
+        {% for line in fieldset %}
+        {% for field in line %}
+          <div class="field checkbox-field">
+            {{ field.field }}
+            <label for="{{ field.id_for_label }}"></label>
+            <span>{{ field.label }}</span>
+          </div>
+        {% endfor %}
+      {% endfor %}
+      {% endif %}
+    {% endfor %}
+    </label>
+
   <form method="post" enctype="multipart/form-data" class="animal-form">
     {% csrf_token %}
 
@@ -97,15 +115,6 @@
   {% endif %}
   {% if fieldset.name == "Status" %}
         <div class="actions">
-          {% for line in fieldset %}
-            {% for field in line %}
-              <div class="field checkbox-field">
-                {{ field.field }}
-                <label for="{{ field.id_for_label }}"></label>
-                <span>{{ field.label }}</span>
-              </div>
-            {% endfor %}
-          {% endfor %}
           <input type="submit" class="btn save" value="Salvar">
           <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
           <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">

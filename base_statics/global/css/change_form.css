@@ -28,11 +28,16 @@ body {
   line-height: 1.6;
 }
 
-/* TÍTULO */
+/* TÍTULO e Paragrafo*/
 .main-content h1 {
   font-size: 2rem;
-  margin-bottom: calc(var(--espaco) * 1.5);
   color: var(--azul-escuro);
+}
+
+#available {
+  display: flex;
+  gap: 10px;
+  margin-bottom: calc(var(--espaco) * 1.2);
 }
 
 /* SEÇÕES */
@@ -465,9 +470,8 @@ body {
 
 /* TOGGLE “Disponível para adoção” */
 .checkbox-field {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .checkbox-field input {
@@ -606,13 +610,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
+
+.file-input.add span:hover {
+  background: #ebecee;
+  transition: background 0.5s;
+}
+
 
 /* AÇÕES FINAIS */
 .actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: var(--espaco);
   margin-top: var(--espaco);
 }

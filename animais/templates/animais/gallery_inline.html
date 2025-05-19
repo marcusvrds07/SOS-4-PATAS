@@ -10,15 +10,15 @@
       {% endfor %}
       {% if form.instance.image %}
         <label class="gallery-label" style="cursor:pointer;">
-          <img src="{{ form.instance.image.url }}" class="gallery-img" onclick="this.previousElementSibling.click();">
+          <img src="{{ form.instance.image.url }}" class="gallery-img" onclick="this.previousElementSibling.click();" title="Clique para editar imagem">
           {{ form.image }}
         </label>
-        <button type="button" class="remove-btn" onclick="this.parentElement.querySelector('input[type=checkbox][name$=\'-DELETE\']').checked = true; this.closest('.gallery-item').style.display='none';">&times;</button>
+        <button type="button" title='Remover imagem da galeria' class="remove-btn" onclick="this.parentElement.querySelector('input[type=checkbox][name$=\'-DELETE\']').checked = true; this.closest('.gallery-item').style.display='none';">&times;</button>
         {{ form.DELETE }}
       {% else %}
         <label class="file-input add">
           {{ form.image }}
-          <span>+</span>
+          <span title="Adicionar imagem na galeria">+</span>
         </label>
       {% endif %}
       {{ form.id }}

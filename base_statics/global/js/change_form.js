@@ -313,4 +313,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     }
+
+
+  });
+
+  switchbutton = document.querySelector('.checkbox-field label');
+  switchbutton.addEventListener('click', function(e) {
+    console.log('Oi')
   });
