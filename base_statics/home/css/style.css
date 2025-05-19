@@ -4,13 +4,7 @@
   --shadow-color: rgba(9, 45, 115, 0.15);
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
 html, body {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
@@ -19,16 +13,11 @@ html, body {
   overflow-x: hidden;
 }
 
-body {
-  padding-top: 65px;
-  min-height: 100vh;
-}
-
 .carroussel-container {
   position: relative;
   width: 100vw;
-  min-width: 100vw;
-  max-width: 100vw;
+  min-width: 100%;
+  max-width: 100%;
   height: 100vh;
   min-height: 100vh;
   overflow: hidden;
