@@ -11,6 +11,7 @@ from django.contrib.admin.actions import delete_selected
 class AnimalImageInline(admin.TabularInline):
     model = models.AnimalImage
     extra = 1
+    template = "animais/gallery_inline.html"
     readonly_fields = ['preview']
     fields = ['image','preview']
 

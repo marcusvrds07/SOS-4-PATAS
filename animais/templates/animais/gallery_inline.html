@@ -1,0 +1,27 @@
+{% load static %}
+
+{{ inline_admin_formset.formset.management_form }}
+
+<div class="gallery">
+  {% for form in inline_admin_formset.forms %}
+    <div class="gallery-item">
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      {% if form.instance.image %}
+        <label class="gallery-label" style="cursor:pointer;">
+          <img src="{{ form.instance.image.url }}" class="gallery-img" onclick="this.previousElementSibling.click();">
+          {{ form.image }}
+        </label>
+        <button type="button" class="remove-btn" onclick="this.parentElement.querySelector('input[type=checkbox][name$=\'-DELETE\']').checked = true; this.closest('.gallery-item').style.display='none';">&times;</button>
+        {{ form.DELETE }}
+      {% else %}
+        <label class="file-input add">
+          {{ form.image }}
+          <span>+</span>
+        </label>
+      {% endif %}
+      {{ form.id }}
+    </div>
+  {% endfor %}
+</div>

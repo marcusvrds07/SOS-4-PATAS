@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
       abrirModalEditar(val, nomeAtual);
     });
   }
-
+  
   // DELETE
   var delBtn = document.getElementById('delete_id_especie');
   if (delBtn) {
@@ -228,4 +228,89 @@ document.addEventListener('DOMContentLoaded', function() {
       abrirModalExcluir(val, nomeAtual);
     });
   }
+
+  var fotoInput = document.getElementById('id_foto');
+  if (fotoInput) {
+    fotoInput.addEventListener('change', function() {
+      previewAvatar(this);
+    });
+  }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Encontrar o botão de adicionar (último item da galeria sem imagem)
+    const addButton = document.querySelector('.gallery-item .file-input.add input[type="file"]');
+    
+    if (addButton) {
+      addButton.addEventListener('change', function(e) {
+        const files = e.target.files;
+        if (files.length > 0) {
+          // Criar URL para o arquivo selecionado
+          const imageUrl = URL.createObjectURL(files[0]);
+          
+          // Obter o elemento pai (label.file-input.add)
+          const fileInputLabel = this.parentElement;
+          const galleryItem = fileInputLabel.parentElement;
+          
+          // Criar nova estrutura HTML para a imagem selecionada
+          const newContent = document.createElement('div');
+          newContent.innerHTML = `
+            <label class="gallery-label" style="cursor:pointer;">
+              <img src="${imageUrl}" class="gallery-img">
+            </label>
+            <button type="button" class="remove-btn" onclick="this.closest('.gallery-item').remove();">&times;</button>
+          `;
+          
+          // Clonar o input de arquivo para a nova imagem
+          const clonedInput = this.cloneNode(true);
+          
+          // Limpar o input original para permitir selecionar o mesmo arquivo novamente
+          this.value = '';
+          
+          // Criar um novo item de galeria para a imagem selecionada
+          const newGalleryItem = document.createElement('div');
+          newGalleryItem.className = 'gallery-item';
+          
+          // Copiar campos ocultos do item original
+          const hiddenFields = galleryItem.querySelectorAll('input[type="hidden"]');
+          hiddenFields.forEach(function(field) {
+            if (!field.name.includes('TOTAL_FORMS') && 
+                !field.name.includes('INITIAL_FORMS') && 
+                !field.name.includes('MIN_NUM_FORMS') && 
+                !field.name.includes('MAX_NUM_FORMS')) {
+              const clonedField = field.cloneNode(true);
+              
+              // Atualizar o índice no nome do campo
+              const totalForms = document.querySelector('input[name$="TOTAL_FORMS"]');
+              const newIndex = parseInt(totalForms.value);
+              
+              // Substituir o índice no nome do campo
+              const oldIndex = field.name.match(/\d+/)[0];
+              clonedField.name = field.name.replace(oldIndex, newIndex);
+              clonedField.id = field.id.replace(oldIndex, newIndex);
+              
+              newGalleryItem.appendChild(clonedField);
+            }
+          });
+          
+          // Adicionar o input de arquivo clonado à nova label
+          const newLabel = newContent.querySelector('.gallery-label');
+          clonedInput.name = clonedInput.name.replace(/\d+/, document.querySelector('input[name$="TOTAL_FORMS"]').value);
+          clonedInput.id = clonedInput.id.replace(/\d+/, document.querySelector('input[name$="TOTAL_FORMS"]').value);
+          newLabel.appendChild(clonedInput);
+          
+          // Adicionar o novo conteúdo ao novo item de galeria
+          while (newContent.firstChild) {
+            newGalleryItem.appendChild(newContent.firstChild);
+          }
+          
+          // Inserir o novo item de galeria antes do item com o botão de adicionar
+          galleryItem.parentNode.insertBefore(newGalleryItem, galleryItem);
+          
+          // Incrementar o contador TOTAL_FORMS no management_form
+          const totalForms = document.querySelector('input[name$="TOTAL_FORMS"]');
+          totalForms.value = parseInt(totalForms.value) + 1;
+        }
+      });
+    }
+  });

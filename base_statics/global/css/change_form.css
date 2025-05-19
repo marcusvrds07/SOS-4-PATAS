@@ -428,6 +428,8 @@ body {
   border: 2px dashed var(--cinza-medio);
   position: relative;
   transition: transform var(--transicao), border-color var(--transicao);
+  background-size: cover;
+  background-position: center;
 }
 
 .cover-photo .cover-avatar:hover {
@@ -523,61 +525,87 @@ body {
   cursor: not-allowed;
 }
 
-
-/* GALERIA */
-.section-galeria {
-  background: #fff;
-  padding: var(--espaco);
-  border-radius: var(--bordas-radius);
-  box-shadow: var(--sombra-sutil);
-}
-
+/* GALERIA ESTILO GRID MODERNA */
 .gallery {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--espaco);
+  gap: 16px;
 }
 
 .gallery-item {
   position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.gallery-item img {
-  width: 100px;
-  height: 100px;
+.gallery-label, .file-input.add {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+  background: #f7f8fa;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: var(--bordas-radius);
-  box-shadow: var(--sombra-sutil);
+  border-radius: 14px;
+  display: block;
 }
 
 .remove-btn {
   position: absolute;
-  top: -8px;
-  right: -8px;
-  background: var(--amarelo);
+  top: 4px;
+  right: 4px;
+  background: var(--amarelo, #f7d647);
+  color: #222;
   border: none;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 16px;
+  width: 26px;
+  height: 26px;
+  font-size: 20px;
+  font-weight: bold;
   line-height: 1;
+  z-index: 3;
   cursor: pointer;
-  transition: transform var(--transicao);
-}
-
-.remove-btn:hover {
-  transform: scale(1.1);
-}
-
-.add-item .file-input.add span {
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: var(--cinza-medio);
-  color: var(--azul-escuro);
-  font-size: 2rem;
-  width: 100px;
-  height: 100px;
+  justify-content: center;
+}
+
+.file-input.add input[type="file"] {
+  display: none;
+}
+
+.gallery input[type="checkbox"] {
+  display: none;
+}
+
+.gallery-label input[type="file"] {
+  display: none;
+}
+
+.file-upload {
+  display: none;
+}
+
+.file-input.add span {
+  font-size: 2.2rem;
+  color: var(--azul-escuro, #1941a0);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* AÇÕES FINAIS */
