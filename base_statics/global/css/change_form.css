@@ -401,21 +401,28 @@ body {
 
 /* COVER PHOTO – CÍRCULO SEM FUNDO BRANCO */
 
-.cover-photo .file-upload { display: none !important; }
 
 .cover-photo {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: var(--espaco);
+  position: relative;
 }
 
 .cover-photo label {
   cursor: pointer;
+  border-radius: 50%;
 }
 
 .cover-photo input {
-  display: none;
+  position: absolute;
+  top: 125px;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+  width: 10px;
+  left: 49.5%;
 }
 
 .cover-photo .cover-avatar {

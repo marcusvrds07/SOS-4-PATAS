@@ -4,8 +4,8 @@ from dateutil.relativedelta import relativedelta
 from datetime import date
 
 class AnimalForm(forms.ModelForm):
-    idade_anos = forms.IntegerField(required=False, min_value=0, label="Anos")
-    idade_meses = forms.IntegerField(required=False, min_value=0, label="Meses")
+    idade_anos = forms.IntegerField(required=False, widget=forms.NumberInput(attrs={'min': 0, 'max': 100}), label="Anos")
+    idade_meses = forms.IntegerField(required=False,  widget=forms.NumberInput(attrs={'min': 0, 'max': 100}), label="Meses")
 
     class Meta:
         model = Animais

@@ -44,7 +44,7 @@
           <label>
             {% for line in fieldset %}
               {% for field in line %}
-                {{ field.field.as_widget }}  <!-- aqui! -->
+                {{ field.field.as_widget }}
                 <div id="avatar" class="cover-avatar"
                   {% if field.field.value %}
                     style="background-image:url('{{ field.field.value.url }}');" class="cover-avatar image-set"
