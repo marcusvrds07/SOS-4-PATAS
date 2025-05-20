@@ -522,7 +522,6 @@ body {
   cursor: not-allowed;
 }
 
-/* GALERIA ESTILO GRID MODERNA */
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -557,6 +556,20 @@ body {
   object-fit: cover;
   border-radius: 14px;
   display: block;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: var(--amarelo, #f7d647);
+  color: #222;
+  border: none;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .btn-danger {
