@@ -31,6 +31,8 @@ class Animais(models.Model):
 
     foto = models.ImageField(upload_to=capa_upload_path)
     nome = models.CharField(max_length=100)
+    idade_anos = models.IntegerField(null=True, blank=True)
+    idade_meses = models.IntegerField(null=True, blank=True)
     data_nascimento = models.DateField(blank=True, null=True)
     sexo = models.CharField(choices=[('Fêmea', 'Fêmea'), ('Macho', 'Macho')])
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
