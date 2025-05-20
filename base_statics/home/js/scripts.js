@@ -28,54 +28,9 @@ document.addEventListener("click", event => {
   }
 })
 
-// const carroussel = document.getElementById("carroussel")
-// const slides = document.querySelectorAll(".slide")
-// const carrousselContainer = document.querySelector(".carroussel-container")
-
-// if (carroussel) {
-//   const originalSources = []
-//   slides.forEach(slide => {
-//     const img = slide.querySelector("img")
-//     if (img) originalSources.push(img.getAttribute("src"))
-//   })
-
-//   function updateCarouselImages() {
-//     const w = window.innerWidth
-//     if (!carrousselContainer.classList.contains("card-style")) {
-//       carrousselContainer.classList.add("card-style")
-//     }
-//     slides.forEach((slide, i) => {
-//       const img = slide.querySelector("img")
-//       if (!img) return
-//       let prefix
-//       if (w <= 320) prefix = "pequeno"
-//       else if (w <= 375) prefix = "medio"
-//       else if (w <= 430) prefix = "grande"
-//       else if (w <= 768) prefix = "grande"
-//       else {
-//         img.src = originalSources[i]
-//         return
-//       }
-//       img.src = `/static/home/img/carrossel${i+1}_${prefix}.png`
-//     })
-//   }
-
-//   updateCarouselImages()
-//   window.addEventListener("resize", updateCarouselImages)
-
-//   let slideIndex = 0
-//   function showSlide(n) {
-//     slideIndex = n
-//     carroussel.style.transform = `translateX(-${n*100}%)`
-//   }
-//   window.nextSlide = () => showSlide((slideIndex+1) % slides.length)
-//   window.prevSlide = () => showSlide((slideIndex-1+slides.length) % slides.length)
-//   setInterval(window.nextSlide, 5000)
-// }
-
 const navbar = document.getElementById("navbar")
 window.addEventListener("scroll", () => {
-  if (navbar) navbar.classList.toggle("scrolled", window.scrollY > 50)
+  if (navbar) navbar.classList.toggle("scrolled", window.scrollY > 0)
   closeSelect()
 })
 

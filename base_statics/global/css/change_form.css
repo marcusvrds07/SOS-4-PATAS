@@ -28,11 +28,16 @@ body {
   line-height: 1.6;
 }
 
-/* TÍTULO */
+/* TÍTULO e Paragrafo*/
 .main-content h1 {
   font-size: 2rem;
-  margin-bottom: calc(var(--espaco) * 1.5);
   color: var(--azul-escuro);
+}
+
+#available {
+  display: flex;
+  gap: 10px;
+  margin-bottom: calc(var(--espaco) * 1.2);
 }
 
 /* SEÇÕES */
@@ -157,7 +162,6 @@ body {
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Overlay escurecido e efeito blur */
 .modal-overlay {
   display: none;
   position: fixed;
@@ -168,7 +172,6 @@ body {
   backdrop-filter: blur(5px);
 }
 
-/* Modal principal */
 .modal {
   position: fixed;
   top: 50%; left: 50%;
@@ -196,7 +199,6 @@ body {
   }
 }
 
-/* Header do modal */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -212,7 +214,6 @@ body {
   padding-bottom: 8px;
 }
 
-/* Botão de fechar */
 .close-modal {
   background: none;
   border: none;
@@ -236,7 +237,6 @@ body {
   margin-bottom: 25px;
 }
 
-/* Estilo dos campos dentro do modal */
 .modal-content input[type="text"],
 .modal-content input[type="email"],
 .modal-content textarea {
@@ -256,7 +256,6 @@ body {
   outline: none;
 }
 
-/* Parágrafos explicativos no modal */
 .modal-content p {
   line-height: 1.6;
   color: var(--azul-principal);
@@ -267,7 +266,7 @@ body {
   border-left: 3px solid var(--azul-principal);
 }
 
-/* Botões do modal (container) */
+/* Botões do modal*/
 .crud-modal-buttons, .contact-buttons {
   display: flex;
   gap: 15px;
@@ -275,7 +274,6 @@ body {
   justify-content: center;
 }
 
-/* Botão padrão verde (whatsapp-btn) */
 .whatsapp-btn {
   background-color: #25d366;
   color: white;
@@ -465,9 +463,8 @@ body {
 
 /* TOGGLE “Disponível para adoção” */
 .checkbox-field {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .checkbox-field input {
@@ -562,24 +559,20 @@ body {
   display: block;
 }
 
-.remove-btn {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  background: var(--amarelo, #f7d647);
-  color: #222;
-  border: none;
-  border-radius: 50%;
-  width: 26px;
-  height: 26px;
-  font-size: 20px;
-  font-weight: bold;
+.btn-danger {
+  background: rgb(225, 1, 1);
+  color: #ffffff;
   line-height: 1;
-  z-index: 3;
+  height: 1.2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
+}
+.btn-danger:hover {
+  background: red;
+  transform: translateY(-2px);
 }
 
 .file-input.add input[type="file"] {
@@ -606,15 +599,29 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
+
+.file-input.add span:hover {
+  background: #ebecee;
+  transition: background 0.5s;
+}
+
 
 /* AÇÕES FINAIS */
 .actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  flex-wrap: wrap;
   gap: var(--espaco);
   margin-top: var(--espaco);
+}
+
+@media (max-width: 462px) {
+  .actions {
+    justify-content: flex-start;
+  }
 }
 
 .actions .checkbox-field {

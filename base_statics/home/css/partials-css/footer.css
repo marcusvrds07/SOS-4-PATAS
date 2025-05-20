@@ -6,6 +6,8 @@
   font-family: "Comfortaa", cursive;
   box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 .footer-container {
