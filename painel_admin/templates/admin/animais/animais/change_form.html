@@ -11,25 +11,25 @@
   <h1>{% if add %}Cadastrar Animal{% else %}Modificar Animal
      
     {% endif %}</h1>
-    <label id="available"> Disponivel Para Adoção:
-      {% for fieldset in adminform %}
-      {% if fieldset.name == "Status" %}
-        {% for line in fieldset %}
-        {% for field in line %}
-          <div class="field checkbox-field">
-            {{ field.field }}
-            <label for="{{ field.id_for_label }}"></label>
-            <span>{{ field.label }}</span>
-          </div>
+    
+    <form method="post" enctype="multipart/form-data" class="animal-form">
+      {% csrf_token %}
+      
+      <div id="available"> Disponivel Para Adoção:
+        {% for fieldset in adminform %}
+        {% if fieldset.name == "Status" %}
+          {% for line in fieldset %}
+          {% for field in line %}
+            <div class="field checkbox-field">
+              {{ field.field }}
+              <label for="{{ field.id_for_label }}"></label>
+              <span>{{ field.label }}</span>
+            </div>
+          {% endfor %}
         {% endfor %}
+        {% endif %}
       {% endfor %}
-      {% endif %}
-    {% endfor %}
-    </label>
-
-  <form method="post" enctype="multipart/form-data" class="animal-form">
-    {% csrf_token %}
-
+          </div>
     {% if errors %}
       <div class="form-error">
         {{ adminform.form.non_field_errors }}

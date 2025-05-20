@@ -401,6 +401,7 @@ html, body {
 }
 
 #unavailable {
+  display: flex;
   text-align: center;
   margin: 30px auto;
   color: var(--azul-principal);
