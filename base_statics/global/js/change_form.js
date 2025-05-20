@@ -266,20 +266,19 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Atualizar preview de imagens já existentes na galeria ao editar
-  const existingFileInputs = document.querySelectorAll('.gallery-item .gallery-label input[type="file"]');
-  existingFileInputs.forEach(function (fileInput) {
-    fileInput.addEventListener('change', function (e) {
-      const files = e.target.files;
-      if (files.length > 0) {
-        const imageUrl = URL.createObjectURL(files[0]);
-        const galleryItem = this.closest('.gallery-item');
-        const img = galleryItem.querySelector('.gallery-img');
-        if (img) {
-          img.src = imageUrl;
+    document.querySelector('.gallery').addEventListener('change', function(e) {
+      if (e.target.matches('.gallery-label input[type="file"]')) {
+        const files = e.target.files;
+        if (files.length > 0) {
+          const imageUrl = URL.createObjectURL(files[0]);
+          const galleryItem = e.target.closest('.gallery-item');
+          const img = galleryItem.querySelector('.gallery-img');
+          if (img) {
+            img.src = imageUrl;
+          }
         }
       }
     });
-  });
 });
 
 // switch toggle

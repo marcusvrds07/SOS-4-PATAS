@@ -570,6 +570,7 @@ body {
   height: 26px;
   font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .btn-danger {
