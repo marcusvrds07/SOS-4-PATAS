@@ -1,6 +1,6 @@
 :root {
   --amarelo-principal: #f7d647;
-  --azul-principal: #1954cb;
+  --azul-principal: #004AAD;
   --shadow-color: rgba(9, 45, 115, 0.15);
 }
 
@@ -11,20 +11,19 @@ html, body {
   font-family: "Comfortaa", cursive;
   background: #fff;
 }
-
 .carroussel-container {
   position: relative;
   width: 100vw;
-  min-width: 100%;
-  max-width: 100%;
+  min-width: 100vw;
+  max-width: 100vw;
   height: 100vh;
-  min-height: 100vh;
+  min-height: 350px;
   overflow: hidden;
   background: #1954cb;
   box-sizing: border-box;
-  left: 0;           
-  margin-left: 0;
-  margin-right: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .carroussel {
@@ -34,7 +33,8 @@ html, body {
   overflow: hidden;
 }
 
-.slide {
+.slide,
+.slide.active {
   width: 100%;
   height: 100%;
   display: flex;
@@ -45,84 +45,145 @@ html, body {
   opacity: 0;
   transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
   z-index: 1;
-  background: none;
   margin: 0; padding: 0;
 }
+
 .slide.active {
   opacity: 1;
   z-index: 2;
 }
 
-.slide img, .carrossel-img {
-  width: 100%;
-  height: 100%;
+.slide img,
+.carrossel-img {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100vw;
+  max-height: 100vh;
   object-fit: cover;
   object-position: center;
   display: block;
   background: #1954cb;
+  padding-top: 10rem;
 }
 
 .carrossel-texto {
   position: absolute;
   top: 50%;
-  right: 7%;
-  left: auto;
+  left: 45%;
+  right: 0;
   transform: translateY(-50%);
   z-index: 10;
-  color: #fff;
-  max-width: 540px;
-  padding: 32px 32px;
-  background: rgba(25, 84, 203, 0.75);
-  border-radius: 28px;
-  box-shadow: 0 4px 24px rgba(25,84,203,0.15);
+  width: 48vw;
+  min-width: 200px;
+  max-width: 650px;
+  padding: 0 4vw 0 2vw;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
+  background: none;
+  box-shadow: none;
+  color: #fff;
+  text-align: left;
+  pointer-events: none;
 }
-
 .carrossel-texto h1 {
-  font-size: 2.7rem;
-  font-weight: bold;
-  margin: 0;
-  line-height: 1.15;
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin: 0 0 10px 0;
   color: #f7d647;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.12);
-  letter-spacing: 1.5px;
+  line-height: 1.12;
+  letter-spacing: 1.2px;
+  text-shadow: 2px 4px 16px #123b7c, 0 2px 16px #000c;
+  background: none;
+  pointer-events: auto;
 }
 
 .carrossel-texto p {
-  font-size: 1.45rem;
+  font-size: 1.2rem;
   margin: 0;
-  color: #fff;
   font-weight: 500;
-  text-shadow: 0 2px 8px rgba(25,84,203,0.28);
+  color: #fff;
+  text-shadow: 1px 2px 10px #19346b, 0 2px 8px #000a;
+  pointer-events: auto;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .carrossel-texto {
-    max-width: 86vw;
-    right: 5%;
-    left: 5%;
-    top: 80%;
-    padding: 18px 10px;
-    border-radius: 18px;
-    transform: translateY(-50%);
+    width: 56vw;
+    left: 45%;
+    max-width: 420px;
+    padding: 0 2vw 0 1vw;
+    gap: 12px;
   }
+  .carrossel-texto h1 { font-size: 1.8rem; }
+  .carrossel-texto p { font-size: 1.02rem; }
 }
-
+@media (max-width: 800px) {
+  .carrossel-texto {
+    top: 55%;
+    left: 45%;
+    width: 50vw;
+    max-width: 340px;
+    padding: 0 2vw 0 1vw;
+    gap: 8px;
+  }
+  .carrossel-texto h1 { font-size: 1.12rem; }
+  .carrossel-texto p { font-size: 0.90rem; }
+}
 @media (max-width: 600px) {
   .carrossel-texto {
-    max-width: 96vw;
-    right: 2vw;
-    left: 2vw;
-    top: auto;
-    bottom: 18vw;
-    padding: 10px 6px;
-    border-radius: 12px;
-    transform: none;
+    top: 60%;
+    left: 42%;
+    width: 48vw;
+    max-width: 98vw;
+    min-width: 110px;
+    gap: 6px;
+    padding: 0 2vw 0 1vw;
+  }
+  .carrossel-texto h1 { font-size: 0.92rem; }
+  .carrossel-texto p { font-size: 0.80rem; }
+}
+@media (max-width: 420px) {
+  .carrossel-texto {
+    top: 65%;
+    width: 50vw;
+    left: 40%;
+    max-width: 98vw;
+    min-width: 80px;
+    gap: 4px;
+    padding: 0 4vw 0 2vw;
+  }
+  .carrossel-texto h1 { font-size: 0.81rem; }
+  .carrossel-texto p { font-size: 0.72rem; }
+}
+
+
+@media (max-width: 800px) {
+  .carroussel-container {
+    height: 54vw;
+    min-height: 270px;
+    max-height: 420px;
+  }
+  .slide img, .carrossel-img {
+    height: 54vw;
+    min-height: 270px;
+    max-height: 420px;
   }
 }
 
+/* Mobile */
+@media (max-width: 600px) {
+  .carroussel-container {
+    height: 70vw;
+    min-height: 170px;
+    max-height: 310px;
+  }
+  .slide img, .carrossel-img {
+    height: 70vw;
+    min-height: 170px;
+    max-height: 310px;
+  }
+}
 
 .seta {
   position: absolute;
@@ -198,7 +259,7 @@ html, body {
 }
 
 .adoption-section h2 {
-  font-size: 30px;
+  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
   margin-bottom: 40px;
@@ -280,19 +341,17 @@ html, body {
   color: var(--azul-principal);
   text-align: center;
   font-weight: 500;
-  margin: 2px 0 0;
-  padding: 0 5px;
-  line-height: 1.4;
+  margin: 2px 0 1%;
+  line-height: 1rem;
 }
 
 .btn-3d-wrapper {
-  position: absolute;
-  bottom: 14px;
-  width: calc(2.5vw + 125px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
+  width: 80%;
+  margin: 0 auto;
+  transform: none;
+  z-index: 1;
   text-decoration: none;
+  display: block;
 }
 
 .btn-3d-wrapper .btn-top {
@@ -738,10 +797,14 @@ html, body {
   background-color: #ffffff;
   text-align: center;
   min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .aboutus-section h2 {
-  font-size: 30px;
+  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
   margin-bottom: 40px;
@@ -774,7 +837,7 @@ html, body {
 .aboutus-texto {
   flex: 1 1 65%;
   min-width: 320px;
-  font-size: 17px;
+  font-size: clamp(0.90rem, 1.5vw + 0.6rem, 1.15rem);
   line-height: 1.8;
   color: #333;
 }
@@ -819,11 +882,15 @@ html, body {
   background: #f5f7fa;
   box-sizing: border-box;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 
 .momentos-section h2 {
-  font-size: 30px;
+  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
   margin-bottom: 40px;
@@ -893,9 +960,6 @@ html, body {
   .card-top img {
     width: calc(2.6vw + 130px);
   }
-  .btn-3d-wrapper {
-    width: calc(2.5vw + 125px);
-  }
 }
 
 @media (max-width: 1200px) {
@@ -913,65 +977,14 @@ html, body {
   }
 }
 
-@media (min-width: 1367px) {
-  .carroussel-main {
-    padding-top: 50px;
-  }
-  .carroussel-container {
-    max-width: 80%;
-    box-shadow:
-      0 15px 30px rgba(9, 45, 115, 0.2),
-      0 8px 16px rgba(9, 45, 115, 0.15),
-      0 4px 8px rgba(247, 214, 71, 0.1),
-      0 0 0 1px rgba(9, 45, 115, 0.05);
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1366px) {
-  .carroussel-main {
-    padding-top: 40px;
-  }
-  .carroussel-container {
-    max-width: 85%;
-    margin: 0 auto 40px;
-  }
-  .slide-content img {
-    max-height: 380px;
-    width: auto;
-    max-width: 100%;
-  }
-}
 
 @media (max-width: 768px) {
-  .carroussel-main {
-    padding-top: 40px;
-  }
-  .carroussel-container {
-    max-width: 90%;
-    margin: 0 auto 40px;
-    box-shadow:
-      0 8px 20px rgba(9, 45, 115, 0.18),
-      0 4px 10px rgba(9, 45, 115, 0.12),
-      0 2px 4px rgba(247, 214, 71, 0.08),
-      0 0 0 1px rgba(9, 45, 115, 0.05);
-  }
-  .slide-content img {
-    max-height: 300px;
-  }
-  .seta {
-    width: 35px;
-    height: 35px;
-    font-size: 1.5rem;
-  }
   .card-top {
     width: 180px;
     height: 270px;
   }
   .card-top img {
     width: 155px;
-  }
-  .btn-3d-wrapper {
-    width: 150px;
   }
   .modal {
     width: 95%;
@@ -1046,9 +1059,6 @@ html, body {
     height: 30px;
     font-size: 1.2rem;
   }
-  .btn-3d-wrapper {
-    width: 170px;
-  }
   .btn-doacao {
     padding: 10px 15px;
     font-size: 14px;
@@ -1100,9 +1110,6 @@ html, body {
     height: 28px;
     font-size: 1rem;
   }
-  .btn-3d-wrapper {
-    width: 150px;
-  }
 }
 
 @media (max-width: 360px) {
@@ -1139,7 +1146,7 @@ html, body {
 }
 
 .donation-section h2 {
-  font-size: 30px;
+  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
   margin-bottom: 40px;
@@ -1167,7 +1174,7 @@ html, body {
 
 .donation-text {
   margin-bottom: 30px;
-  font-size: 17px;
+  font-size: clamp(0.90rem, 1.5vw + 0.6rem, 1.15rem);
   line-height: 1.8;
   color: #333;
 }
