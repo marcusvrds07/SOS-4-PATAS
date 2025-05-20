@@ -391,6 +391,7 @@ body {
   resize: none;
   font-size: 1rem;
   transition: border-color var(--transicao), box-shadow var(--transicao);
+  box-sizing: border-box;
 }
 
 .section-descricao textarea:focus {
