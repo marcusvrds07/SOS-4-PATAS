@@ -1,48 +1,7 @@
-  document.addEventListener('DOMContentLoaded', () => {
-
-    // Checkbox da tabela
-    const toggle = document.getElementById('action-toggle');
-    const checks = Array.from(document.querySelectorAll('input.action-select'));
-    const countEl = document.getElementById('selected-count');
-    const btnRemove = document.getElementById('btn-remove');
-
-    function refreshActions() {
-      const checkedCount = checks.filter(c => c.checked).length;
-      countEl.textContent = checkedCount
-        ? `${checkedCount} selecionado${checkedCount > 1 ? 's' : ''}`
-        : '0 selecionados';
-      btnRemove.disabled = checkedCount === 0;
-    }
-
-    if (toggle) {
-      toggle.addEventListener('change', () => {
-        checks.forEach(c => c.checked = toggle.checked);
-        refreshActions();
-      });
-    }
-
-    checks.forEach(c => c.addEventListener('change', refreshActions));
-    refreshActions();
-
-    document.querySelectorAll('.grp-filter-choice').forEach(select => {
-      select.addEventListener('change', function () {
-        if (this.value) {
-          window.location.href = this.value;
-        }
-      });
-    });
-
-    const form = document.querySelector('.search-container');
-    const input = form.querySelector('input[name="q"]');
-    form.addEventListener('submit', e => {
-      if (input.value.trim() === '') {
-        e.preventDefault();
-        window.location.href = window.location.pathname;
-      }
-    });
-});
+// modal.js
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Fecha modal ao clicar no X ou fora do modal
   var closeBtn = document.getElementById('close-crud-modal');
   var overlay = document.getElementById('crud-modal-overlay');
   if (closeBtn && overlay) {
@@ -55,53 +14,51 @@ document.addEventListener('DOMContentLoaded', function() {
       if (e.target === overlay) overlay.style.display = 'none';
     };
   }
-});
 
+  // Função para abrir modal CRUD
+  window.openCrudModal = function({ title, contentHtml, buttons }) {
+    document.getElementById('crud-modal-title').textContent = title;
+    document.getElementById('crud-modal-content').innerHTML = contentHtml;
 
-function openCrudModal({ title, contentHtml, buttons }) {
-  document.getElementById('crud-modal-title').textContent = title;
-  document.getElementById('crud-modal-content').innerHTML = contentHtml;
+    const btnContainer = document.getElementById('crud-modal-buttons');
+    btnContainer.innerHTML = '';
+    buttons.forEach(({ text, className, onClick }) => {
+      const btn = document.createElement('button');
+      btn.textContent = text;
+      btn.className = className;
+      btn.type = 'button';
+      btn.onclick = onClick;
+      btnContainer.appendChild(btn);
+    });
 
-  const btnContainer = document.getElementById('crud-modal-buttons');
-  btnContainer.innerHTML = '';
+    document.getElementById('crud-modal-overlay').style.display = 'block';
+  };
 
-  buttons.forEach(({ text, className, onClick }) => {
-    const btn = document.createElement('button');
-    btn.textContent = text;
-    btn.className = className;
-    btn.type = 'button';
-    btn.onclick = onClick;
-    btnContainer.appendChild(btn);
-  });
+  // Utilitário para CSRF
+  function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          let cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              let cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getCookie('csrftoken');
 
-  document.getElementById('crud-modal-overlay').style.display = 'block';
-}
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-const csrftoken = getCookie('csrftoken');
-
-
-document.addEventListener('DOMContentLoaded', () => {
+  // Botões de deletar lista de TipoAnimal
   document.querySelectorAll('.delete-btn').forEach(button => {
     button.addEventListener('click', function () {
       const id = this.dataset.id;
       const nome = this.dataset.name;
 
       openCrudModal({
-        title: 'Excluir Animal',
+        title: 'Excluir Categoria de Animal',
         contentHtml: `<p>Tem certeza que deseja excluir <b>${nome}</b>?</p>`,
         buttons: [
           {
@@ -113,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             text: 'Excluir',
             className: 'whatsapp-btn',
             onClick: () => {
-              fetch(`/admin/animais/animais/${id}/delete/`, {
+              fetch(`/admin/animais/tipoanimal/${id}/delete/`, {
                 method: 'POST',
                 headers: {
                   'X-CSRFToken': csrftoken,
@@ -144,16 +101,20 @@ document.addEventListener('DOMContentLoaded', function () {
   if (form && btnRemove) {
     btnRemove.addEventListener('click', function (e) {
       e.preventDefault();
+
       const checked = form.querySelectorAll('input.action-select:checked');
       if (!checked.length) return;
 
-      let nomes = Array.from(checked).map(el => el.closest('tr').querySelector('td.field-nome')?.innerText.trim() || '').filter(Boolean);
+      let nomes = Array.from(checked)
+        .map(el => el.closest('tr').querySelector('th.field-nome')?.innerText.trim() || '')
+        .filter(Boolean);
+
       let nomesHtml = nomes.length
         ? `<ul style="margin: 8px 0 0 0; padding-left: 18px; color:#1941a0;">${nomes.map(nome => `<li>${nome}</li>`).join('')}</ul>`
         : '';
 
       openCrudModal({
-        title: 'Excluir selecionados',
+        title: 'Excluir Categoria(s) de Animal',
         contentHtml: `<p>Tem certeza que deseja excluir os registros abaixo?</p>${nomesHtml}`,
         buttons: [
           {

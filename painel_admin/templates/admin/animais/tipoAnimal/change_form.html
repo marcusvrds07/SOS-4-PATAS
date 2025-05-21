@@ -36,23 +36,18 @@
       </section>
       {% endfor %}
 
-      {% for fieldset in adminform %}
-        {% for line in fieldset %}
-          {% for field in line %}
-              {% if not field.is_readonly %}
-              <div class="actions sticky-actions">
-                <input type="submit" class="btn save" value="Salvar">
-                <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
-                <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
-                {% if original and has_delete_permission %}
-                  <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
-                {% endif %}
-              </div>
-                {% endif %}
-          {% endfor %}
-        {% endfor %}
-      {% endfor %}
-        
+      <div class="actions sticky-actions">
+      {% if perms.animais.change_tipoanimal %}
+          <input type="submit" class="btn save" value="Salvar">
+          <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+          {% if perms.animais.add_tipoanimal %}
+            <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+          {% endif %}
+      {% endif %}
+        {% if original and has_delete_permission %}
+          <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
+        {% endif %}
+      </div>
     </form>
 
 {% endblock %}

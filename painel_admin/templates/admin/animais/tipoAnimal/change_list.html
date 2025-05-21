@@ -39,7 +39,7 @@
 </aside>
 
 
-<form method="post" action="">
+<form method="post" id="changelist-form" action="">
   {% csrf_token %}
   <div class="table-container">
 
@@ -47,14 +47,12 @@
       <div class="actions-bar">
         {% if perms.animais.delete_animais %}
           <span id="selected-count">0 selecionados</span>
-          <button type="submit"
-          name="action"
-          value="delete_selected"
-          id="btn-remove"
+          <button type="button"
+                  id="btn-remove"
                   class="btn-action"
                   disabled>
-            <i class="fas fa-trash"></i> Remover selecionados
-          </button>
+                  <i class="fas fa-trash"></i> Remover selecionados
+              </button>
         {% endif %}
       </div>
     {% endif %} 
@@ -116,8 +114,23 @@
     </div>
   </div>
 {% endif %}
+
+<div class="modal-overlay" id="crud-modal-overlay" style="display:none;">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="crud-modal-title"></h2>
+      <button class="close-modal" id="close-crud-modal">&times;</button>
+    </div>
+    <div class="modal-content" id="crud-modal-content"></div>
+    <div class="crud-modal-buttons" id="crud-modal-buttons"></div>
+  </div>
+</div>
+
   
 {% endblock %}
 
-{% block extrajs %}<script src='{% static "global/js/change_list.js" %}'></script>{% endblock extrajs %}
+{% block extrajs %}
+<script src='{% static "global/js/change_list.js" %}'></script>
+<script src='{% static "global/js/delete-btn.js" %}'></script>
+{% endblock extrajs %}
 

@@ -78,6 +78,10 @@ button {
   width: 100%;
 }
 
+.grp-success {
+  display: none;
+}
+
 .options h2 {
   font-size: 14px;
   color: #f7d647;

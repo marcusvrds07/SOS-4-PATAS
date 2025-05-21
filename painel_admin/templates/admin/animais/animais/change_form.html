@@ -131,19 +131,20 @@
       </section>
       {% endif %}
       {% if fieldset.name == "Status" %}
+      <div class="actions">
         {% if perms.animais.change_animais %}
-          <div class="actions">
             <input type="submit" class="btn save" value="Salvar">
             <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
             {% if perms.animais.add_animais %}
               <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
             {% endif %}
+        {% endif %}
             {% if original and has_delete_permission %}
               <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
             {% endif %}
           </div>
-        {% endif %}
       {% endif %}
+
     {% endfor %}
   </form>
 </div>

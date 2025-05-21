@@ -30,6 +30,10 @@ body {
   width: 100%;
 }
 
+.grp-success {
+  display: none;
+}
+
 /* Container principal */
 .login-template {
   background-color: white;

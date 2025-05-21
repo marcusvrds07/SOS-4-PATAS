@@ -167,6 +167,12 @@ form[method="get"] button:hover {
   transition: 0.2s ease;
 }
 
+.delete-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
 .btn-action:disabled {
   background-color: #ccc;
   cursor: not-allowed;
@@ -619,5 +625,186 @@ form[method="get"] button:hover {
     text-align: center;
     max-width: 230px;
     margin: 0 auto;
+  }
+}
+
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  z-index: 1001;
+  max-width: 500px;
+  width: 90%;
+  animation: modalFadeIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  color: var(--azul-principal);
+  font-size: 24px;
+  margin: 0;
+  border-bottom: 3px solid var(--amarelo-principal);
+  padding-bottom: 8px;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--azul-principal);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  background-color: rgba(9, 45, 115, 0.1);
+}
+
+.modal-content {
+  margin-bottom: 25px;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="email"],
+.modal-content textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border 0.2s;
+}
+
+.modal-content input[type="text"]:focus,
+.modal-content input[type="email"]:focus,
+.modal-content textarea:focus {
+  border: 1.5px solid var(--azul-principal);
+  outline: none;
+}
+
+.modal-content p {
+  line-height: 1.6;
+  color: var(--azul-principal);
+  margin-bottom: 15px;
+  background-color: rgba(9, 45, 115, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--azul-principal);
+}
+
+/* Botões do modal*/
+.crud-modal-buttons, .contact-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  text-align: center;
+  flex: 1;
+  font-size: 16px;
+}
+.whatsapp-btn:hover {
+  background-color: #1fba58;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+}
+
+/* Botão rosa (instagram-btn/cancelar) */
+.instagram-btn {
+  background-color: #e1306c;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+  text-align: center;
+  flex: 1;
+  font-size: 16px;
+}
+.instagram-btn:hover {
+  background-color: #c13584;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
+}
+
+#nova-categoria {
+  position: relative;
+  right: 0.8rem;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .modal {
+    padding: 14px;
+    max-width: 97vw;
+  }
+  .modal-title {
+    font-size: 19px;
+  }
+  .modal-content p {
+    font-size: 15px;
+  }
+  .crud-modal-buttons, .contact-buttons {
+    flex-direction: column;
+    gap: 10px;
   }
 }

@@ -26,6 +26,10 @@ body {
   flex-wrap: wrap;
 }
 
+.grp-success {
+  display: none;
+}
+
 .card {
   flex: 1 1 280px;
   background-color: #f7f9fc;

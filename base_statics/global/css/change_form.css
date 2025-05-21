@@ -590,6 +590,11 @@ body {
   cursor: not-allowed !important;
 }
 
+.grid-3 .readonly-input a {
+  pointer-events: none;
+  color: black;
+  text-decoration: none;
+}
 
 .remove-btn {
   position: absolute;

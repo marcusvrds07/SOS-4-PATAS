@@ -25,6 +25,10 @@ body {
   align-items: center;
 }
 
+.grp-success {
+  display: none;
+}
+
 .email-sent-template {
     background-color: white;
     padding: 20px 30px 30px 30px;

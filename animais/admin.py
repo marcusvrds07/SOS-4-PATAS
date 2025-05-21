@@ -1,10 +1,11 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 from animais import models
 from django.utils.html import format_html
 from django.urls import reverse
 from django.templatetags.static import static
 from .forms import AnimalForm, TipoAnimalForm
 from django.contrib.admin.actions import delete_selected
+from django.http import HttpResponseRedirect
 
 # Register your models here.
 
@@ -43,6 +44,7 @@ class AnimalImageInline(admin.TabularInline):
 
 @admin.register(models.TipoAnimal)
 class TipoAnimalAdmin(admin.ModelAdmin):
+    actions = [delete_selected]
     list_display = 'nome', 'acoes',
     search_fields = ['nome']
     list_per_page = 10
@@ -100,9 +102,10 @@ class TipoAnimalAdmin(admin.ModelAdmin):
         if request is None or self.has_delete_permission(request, obj):
             parts.append(
                 format_html(
-                    '<a href="{}"><img class="action-icon" src="{}" '
-                    'alt="Excluir" title="Excluir"/></a>',
-                    delete_url, delete_icon
+                    '<button type="button" class="delete-btn" data-id="{}" data-name="{}">'
+                    '<img class="action-icon" src="{}" alt="Excluir" title="Excluir"/>'
+                    '</button>',
+                    obj.pk, obj.nome, delete_icon
                 )
             )
         return format_html(' '.join(parts))
@@ -115,6 +118,7 @@ class TipoAnimalAdmin(admin.ModelAdmin):
 
 @admin.register(models.Animais)
 class AnimalAdmin(admin.ModelAdmin):
+    actions = [delete_selected]
     inlines = [AnimalImageInline]
     list_display = 'id', 'nome', 'data_nascimento', 'preview', 'acoes', 
     readonly_fields = ['data_nascimento']
@@ -182,9 +186,10 @@ class AnimalAdmin(admin.ModelAdmin):
         if request is None or self.has_delete_permission(request, obj):
             parts.append(
                 format_html(
-                    '<a href="{}"><img class="action-icon" src="{}" '
-                    'alt="Excluir" title="Excluir"/></a>',
-                    delete_url, delete_icon
+                    '<button type="button" class="delete-btn" data-id="{}" data-name="{}">'
+                    '<img class="action-icon" src="{}" alt="Excluir" title="Excluir"/>'
+                    '</button>',
+                    obj.pk, obj.nome, delete_icon
                 )
             )
         return format_html(' '.join(parts))
