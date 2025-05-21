@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
   /* seção sidebar */
   const sidebarMenu = document.querySelector('.sidebar');
-  const sidebarTop = document.querySelector('.sidebar-top');
   const hamburgerBtn = document.getElementById('sidebar-hamburger');
+
 
   function fecharSidebarMenu() {
     sidebarMenu.classList.remove('open');
-    sidebarTop.classList.remove('show');
+    hamburgerBtn.classList.remove('is-active');
+    document.querySelectorAll('.submenu').forEach(ul => {
+      ul.classList.remove('show');
+    });
   }
 
   /* seção filtro */
@@ -43,7 +46,9 @@ document.addEventListener('DOMContentLoaded', () => {
       fecharSidebarFiltro();
       if (abrindoMenu) {
         sidebarMenu.classList.add('open');
-        sidebarTop.classList.add('show');
+        hamburgerBtn.classList.add('is-active');
+
+
       } else {
         fecharSidebarMenu();
       }

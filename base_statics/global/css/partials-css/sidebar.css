@@ -1,3 +1,4 @@
+/* =================== BASE =================== */
 body {
   margin: 0;
   padding: 0;
@@ -17,9 +18,10 @@ body {
 }
 
 button {
-    font-family: "Comfortaa", sans-serif !important;
+  font-family: "Comfortaa", sans-serif !important;
 }
 
+/* =================== CONTENT =================== */
 .content {
   flex: 1;
   display: flex;
@@ -40,13 +42,13 @@ button {
   border-radius: 10px;
 }
 
+/* =================== SIDEBAR =================== */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 260px;
-  overflow-y: auto;
   background: #1954cb;
   display: flex;
   flex-direction: column;
@@ -55,17 +57,44 @@ button {
   z-index: 1000;
 }
 
+.sidebar-top-fixed {
+  flex-shrink: 0;
+}
+
+.options {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  max-height: calc(99vh - 120px); 
+  width: 100%;
+}
+
+.options {
+  scrollbar-width: thin;
+  scrollbar-color: #f7d647 #1954cb;
+  padding-right: 10px;
+}
+.options::-webkit-scrollbar {
+  width: 8px;
+}
+.options::-webkit-scrollbar-thumb {
+  background: #f7d647;
+  border-radius: 6px;
+}
+.options::-webkit-scrollbar-track {
+  background: #1954cb;
+}
+
+/* =================== LOGO =================== */
 .logo-container {
   margin-bottom: 15px;
   display: flex;
   justify-content: center;
 }
-
 .logo-container img {
   width: 110px;
   filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
 }
-
 #hr {
   width: 80%;
   height: 2px;
@@ -74,27 +103,25 @@ button {
   margin: 15px auto;
 }
 
-.options {
-  width: 100%;
-}
-
+/* =================== MENU =================== */
 .grp-success {
   display: none;
 }
-
-.options h2 {
-  font-size: 14px;
+.options h3 {
+  font-size: 12px;
   color: #f7d647;
   margin: 10px 0 20px 0px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  text-align: center;
+  text-align: left;
+  padding-top: 20px;
 }
-
 .menu-item {
   margin-bottom: 20px;
 }
-
+.menu-item a {
+  text-decoration: none;
+}
 .menu-button {
   width: 100%;
   background: #ffffff;
@@ -111,28 +138,21 @@ button {
   transition: all 0.3s ease;
   position: relative;
 }
-
 .menu-button:hover {
   background: #f7d647;
   color: #0e3fa8;
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
-
 .menu-button img {
   width: 20px;
   margin-right: 14px;
 }
-
-.menu-button i.fa-users-cog {
+.menu-button i.fa-users-cog, .menu-button i.fa-paw, 
+.menu-button i.fa-database, .menu-button i.fa-home {
   font-size: 18px;
   margin-right: 12px;
 }
-.menu-button i.fa-database {
-  font-size: 18px;
-  margin-right: 12px;
-}
-
 .arrow {
   margin-left: auto;
   border: solid #1954cb;
@@ -141,11 +161,9 @@ button {
   transform: rotate(45deg);
   transition: transform 0.6s;
 }
-
 .menu-button.open .arrow {
   transform: rotate(-135deg);
 }
-
 .submenu {
   list-style: none;
   padding: 0;
@@ -154,12 +172,10 @@ button {
   overflow: hidden;
   transition: max-height 0.4s ease, padding 0.3s ease;
 }
-
 .submenu.show {
   max-height: 800px;
   padding-top: 10px;
 }
-
 .model-item {
   background-color: rgba(255, 255, 255, 0.07);
   margin: 6px 0;
@@ -172,25 +188,20 @@ button {
   transition: background 0.3s ease;
   cursor: pointer;
 }
-
 #no-perm {
   cursor: default;
 }
-
 .model-item:hover {
   background-color: rgba(255, 255, 255, 0.15);
 }
-
 .model-name {
   font-size: 14px;
   font-weight: 600;
 }
-
 .model-actions {
   display: flex;
   gap: 10px;
 }
-
 .icon-btn {
   color: #fff;
   font-size: 14px;
@@ -200,26 +211,30 @@ button {
   transition: color 0.3s ease;
   text-decoration: none;
 }
-
 .icon-btn i {
   pointer-events: none;
 }
-
 .icon-btn:hover {
   color: #f7d647;
 }
 
+/* =================== HAMBURGER =================== */
 .sidebar-hamburger {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #fff;
-  cursor: pointer;
+  display: none !important;
   position: fixed;
   top: 20px;
-  left: 28px;
+  left: 5px;
   z-index: 1100;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hamburger-inner,
+.hamburger-inner:before,
+.hamburger-inner:after {
+  background-color: #fff !important;
 }
 
 .sidebar-backdrop {
@@ -232,15 +247,12 @@ button {
   z-index: 1050;
 }
 
-
-/* PROFILE */
-
+/* =================== PROFILE =================== */
 .profile {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-
 .profile-wrapper {
   display: flex;
   align-items: center;
@@ -253,11 +265,9 @@ button {
   background: none;
   cursor: pointer;
 }
-
 .profile-wrapper:hover {
   background-color: rgba(178, 178, 178, 0.5);
 }
-
 .profile-wrapper img {
   width: 50px;
   height: 50px;
@@ -265,7 +275,6 @@ button {
   object-fit: cover;
   object-position: top;
 }
-
 .menu-options {
   display: none;
   position: absolute;
@@ -278,17 +287,14 @@ button {
   padding: 10px 0;
   z-index: 1000;
 }
-
 .menu-options.active {
   display: block;
 }
-
 .menu-options ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
 .menu-options li a {
   display: block;
   padding: 10px 20px;
@@ -309,7 +315,6 @@ button {
   transition: background 0.2s ease;
   cursor: pointer;
 }
-
 .menu-options li a:hover {
   background-color: #f0f0f0;
 }
@@ -317,6 +322,8 @@ button {
   background-color: #f0f0f0;
 }
 
+
+/* =================== OVERLAY =================== */
 .filters-overlay {
   position: fixed;
   top: 0; left: 0;
@@ -333,8 +340,7 @@ button {
   visibility: visible;
 }
 
-/* Responsividade */
-
+/* =================== RESPONSIVIDADE =================== */
 @media (max-width: 550px) {
   .profile {
     display: flex;
@@ -342,7 +348,7 @@ button {
     width: 100%;
     z-index: 10;
     position: initial;
-}
+  }
 }
 @media (max-width: 830px) {
   .sidebar {
@@ -351,23 +357,37 @@ button {
     width: 50px;
   }
 
+  .sidebar-hamburger {
+    display: block !important;
+  }
+
+  .sidebar:not(.open) .sidebar-top-fixed,
+  .sidebar:not(.open) .options {
+  transform: translateX(-400%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.sidebar.open .sidebar-top-fixed,
+.sidebar.open .options {
+  transform: translateX(0%);
+  opacity: 1;
+  pointer-events: auto;
+}
   .sidebar.open {
     width: 260px;
   }
-
   .sidebar-hamburger {
     display: block;
   }
-
   .sidebar-top {
     transition: transform 0.3s ease;
     transform: translateX(-400%);
   }
-
   .container {
     width: 90%;
   }
-
   .content-pad {
     width: 81%;
     padding: 0px;
@@ -377,7 +397,6 @@ button {
     padding-bottom: 20px;
     overflow-x: hidden;
   }
-
   .sidebar-backdrop {
     position: fixed;
     top: 100px; left: 100px;
@@ -388,17 +407,14 @@ button {
     transition: opacity 0.3s ease;
     z-index: 900;
   }
-
   .sidebar-top.show {
     transform: translateX(0%);
   }
-
   .container {
     margin-left: 0;
     width: 100%;
   }
 }
-
 @media (max-width: 430px) {
   .profile {
     margin-right: 10px;

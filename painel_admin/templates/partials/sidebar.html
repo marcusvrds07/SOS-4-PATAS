@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="{% static 'global/css/partials-css/sidebar.css' %}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hamburgers@1.1.3/dist/hamburgers.min.css">
 
   {% block favicon %}<link rel="shortcut icon" href="{% static "global/imgs/logo.ico" %}" type="image/x-icon">{% endblock favicon %}
-
   {% block extrastyle %}{% endblock %}
 </head>
 <body>
@@ -23,22 +23,38 @@
   <div class="container">
 
     <nav class="sidebar">
-      <button class="sidebar-hamburger" id="sidebar-hamburger">
-        <i class="fas fa-bars"></i>
-      </button>
+    <button class="hamburger hamburger--collapse sidebar-hamburger" type="button" id="sidebar-hamburger">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
 
-      <div class="sidebar-top">
+      <div class="sidebar-top-fixed">
         <div class="logo-container">
           <a href="{% url 'home:index' %}">
             <img src="{% static 'home/img/sos.png' %}" alt="logo sos 4 patas">
           </a>
         </div>
-
         <div id="hr"></div>
+      </div>
 
-        <div class="options">
-          <h2>Administração</h2>
-
+      <div class="options">
+        <h3>Atalhos de Navegação</h3>
+        <div class="menu-item">
+          <a href="/admin">
+            <button class="menu-button">
+                <i class="fas fa-home"></i> Inicio
+            </button>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a href="{% url 'home:index' %}">
+            <button class="menu-button">
+                <i class="fas fa-paw"></i> Ver site
+            </button>
+          </a>
+        </div>
+        <h3>Central Administrativa</h3>
         {% if app_list %}
           <div class="menu-item">
             <button class="menu-button" onclick="toggleMenu('tables', this)">
@@ -66,40 +82,36 @@
             </ul>
           </div>
         {% endif %}
-
-          <div class="menu-item">
-            <button class="menu-button" onclick="toggleMenu('management', this)">
-              <i class="fas fa-users-cog"></i> Gerência <i class="arrow down"></i>
-            </button>
-            <ul class="submenu" id="management">
-              <li class="model-item"
-                  onclick="window.location.href='{% url 'admin:auth_group_changelist' %}'">
-                <span class="model-name">Grupos</span>
-                <span class="model-actions">
-                  <a href="{% url 'admin:auth_group_add' %}"
-                    class="icon-btn"
-                    title="Adicionar Grupos"
-                    onclick="event.stopPropagation();">
-                    <i class="fas fa-plus"></i>
-                  </a>
-                </span>
-              </li>
-
-              <li class="model-item" onclick="window.location.href='{% url 'admin:auth_user_changelist' %}'">
-                <span class="model-name">Usuários</span>
-                <span class="model-actions">
-                  <a href="{% url 'admin:auth_user_add' %}" class="icon-btn" title="Adicionar Usuários" onclick="event.stopPropagation();">
-                    <i class="fas fa-plus"></i>
-                  </a>
-                </span>
-              </li>
-            </ul>            
-          </div>
+        <div class="menu-item">
+          <button class="menu-button" onclick="toggleMenu('management', this)">
+            <i class="fas fa-users-cog"></i> Gerência <i class="arrow down"></i>
+          </button>
+          <ul class="submenu" id="management">
+            <li class="model-item"
+                onclick="window.location.href='{% url 'admin:auth_group_changelist' %}'">
+              <span class="model-name">Grupos</span>
+              <span class="model-actions">
+                <a href="{% url 'admin:auth_group_add' %}"
+                  class="icon-btn"
+                  title="Adicionar Grupos"
+                  onclick="event.stopPropagation();">
+                  <i class="fas fa-plus"></i>
+                </a>
+              </span>
+            </li>
+            <li class="model-item" onclick="window.location.href='{% url 'admin:auth_user_changelist' %}'">
+              <span class="model-name">Usuários</span>
+              <span class="model-actions">
+                <a href="{% url 'admin:auth_user_add' %}" class="icon-btn" title="Adicionar Usuários" onclick="event.stopPropagation();">
+                  <i class="fas fa-plus"></i>
+                </a>
+              </span>
+            </li>
+          </ul>            
         </div>
       </div>
 
       {% block extranav %}{% endblock extranav %}
-
     </nav>
 
     <div class="content">
@@ -117,7 +129,7 @@
         <div class="menu-options">
           <ul>
             <li><a href="">Perfil</a></li>
-            <li><a href="">Alterar senha</a></li>
+            <li><a href="/password_change">Alterar senha</a></li>
             <li><form id="logout-form" method="post" action="{% url 'admin:logout' %}" class="logout-form">
               {% csrf_token %}
               <button type="submit" class="logout-button">
@@ -128,7 +140,6 @@
         </div>
       </div>
         {% block content-pad %}{% endblock content-pad %}
-
         <div id="filters-overlay" class="filters-overlay"></div>
     </div>
   </div>
