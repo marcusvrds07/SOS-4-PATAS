@@ -8,28 +8,34 @@
 
 {% block content-pad %}
 <div class="main-content">
-  <h1>{% if add %}Cadastrar Animal{% else %}Modificar Animal
-     
-    {% endif %}</h1>
+  <h1>{% if add %}Cadastrar Animal{% else %}Modificar Animal{% endif %}</h1>
+  <form method="post" enctype="multipart/form-data" class="animal-form">
+    {% csrf_token %}
     
-    <form method="post" enctype="multipart/form-data" class="animal-form">
-      {% csrf_token %}
-      
-      <div id="available"> Disponivel Para Adoção:
-        {% for fieldset in adminform %}
-        {% if fieldset.name == "Status" %}
-          {% for line in fieldset %}
-          {% for field in line %}
-            <div class="field checkbox-field">
+    <div id="available"> Disponivel Para Adoção:
+      {% for fieldset in adminform %}
+      {% if fieldset.name == "Status" %}
+        {% for line in fieldset %}
+        {% for field in line %}
+          <div class="field checkbox-field">
+            {% if field.is_readonly %}
+                  <input type="checkbox" id="{{ field.id_for_label }}" disabled
+                      {% if original.disponivel_para_adocao %}checked{% endif %}>
+                  <label for="{{ field.id_for_label }}" id='readonly'></label>
+                  <span>{{ field.label }}</span>
+
+            {% else %}
               {{ field.field }}
               <label for="{{ field.id_for_label }}"></label>
-              <span>{{ field.label }}</span>
-            </div>
-          {% endfor %}
+            {% endif %}
+            <span>{{ field.label }}</span>
+          </div>
         {% endfor %}
-        {% endif %}
       {% endfor %}
-      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+
     {% for fieldset in adminform %}
       {% if fieldset.name == "Foto de Capa" %}
       <section class="section">
@@ -38,27 +44,67 @@
           <label>
             {% for line in fieldset %}
               {% for field in line %}
-                {{ field.field.as_widget }}
-                <div id="avatar" class="cover-avatar"
-                  {% if field.field.value %}
-                    style="background-image:url('{{ field.field.value.url }}');" class="cover-avatar image-set"
-                  {% endif %}
-                ></div>
+                {% if field.is_readonly %}
+                  <span class="readonly-input" id="foto-capa-link">{{ field.contents }}</span>
+                {% else %}
+                  {{ field.field.as_widget }}
+                  <div id="avatar" class="cover-avatar"
+                    {% if field.field.value %}
+                      style="background-image:url('{{ field.field.value.url }}');" class="cover-avatar image-set"
+                    {% endif %}
+                  ></div>
+                {% endif %}
               {% endfor %}
             {% endfor %}
           </label>
         </div>
       </section>
       {% elif fieldset.name == "Dados Básicos" %}
-        <section class="section">
-          <h2>{{ fieldset.name }}</h2>
-          <div class="grid-3">
+      <section class="section">
+        <h2>{{ fieldset.name }}</h2>
+        <div class="grid-3">
+        {% for line in fieldset %}
+          {% for field in line %}
+            <div class="field">
+              {{ field.label_tag }}
+              {% if field.is_readonly %}
+                <span class="readonly-input">{{ field.contents }}</span>
+              {% else %}
+                {% if field.name == "especie" %}
+                  {{ field }}
+                {% else %}
+                  {{ field.field }}
+                {% endif %}
+              {% endif %}
+              {{ field.errors }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+        </div>
+      </section>
+      {% elif fieldset.name == "Descrição" %}
+      <section class="section section-descricao">
+        <h2>{{ fieldset.name }}</h2>
+        {% for line in fieldset %}
+          {% for field in line %}
+            {% if field.is_readonly %}
+              <span class="readonly-input">{{ field.contents }}</span>
+            {% else %}
+              {{ field.field }}
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </section>
+      {% elif fieldset.name == "Idade e Nascimento" %}
+      <section class="section">
+        <h2>{{ fieldset.name }}</h2>
+        <div class="grid-3">
           {% for line in fieldset %}
             {% for field in line %}
               <div class="field">
                 {{ field.label_tag }}
-                {% if field.name == "especie" %}
-                  {{ field }}
+                {% if field.is_readonly %}
+                  <span class="readonly-input">{{ field.contents }}</span>
                 {% else %}
                   {{ field.field }}
                 {% endif %}
@@ -67,47 +113,18 @@
             {% endfor %}
           {% endfor %}
         </div>
-        </section>
-      {% elif fieldset.name == "Descrição" %}
-        <section class="section section-descricao">
-          <h2>{{ fieldset.name }}</h2>
-          {% for line in fieldset %}
-            {% for field in line %}
-              {{ field.field }}
-            {% endfor %}
+      </section>
+      {% elif inline_admin_formsets %}
+      <section class="section section-galeria">
+        <h2>Galeria de Imagens</h2>
+        <div class="gallery">
+          {% for inline_admin_formset in inline_admin_formsets %}
+            {% include inline_admin_formset.opts.template %}
           {% endfor %}
-        </section>
-{% elif fieldset.name == "Idade e Nascimento" %}
-  <section class="section">
-    <h2>{{ fieldset.name }}</h2>
-    <div class="grid-3">
-      {% for line in fieldset %}
-        {% for field in line %}
-          <div class="field">
-            {{ field.label_tag }}
-            {% if field.is_readonly %}
-              <span class="readonly-input">{{ field.contents }}</span>
-            {% else %}
-              {{ field.field }}
-            {% endif %}
-            {{ field.errors }}
-          </div>
-        {% endfor %}
-      {% endfor %}
-    </div>
-  </section>
-  <!-- Inline formsets = Galeria de Imagens -->
-  {% elif inline_admin_formsets %}
-    <section class="section section-galeria">
-      <h2>Galeria de Imagens</h2>
-      <div class="gallery">
-        {% for inline_admin_formset in inline_admin_formsets %}
-          {% include inline_admin_formset.opts.template %}
-        {% endfor %}
-      </div>
-  </section>
-  {% endif %}
-  {% if fieldset.name == "Status" %}
+        </div>
+      </section>
+      {% endif %}
+      {% if fieldset.name == "Status" %}
         <div class="actions">
           <input type="submit" class="btn save" value="Salvar">
           <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">

@@ -566,6 +566,31 @@ body {
   display: block;
 }
 
+.cover-photo .readonly-input {
+  position: relative;
+  background-color: none;
+  background: none;
+  border: none;
+  margin: 25px 0px 59px 0px;
+
+}
+
+.cover-photo .readonly-input img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: none;
+  border: 2px dashed var(--cinza-medio);
+  position: relative;
+  transition: transform var(--transicao), border-color var(--transicao);
+  object-fit: cover;
+}
+
+#readonly {
+  cursor: not-allowed !important;
+}
+
+
 .remove-btn {
   position: absolute;
   top: 4px;

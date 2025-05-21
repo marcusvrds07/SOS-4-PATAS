@@ -13,7 +13,7 @@ class AnimalImageInline(admin.TabularInline):
     extra = 1
     template = "animais/gallery_inline.html"
     readonly_fields = ['preview']
-    fields = ['image','preview']
+    fields = ['image']
 
     def preview(self, obj):
         if obj.image:
@@ -22,6 +22,12 @@ class AnimalImageInline(admin.TabularInline):
             except ValueError:
                 return "Imagem não encontrada"
         return "-"
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.has_perm('animais.change_animais'):
+            fields = [f.name for f in self.model._meta.fields]
+            m2m = [f.name for f in self.model._meta.many_to_many]
+            return fields + m2m
+        return super().get_readonly_fields(request, obj)
 
 @admin.register(models.TipoAnimal)
 class TipoAnimalAdmin(admin.ModelAdmin):
@@ -43,6 +49,10 @@ class TipoAnimalAdmin(admin.ModelAdmin):
         extra_context['app_list'] = list(self.admin_site.get_app_list(request))
         return super().changelist_view(request, extra_context=extra_context)
     
+    def get_queryset(self, request):
+        self.request = request
+        return super().get_queryset(request)
+
     def acoes(self, obj):
         user = getattr(self, 'request', None)
         try:
@@ -111,6 +121,19 @@ class AnimalAdmin(admin.ModelAdmin):
                 return "Imagem não encontrada"
         return "-"
     preview.short_description = 'Foto da Capa'
+
+    def get_readonly_fields(self, request, obj=None):
+        if not request.user.has_perm('animais.change_animais'):
+            fields = [f.name for f in self.model._meta.fields]
+            m2m = [f.name for f in self.model._meta.many_to_many]
+            return fields + m2m
+        return super().get_readonly_fields(request, obj)
+    
+    def has_change_permission(self, request, obj=None):
+        if not request.user.has_perm('animais.change_animais'):
+            if request.method in ['POST', 'PUT']:
+                return False
+        return super().has_change_permission(request, obj)
 
     def acoes(self, obj):
         user = getattr(self, 'request', None)

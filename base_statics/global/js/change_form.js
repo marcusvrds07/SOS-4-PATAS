@@ -1,7 +1,7 @@
 // --- Preview da Foto de Capa ---
 function previewAvatar(input) {
   const avatar = document.getElementById('avatar');
-  if (input.files && input.files[0]) {
+  if (input && avatar && input.files && input.files[0]) {
     const reader = new FileReader();
     reader.onload = e => {
       avatar.style.backgroundImage = `url(${e.target.result})`;
@@ -44,12 +44,18 @@ function openCrudModal({ title, contentHtml, buttons }) {
   });
   document.getElementById('crud-modal-overlay').style.display = 'block';
 }
-document.getElementById('close-crud-modal').onclick = function() {
-  document.getElementById('crud-modal-overlay').style.display = 'none';
-};
-document.getElementById('crud-modal-overlay').onclick = function(e) {
-  if (e.target === this) this.style.display = 'none';
-};
+var closeBtn = document.getElementById('close-crud-modal');
+if (closeBtn) {
+  closeBtn.onclick = function() {
+    document.getElementById('crud-modal-overlay').style.display = 'none';
+  };
+}
+var overlayModal = document.getElementById('crud-modal-overlay');
+if (overlayModal) {
+  overlayModal.onclick = function(e) {
+    if (e.target === this) this.style.display = 'none';
+  };
+}
 
 // --- CRUD Categoria: Adicionar, Editar e Excluir ---
 function abrirModalAdicionar() {
@@ -176,7 +182,7 @@ function excluirCategoria(id) {
     });
 }
 
-// --- INTEGRAÇÃO: conecta selects do admin ao CRUD ---
+// --- Integração dos botões da Categoria ---
 document.addEventListener('DOMContentLoaded', function () {
   var especieSelect = document.querySelector('select[name="especie"]');
   if (!especieSelect) return;
@@ -266,7 +272,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Atualizar preview de imagens já existentes na galeria ao editar
-    document.querySelector('.gallery').addEventListener('change', function(e) {
+  var gal = document.querySelector('.gallery');
+  if (gal) {
+    gal.addEventListener('change', function(e) {
       if (e.target.matches('.gallery-label input[type="file"]')) {
         const files = e.target.files;
         if (files.length > 0) {
@@ -279,11 +287,27 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
     });
+  }
 });
 
-// switch toggle
-switchbutton = document.querySelector('.checkbox-field label');
-switchbutton.addEventListener('click', function (e) {
-  input_checkbox = document.querySelector('#id_disponivel_para_adocao');
-  input_checkbox.checked = !input_checkbox.checked;
-});
+// --- Switch toggle Disponível para Adoção ---
+var switchbutton = document.querySelector('.checkbox-field label');
+if (switchbutton) {
+  switchbutton.addEventListener('click', function (e) {
+    var input_checkbox = document.querySelector('#id_disponivel_para_adocao');
+    if (input_checkbox) input_checkbox.checked = !input_checkbox.checked;
+  });
+}
+
+  window.addEventListener('DOMContentLoaded', function () {
+    var link = document.querySelector('#foto-capa-link a');
+    if (link) {
+      var url = link.getAttribute('href');
+      var img = document.createElement('img');
+      img.src = url;
+      img.alt = "Foto de capa";
+      img.style.maxWidth = "200px";
+
+      link.parentNode.replaceChild(img, link);
+    }
+  });

@@ -23,11 +23,11 @@
           {% for field in line %}
             <div class="field">
               {{ field.label_tag }}
-              {% if field.name == "especie" %}
-                {{ field }}
-              {% else %}
-                {{ field.field }}
-              {% endif %}
+                {% if field.is_readonly %}
+                  <span class="readonly-input">{{ field.contents }}</span>
+                {% else %}
+                  {{ field.field }}
+                {% endif %}
               {{ field.errors }}
             </div>
           {% endfor %}
@@ -35,14 +35,23 @@
       </div>
       </section>
       {% endfor %}
-      <div class="actions sticky-actions">
-        <input type="submit" class="btn save" value="Salvar">
-        <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
-        <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
-        {% if original and has_delete_permission %}
-          <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
-        {% endif %}
-      </div>
+
+      {% for fieldset in adminform %}
+        {% for line in fieldset %}
+          {% for field in line %}
+              {% if not field.is_readonly %}
+              <div class="actions sticky-actions">
+                <input type="submit" class="btn save" value="Salvar">
+                <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+                <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+                {% if original and has_delete_permission %}
+                  <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
+                {% endif %}
+              </div>
+                {% endif %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
         
     </form>
 

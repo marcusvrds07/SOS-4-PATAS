@@ -21,7 +21,7 @@ body {
 .main-content {
   display: flex;
   flex-direction: column;
-  min-height: 90vh;
+  min-height: 89vh;
 }
 
 .animal-form {
@@ -36,10 +36,16 @@ body {
   padding: 10px;
 }
 
+@media (min-width: 1600px) {
+  .main-content {
+    min-height: 92vh;
+  }
+}
+
 @media (max-width: 551px) {
   .main-content {
     display: flex;
     flex-direction: column;
-    min-height: 85vh;
+    min-height: 80vh;
   }
 }
