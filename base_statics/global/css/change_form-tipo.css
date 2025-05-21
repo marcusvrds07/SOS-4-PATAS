@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Comfortaa",sans-serif;
+  background-color: #eef1fe;
+  height: 100%;
+  width: 100%;
+  min-height: 100px;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.field label {
+  position: relative;
+  top: 20%;
+}
+.main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}
+
+.animal-form {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  margin-top: auto;
+  align-self: flex-end;
+  padding: 10px;
+}
+
+@media (max-width: 551px) {
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 85vh;
+  }
+}

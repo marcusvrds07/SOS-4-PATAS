@@ -29,13 +29,7 @@
         {% endfor %}
         {% endif %}
       {% endfor %}
-          </div>
-    {% if errors %}
-      <div class="form-error">
-        {{ adminform.form.non_field_errors }}
       </div>
-    {% endif %}
-
     {% for fieldset in adminform %}
       {% if fieldset.name == "Foto de Capa" %}
       <section class="section">

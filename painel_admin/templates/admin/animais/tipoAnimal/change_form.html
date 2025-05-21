@@ -1,0 +1,49 @@
+{% extends "partials/sidebar.html" %}
+{% load admin_list static %}
+{% load admin_urls %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'global/css/change_form.css' %}">
+    <link rel="stylesheet" href="{% static 'global/css/change_form-tipo.css' %}">
+{% endblock %}
+
+{% block content-pad %}
+<div class="main-content">
+  <h1>
+    {% if original %}Modificar Categoria de Animal{% else %}Cadastrar Categoria de Animal{% endif %}</h1>
+    
+    <form method="post" enctype="multipart/form-data" class="animal-form">
+      {% csrf_token %}
+
+      {% for fieldset in adminform %}
+      <section class="section">
+        <h2>{{ fieldset.name }}</h2>
+        <div class="grid-3">
+        {% for line in fieldset %}
+          {% for field in line %}
+            <div class="field">
+              {{ field.label_tag }}
+              {% if field.name == "especie" %}
+                {{ field }}
+              {% else %}
+                {{ field.field }}
+              {% endif %}
+              {{ field.errors }}
+            </div>
+          {% endfor %}
+        {% endfor %}
+      </div>
+      </section>
+      {% endfor %}
+      <div class="actions sticky-actions">
+        <input type="submit" class="btn save" value="Salvar">
+        <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+        <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+        {% if original and has_delete_permission %}
+          <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
+        {% endif %}
+      </div>
+        
+    </form>
+
+{% endblock %}

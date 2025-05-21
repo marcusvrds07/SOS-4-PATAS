@@ -1,5 +1,5 @@
 from django import forms
-from animais.models import Animais
+from animais.models import Animais, TipoAnimal
 from dateutil.relativedelta import relativedelta
 from datetime import date
 
@@ -37,3 +37,11 @@ class AnimalForm(forms.ModelForm):
         if anos > 0 or meses > 0:
             cleaned_data['data_nascimento'] = date.today() - relativedelta(years=anos, months=meses)
         return cleaned_data
+    
+class TipoAnimalForm(forms.ModelForm):
+    class Meta:
+        model = TipoAnimal
+        fields = '__all__'
+        fields = [
+            'nome'
+        ]

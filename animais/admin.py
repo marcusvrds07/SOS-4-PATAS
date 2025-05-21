@@ -3,7 +3,7 @@ from animais import models
 from django.utils.html import format_html
 from django.urls import reverse
 from django.templatetags.static import static
-from .forms import AnimalForm
+from .forms import AnimalForm, TipoAnimalForm
 from django.contrib.admin.actions import delete_selected
 
 # Register your models here.
@@ -28,6 +28,7 @@ class TipoAnimalAdmin(admin.ModelAdmin):
     list_display = 'nome', 'acoes',
     search_fields = ['nome']
     list_per_page = 10
+    form = TipoAnimalForm
 
 
     def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
@@ -84,6 +85,11 @@ class TipoAnimalAdmin(admin.ModelAdmin):
             )
         return format_html(' '.join(parts))
     acoes.short_description = 'Ações'
+    fieldsets = (
+            ('Dados da Categoria', {
+                'fields': ('nome',),
+            }),
+    )
 
 @admin.register(models.Animais)
 class AnimalAdmin(admin.ModelAdmin):
