@@ -311,3 +311,48 @@ if (switchbutton) {
       link.parentNode.replaceChild(img, link);
     }
   });
+
+  document.addEventListener('DOMContentLoaded', function () {
+  const excluirBtn = document.getElementById('btn-excluir-form');
+  if (excluirBtn) {
+    excluirBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      // Pega a URL do data attribute:
+      const url = excluirBtn.getAttribute('data-delete-url');
+
+      openCrudModal({
+        title: 'Excluir registro',
+        contentHtml: `<p>Tem certeza que deseja excluir este registro?</p>`,
+        buttons: [
+          {
+            text: 'Cancelar',
+            className: 'instagram-btn',
+            onClick: () => document.getElementById('crud-modal-overlay').style.display = 'none'
+          },
+          {
+            text: 'Excluir',
+            className: 'whatsapp-btn',
+            onClick: () => {
+              fetch(url, {
+                method: 'POST',
+                headers: {
+                  'X-CSRFToken': csrftoken,
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'post=yes'
+              }).then(res => {
+                if (res.redirected) {
+                  window.location.href = res.url;
+                } else {
+                  location.reload();
+                }
+              }).catch(() => alert('Erro ao tentar excluir o registro.'));
+            }
+          }
+        ]
+      });
+    });
+  }
+});
+

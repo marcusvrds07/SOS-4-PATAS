@@ -140,7 +140,7 @@
             {% endif %}
         {% endif %}
             {% if original and has_delete_permission %}
-              <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
+              <button class="btn btn-danger" id="btn-excluir-form"  data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">Excluir</button>
             {% endif %}
           </div>
       {% endif %}

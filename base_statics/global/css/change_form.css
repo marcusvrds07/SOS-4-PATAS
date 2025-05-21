@@ -615,7 +615,7 @@ body {
   background: rgb(225, 1, 1);
   color: #ffffff;
   line-height: 1;
-  height: 1.2rem;
+  height: 2.7rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -625,6 +625,7 @@ body {
 .btn-danger:hover {
   background: red;
   transform: translateY(-2px);
+
 }
 
 .file-input.add input[type="file"] {

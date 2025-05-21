@@ -45,9 +45,28 @@
           {% endif %}
       {% endif %}
         {% if original and has_delete_permission %}
-          <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
+          <button class="btn btn-danger" id="btn-excluir-form"
+                  data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">
+              Excluir
+          </button>
         {% endif %}
       </div>
     </form>
 
+  <div class="modal-overlay" id="crud-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="crud-modal-title">Título do Modal</h2>
+      <button class="close-modal" id="close-crud-modal">&times;</button>
+    </div>
+    <div class="modal-content" id="crud-modal-content">
+    </div>
+    <div class="crud-modal-buttons" id="crud-modal-buttons">
+    </div>
+  </div>
+</div>
+
 {% endblock %}
+{% block extrajs %}
+<script src='{% static "global/js/change_form.js" %}'></script>
+{% endblock extrajs %}
