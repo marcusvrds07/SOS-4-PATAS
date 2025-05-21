@@ -15,6 +15,18 @@ class AnimalImageInline(admin.TabularInline):
     readonly_fields = ['preview']
     fields = ['image']
 
+    def has_view_permission(self, request, obj=None):
+        return request.user.has_perm('animais.view_animais')
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.has_perm('animais.change_animais')
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.has_perm('animais.change_animais')
+
+    def has_add_permission(self, request, obj=None):
+        return request.user.has_perm('animais.change_animais')
+
     def preview(self, obj):
         if obj.image:
             try:

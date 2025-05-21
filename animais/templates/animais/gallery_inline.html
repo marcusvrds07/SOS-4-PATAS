@@ -1,27 +1,40 @@
 {% load static %}
-
 {{ inline_admin_formset.formset.management_form }}
 
 <div class="gallery">
-  {% for form in inline_admin_formset.forms %}
-    <div class="gallery-item">
-      {% for hidden in form.hidden_fields %}
-        {{ hidden }}
-      {% endfor %}
-      {% if form.instance.image %}
-        <label class="gallery-label" style="cursor:pointer;">
-          <img src="{{ form.instance.image.url }}" class="gallery-img" onclick="this.previousElementSibling.click();" title="Clique para editar imagem">
-          {{ form.image }}
-        </label>
-        <button type="button" title='Remover imagem da galeria' class="remove-btn" onclick="this.parentElement.querySelector('input[type=checkbox][name$=\'-DELETE\']').checked = true; this.closest('.gallery-item').style.display='none';">&times;</button>
-        {{ form.DELETE }}
-      {% else %}
-        <label class="file-input add">
-          {{ form.image }}
-          <span title="Adicionar imagem na galeria">+</span>
-        </label>
-      {% endif %}
-      {{ form.id }}
-    </div>
-  {% endfor %}
+  {% if inline_admin_formset.forms %}
+    {% for form in inline_admin_formset.forms %}
+      <div class="gallery-item">
+        {% for hidden in form.hidden_fields %}
+          {{ hidden }}
+        {% endfor %}
+        {% if form.instance.image %}
+          {% if perms.animais.change_animais %}
+            <label class="gallery-label" style="cursor:pointer;">
+              <img src="{{ form.instance.image.url }}" class="gallery-img" onclick="this.previousElementSibling.click();" title="Clique para editar imagem">
+              {{ form.image }}
+            </label>
+            {% if perms.animais.delete_animais %}
+              <button type="button" title='Remover imagem da galeria' class="remove-btn" onclick="this.parentElement.querySelector('input[type=checkbox][name$=\'-DELETE\']').checked = true; this.closest('.gallery-item').style.display='none';">&times;</button>
+              {{ form.DELETE }}
+            {% endif %}
+          {% else %}
+            <img src="{{ form.instance.image.url }}" class="gallery-img" alt="Foto da galeria">
+          {% endif %}
+        {% else %}
+          {% if perms.animais.change_animais %}
+            <label class="file-input add">
+              {{ form.image }}
+              <span title="Adicionar imagem na galeria">+</span>
+            </label>
+          {% endif %}
+        {% endif %}
+        {{ form.id }}
+      </div>
+    {% endfor %}
+  {% else %}
+    <span style="color: red; font-weight: 600; padding: 20px 0; display: block; text-align: center;">
+      Não há fotos na galeria para serem visualizadas.
+    </span>
+  {% endif %}
 </div>

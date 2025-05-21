@@ -45,7 +45,7 @@
             {% for line in fieldset %}
               {% for field in line %}
                 {% if field.is_readonly %}
-                  <span class="readonly-input" id="foto-capa-link">{{ field.contents }}</span>
+                  <span class="readonly-input readonly-mode" id="foto-capa-link">{{ field.contents }}</span>
                 {% else %}
                   {{ field.field.as_widget }}
                   <div id="avatar" class="cover-avatar"
@@ -101,15 +101,21 @@
         <div class="grid-3">
           {% for line in fieldset %}
             {% for field in line %}
-              <div class="field">
-                {{ field.label_tag }}
-                {% if field.is_readonly %}
-                  <span class="readonly-input">{{ field.contents }}</span>
-                {% else %}
-                  {{ field.field }}
+              {% if field.is_readonly %}
+                {% if field.field.name == "data_nascimento" %}
+                  <div class="field">
+                    {{ field.label_tag }}
+                    <span class="readonly-input">{{ field.contents }}</span>
+                    {{ field.errors }}
+                  </div>
                 {% endif %}
-                {{ field.errors }}
-              </div>
+              {% else %}
+                <div class="field">
+                  {{ field.label_tag }}
+                  {{ field.field }}
+                  {{ field.errors }}
+                </div>
+              {% endif %}
             {% endfor %}
           {% endfor %}
         </div>
@@ -125,14 +131,18 @@
       </section>
       {% endif %}
       {% if fieldset.name == "Status" %}
-        <div class="actions">
-          <input type="submit" class="btn save" value="Salvar">
-          <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
-          <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
-          {% if original and has_delete_permission %}
-            <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
-          {% endif %}
-        </div>
+        {% if perms.animais.change_animais %}
+          <div class="actions">
+            <input type="submit" class="btn save" value="Salvar">
+            <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+            {% if perms.animais.add_animais %}
+              <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+            {% endif %}
+            {% if original and has_delete_permission %}
+              <a href="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}" class="btn btn-danger">Excluir</a>
+            {% endif %}
+          </div>
+        {% endif %}
       {% endif %}
     {% endfor %}
   </form>
