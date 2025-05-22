@@ -13,8 +13,8 @@
 
 ## 🌎 Veja Online
 
-> [**Acesse a aplicação aqui**](https://coloque-o-link-da-sua-app-aqui.com)  
-> *(Em breve, versão online estará disponível!)*
+> [**Acesse a aplicação aqui**](https://link.com)  
+> *(Adicionaremos o link em breve!)*
 
 ---
 
