@@ -90,6 +90,18 @@ form[method="get"] button:hover {
 .table-wrapper table {
   display: block;
   width: 100%;
+  table-layout: fixed;
+  min-width: unset;
+}
+
+.table-wrapper th,
+.table-wrapper td{
+    width: auto;
+    word-break: break-word;
+    text-align: center;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .table-wrapper thead {
@@ -382,6 +394,17 @@ form[method="get"] button:hover {
   color: var(--thead-hover);
 }
 
+#result_list td.field-acoes {
+    height: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#result_list tr {
+    height: 100%;
+    overflow: hidden;
+}
+
 #result_list td {
   padding: 16px 18px;
   font-size: 15px;
@@ -422,7 +445,7 @@ form[method="get"] button:hover {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  height: 4rem;
+  height: 100%;
 }
 
 .action-icon {
@@ -637,6 +660,7 @@ form[method="get"] button:hover {
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
   backdrop-filter: blur(5px);
+  overflow: hidden;
 }
 
 .modal {
@@ -703,6 +727,20 @@ form[method="get"] button:hover {
 .modal-content {
   margin-bottom: 25px;
 }
+
+.modal-content li {
+  word-break: break-word;
+  margin-bottom: 10px;
+}
+
+.modal-content li:last-child {
+  margin-bottom: 0px;
+}
+
+.modal-content ul {
+  max-height: 350px;
+  overflow: auto;
+} 
 
 .modal-content input[type="text"],
 .modal-content input[type="email"],
@@ -793,9 +831,13 @@ form[method="get"] button:hover {
 
 /* Responsividade */
 @media (max-width: 600px) {
+  .modal-content ul {
+    max-height: 300px;
+    overflow: auto;
+  } 
+
   .modal {
-    padding: 14px;
-    max-width: 97vw;
+    max-width: 80vw;
   }
   .modal-title {
     font-size: 19px;

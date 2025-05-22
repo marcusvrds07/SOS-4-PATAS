@@ -147,14 +147,33 @@ document.addEventListener('DOMContentLoaded', function () {
       const checked = form.querySelectorAll('input.action-select:checked');
       if (!checked.length) return;
 
-      let nomes = Array.from(checked).map(el => el.closest('tr').querySelector('td.field-nome')?.innerText.trim() || '').filter(Boolean);
-      let nomesHtml = nomes.length
-        ? `<ul style="margin: 8px 0 0 0; padding-left: 18px; color:#1941a0;">${nomes.map(nome => `<li>${nome}</li>`).join('')}</ul>`
-        : '';
+      let contentHtml;
+      if (window.location.pathname.startsWith('/admin/auth/user/')) {
+          let nomes = Array.from(checked)
+            .map(el => el.closest('tr').querySelector('th.field-username')?.innerText.trim() || '')
+            .filter(Boolean);
+
+          let nomesHtml = nomes.length
+            ? `<ul style="margin: 8px 0 0 0; padding-left: 18px; color:#1941a0;">${nomes.map(nome => `<li>${nome}</li>`).join('')}</ul>`
+            : '';
+          
+          contentHtml = `<p>Tem certeza que deseja excluir os registros abaixo?</p>${nomesHtml}`
+        } 
+        else {
+          let nomes = Array.from(checked)
+            .map(el => el.closest('tr').querySelector('td.field-nome')?.innerText.trim() || '')
+            .filter(Boolean);
+
+          let nomesHtml = nomes.length
+            ? `<ul style="margin: 8px 0 0 0; padding-left: 18px; color:#1941a0;">${nomes.map(nome => `<li>${nome}</li>`).join('')}</ul>`
+            : '';
+
+          contentHtml = `<p>Tem certeza que deseja excluir os registros abaixo?</p>${nomesHtml}`
+      }
 
       openCrudModal({
         title: 'Excluir selecionados',
-        contentHtml: `<p>Tem certeza que deseja excluir os registros abaixo?</p>${nomesHtml}`,
+        contentHtml: contentHtml,
         buttons: [
           {
             text: 'Cancelar',

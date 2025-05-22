@@ -1,0 +1,137 @@
+{% extends "partials/sidebar.html" %}
+{% load admin_list static %}
+{% load admin_urls %}
+
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{% static "global/css/change_list.css" %}">
+{% endblock extrastyle %}
+{% block content-pad %}
+<h1>Gerenciar Usuários</h1>
+
+<div class="search-content">
+  <form method="get" class="search-container">
+    <div class="search-input-wrapper">
+      <input type="text" name="q" placeholder="Buscar..." value="{{ cl.query }}">
+      <i class="fas fa-filter" id="open-filters"></i>
+    </div>
+    <div class="search-buttons">
+      <button type="submit"><i class="fas fa-search"></i> Buscar</button>
+      {% if has_add_permission %}
+        <a href="{% url opts|admin_urlname:'add' %}" class="btn-add">
+          <i class="fas fa-plus" title='Adicionar'></i> Adicionar
+        </a>
+      {% endif %}
+    </div>
+  </form>
+</div>
+
+<aside id="filters-sidebar" class="filters-sidebar">
+  <header>
+    <h2>Filtros</h2>
+    <button type="button" id="close-filters">&times;</button>
+  </header>
+
+  <ul class="filter-list">
+    {% for spec in cl.filter_specs %}
+      <li class="filter-item">
+        {% admin_list_filter cl spec %}
+      </li>
+    {% endfor %}
+  </ul>
+</aside>
+
+
+<form method="post" id="changelist-form" action="">
+  {% csrf_token %}
+  <div class="table-container">
+
+    {% if has_add_permission or perms.animais.delete_animais%}
+      <div class="actions-bar">
+        {% if perms.animais.delete_animais %}
+          <span id="selected-count">0 selecionados</span>
+          <button type="button"
+                  id="btn-remove"
+                  class="btn-action"
+                  disabled>
+                  <i class="fas fa-trash"></i> Remover selecionados
+              </button>
+        {% endif %}
+      </div>
+    {% endif %} 
+  
+    <div class="table-wrapper">
+      {% result_list cl %}
+
+      {% if cl.result_count == 0%}
+        <p class="no-results">Nenhum resultado encontrado.</p>
+      {% endif %} 
+    </div>
+  </div>
+</form>
+
+{% if not cl.params.all|stringformat:"s" %}
+  <div class="pagination-container">
+    <h4>EXIBINDO TODOS OS REGISTROS</h4>
+    <div class="pagination">
+      <button type="button" class="arrow-btn" id="backToPaged">Voltar à paginação</button>
+    </div>
+  </div>
+{% elif cl.paginator.num_pages > 1 %}
+  <div class="pagination-container">
+    <h4>VOCÊ ESTÁ NA PÁGINA</h4>
+    <div class="pagination">
+
+      {% if cl.page_num > 1 %}
+        <button type="button" class="arrow-btn" id="prevPage">‹</button>
+      {% else %}
+        <button type="button" class="arrow-btn disabled" disabled>‹</button>
+      {% endif %}
+
+      <form id="pageForm" class="page-form" method="get">
+        {% for key, value in cl.params.items %}
+          {% if key != 'p' and key != 'all' %}
+            <input type="hidden" name="{{ key }}" value="{{ value }}">
+          {% endif %}
+        {% endfor %}
+        <input
+          type="number"
+          name="p"
+          id="pageInput"
+          value="{{ cl.page_num }}"
+          min="1"
+          max="{{ cl.paginator.num_pages }}"
+          data-current="{{ cl.page_num }}">
+      </form>
+
+      <span class="divider"></span>
+      <span class="page-total display-box">{{ cl.paginator.num_pages }}</span>
+
+      {% if cl.page_num < cl.paginator.num_pages %}
+        <button type="button" class="arrow-btn" id="nextPage">›</button>
+      {% else %}
+        <button type="button" class="arrow-btn disabled" disabled>›</button>
+      {% endif %}
+
+    </div>
+    <button type="button" class="show-all-btn" id="showAll">Mostrar tudo</button>
+  </div>
+{% endif %}
+
+<div class="modal-overlay" id="crud-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="crud-modal-title">Título</h2>
+      <button class="close-modal" id="close-crud-modal">&times;</button>
+    </div>
+    <div class="modal-content" id="crud-modal-content"></div>
+    <div class="crud-modal-buttons" id="crud-modal-buttons"></div>
+  </div>
+</div>
+
+  
+{% endblock %}
+
+{% block extrajs %}
+<script src='{% static "global/js/change_list.js" %}'></script>
+{% endblock extrajs %}
