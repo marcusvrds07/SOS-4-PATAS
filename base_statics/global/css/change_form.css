@@ -29,6 +29,7 @@ body {
 }
 
 /* TÍTULO e Paragrafo*/
+
 .main-content h1 {
   font-size: 2rem;
   color: var(--azul-escuro);
@@ -77,6 +78,7 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: var(--espaco);
+  flex-wrap: wrap;
 }
 
 /* CAMPOS */
@@ -89,6 +91,20 @@ body {
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--texto-secundario);
+}
+
+.field select {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.grp-tools {
+  display: flex;
 }
 
 .field input,
