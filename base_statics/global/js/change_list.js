@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
             ? `<ul style="margin: 8px 0 0 0; padding-left: 18px; color:#1941a0;">${nomes.map(nome => `<li>${nome}</li>`).join('')}</ul>`
             : '';
           
-          contentHtml = `<p>Tem certeza que deseja excluir os registros abaixo?</p>${nomesHtml}`
+          contentHtml = `<p>Tem certeza que deseja excluir os usuários abaixo?</p>${nomesHtml}`
         } 
         else {
           let nomes = Array.from(checked)
