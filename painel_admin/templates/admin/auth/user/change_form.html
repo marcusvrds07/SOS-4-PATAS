@@ -13,30 +13,33 @@
   <form method="post" enctype="multipart/form-data" class="animal-form">
     {% csrf_token %}
 
-  <div id="superuser-toggle">É um Administrador?
-      {% for fieldset in adminform %}
-          {% if fieldset.name == "Permissões" %}
-          {% for line in fieldset %}
-              {% for field in line %}
-                  {% if field.field.name == "is_superuser" %}
-                      <div class="field checkbox-field">
-                          {% if not request.user.is_superuser or field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
-                              <input type="checkbox" id="{{ field.id_for_label }}" disabled
-                                  {% if field.field.value %}checked{% endif %}>
-                              <label for="{{ field.id_for_label }}" id='readonly'></label>
-                              <span>{{ field.label }}</span>
-                          {% else %}
-                              {{ field.field }}
-                              <label for="{{ field.id_for_label }}"></label>
-                              <span>{{ field.label }}</span>
-                          {% endif %}
-                      </div>
-                  {% endif %}
-              {% endfor %}
-          {% endfor %}
-          {% endif %}
-      {% endfor %}
-  </div>
+    <div id="superuser-toggle">É um Administrador?
+        {% for fieldset in adminform %}
+            {% if fieldset.name == "Permissões" %}
+                {% for line in fieldset %}
+                    {% for field in line %}
+                        {% if field.field.name == "is_superuser" %}
+                            <div class="field checkbox-field">
+                                {% if not request.user.is_superuser or field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                                    <input type="checkbox"
+                                        id="{{ field.id_for_label }}"
+                                        disabled
+                                        {% if original.is_superuser %}checked{% endif %}>
+                                    <label for="{{ field.id_for_label }}" id="readonly"></label>
+                                    <span>{{ field.label }}</span>
+                                {% else %}
+                                    {{ field.field }}
+                                    <label for="{{ field.id_for_label }}"></label>
+                                    <span>{{ field.label }}</span>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
 
     {% for fieldset in adminform %}
       {% if fieldset.name == "Permissões" %}
@@ -115,7 +118,7 @@
   {% if perms.auth.change_user or request.user.id == original.id %}
       <input type="submit" class="btn save" value="Salvar">
       <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
-      {% if perms.auth.add_user %}
+      {% if has_add_permission %}
         <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
       {% endif %}
   {% endif %}
