@@ -20,7 +20,7 @@
               {% for field in line %}
                   {% if field.field.name == "is_superuser" %}
                       <div class="field checkbox-field">
-                          {% if (original.is_superuser and not request.user.is_superuser and request.user != original) or field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                          {% if not request.user.is_superuser or field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
                               <input type="checkbox" id="{{ field.id_for_label }}" disabled
                                   {% if field.field.value %}checked{% endif %}>
                               <label for="{{ field.id_for_label }}" id='readonly'></label>
@@ -46,25 +46,19 @@
         <div class="cover-photo" style="align-items:center;">
           {% for line in fieldset %}
             {% for field in line %}
-              {% if original.is_superuser and not request.user.is_superuser and request.user != original %}
-                <div id="avatar" class="cover-avatar no-hover"
-                  {% if original.profile.foto and original.profile.foto.url %}
-                    style="background-image: url('{{ original.profile.foto.url }}');"
-                  {% endif %}>
-                </div>
-              {% elif field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
-                <div id="avatar" class="cover-avatar no-hover"
-                  {% if original.profile.foto and original.profile.foto.url %}
-                    style="background-image: url('{{ original.profile.foto.url }}');"
-                  {% endif %}>
-                </div>
+              {% if field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                  <div id="avatar" class="cover-avatar no-hover"
+                       {% if original.profile.foto and original.profile.foto.url %}
+                         style="background-image: url('{{ original.profile.foto.url }}');"
+                       {% endif %}>
+                  </div>
               {% else %}
                 <label for="id_foto" style="cursor:pointer;">
                   {% if original.profile.foto and original.profile.foto.url %}
-                    <div id="avatar" class="cover-avatar image-set"
-                      style="background-image: url('{{ original.profile.foto.url }}');"></div>
+                      <div id="avatar" class="cover-avatar image-set"
+                           style="background-image: url('{{ original.profile.foto.url }}');"></div>
                   {% else %}
-                    <div id="avatar" class="cover-avatar"></div>
+                      <div id="avatar" class="cover-avatar"></div>
                   {% endif %}
                   <input type="file" name="foto" accept="image/*" id="id_foto" style="display:none;">
                 </label>
@@ -77,7 +71,7 @@
         </div>
       </section>
       {% else %}
-      <section class="section">
+        <section class="section">
         {% if fieldset.name %}
           <h2>{{ fieldset.name }}</h2>
         {% endif %}
@@ -87,42 +81,26 @@
               <div class="field">
                 {{ field.label_tag }}
                 {% if field.field.name == "cargo" %}
-                  {% if original.is_superuser and not request.user.is_superuser and request.user != original %}
+                {% if field.is_readonly or not perms.auth.change_user %}
                     <span class="readonly-input">
-                      {% with group=original.groups.first %}
-                        {{ group.name|default:"Nenhum" }}
-                        <input type="hidden" name="cargo" value="{{ group.pk }}">
-                      {% endwith %}
+                        {% with group=original.groups.first %}
+                            {{ group.name|default:"Nenhum" }}
+                            <input type="hidden" name="cargo" value="{{ group.pk }}">
+                        {% endwith %}
                     </span>
-                  {% elif field.is_readonly or not perms.auth.change_user %}
-                    <span class="readonly-input">
-                      {% with group=original.groups.first %}
-                        {{ group.name|default:"Nenhum" }}
-                        <input type="hidden" name="cargo" value="{{ group.pk }}">
-                      {% endwith %}
-                    </span>
-                  {% else %}
-                    {{ field.field }}
-                  {% endif %}
-                {% elif field.field.name == 'password' %}
-                  {# Só superuser ou usuário pode alterar senha #}
-                  {% if original.is_superuser and not request.user.is_superuser and request.user != original %}
-                    <span class="readonly-input">Não informada</span>
-                  {% elif field.is_readonly or original != request.user and not request.user.is_superuser %}
-                    <span class="readonly-input">Não informada</span>
-                  {% else %}
-                    {{ field.field }}
-                  {% endif %}
-                {% elif original.is_superuser and not request.user.is_superuser and request.user != original %}
-                  <span class="readonly-input">
-                    {{ field.contents }}
-                  </span>
-                {% elif field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
-                  <span class="readonly-input">
-                    {{ field.contents }}
-                  </span>
                 {% else %}
-                  {{ field.field }}
+                    {{ field.field }}
+                {% endif %}
+                {% elif field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                    <span class="readonly-input">
+                        {% if field.field.name == 'password' %}
+                          Não informada
+                        {% else %}
+                          {{ field.contents }}
+                        {% endif %}
+                    </span>
+                {% else %}
+                    {{ field.field }}
                 {% endif %}
                 {{ field.errors }}
               </div>
@@ -133,25 +111,21 @@
       {% endif %}
     {% endfor %}
 
-    <div class="actions sticky-actions">
-      {% if perms.auth.change_user or request.user.id == original.id %}
-        {% if not original.is_superuser or request.user.is_superuser or request.user == original %}
-          <input type="submit" class="btn save" value="Salvar">
-          <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
-          {% if perms.auth.add_user %}
-            <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
-          {% endif %}
-        {% endif %}
+<div class="actions sticky-actions">
+  {% if perms.auth.change_user or request.user.id == original.id %}
+      <input type="submit" class="btn save" value="Salvar">
+      <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+      {% if perms.auth.add_user %}
+        <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
       {% endif %}
-      {% if original and has_delete_permission %}
-        {% if not original.is_superuser or request.user.is_superuser or request.user == original %}
-          <button class="btn btn-danger" id="btn-excluir-form"
-            data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">
-            Excluir
-          </button>
-        {% endif %}
-      {% endif %}
-    </div>
+  {% endif %}
+  {% if original and has_delete_permission %}
+    <button class="btn btn-danger" id="btn-excluir-form"
+      data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">
+      Excluir
+    </button>
+  {% endif %}
+</div>
 
   </form>
 

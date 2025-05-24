@@ -60,7 +60,6 @@ class CustomUserAdmin(BaseUserAdmin):
             else:
                 return HttpResponseRedirect(reverse("admin:index"))
         return super().response_change(request, obj)
-
     def has_change_permission(self, request, obj=None):
         if obj is not None and obj == request.user:
             return True
