@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.http import HttpResponseRedirect
 from django.templatetags.static import static
 from django.utils.html import format_html
 from .models import Profile
@@ -52,6 +53,19 @@ class CustomUserAdmin(BaseUserAdmin):
         }),
     )
 
+    def response_change(self, request, obj):
+        if "_continue" not in request.POST and "_addanother" not in request.POST:
+            if request.user.has_perm("auth.view_user"):
+                return HttpResponseRedirect(reverse("admin:auth_user_changelist"))
+            else:
+                return HttpResponseRedirect(reverse("admin:index"))
+        return super().response_change(request, obj)
+
+    def has_change_permission(self, request, obj=None):
+        if obj is not None and obj == request.user:
+            return True
+        return super().has_change_permission(request, obj)
+
     def save_model(self, request, obj, form, change):
         with transaction.atomic():
             cargo = form.cleaned_data.get('cargo')
@@ -78,6 +92,7 @@ class CustomUserAdmin(BaseUserAdmin):
             extra_context = {}
         extra_context['app_list'] = list(self.admin_site.get_app_list(request))
         return super().changeform_view(request, object_id, form_url, extra_context=extra_context)
+    
 
     def acoes(self, obj):
         request = self._current_request

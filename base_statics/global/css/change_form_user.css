@@ -60,6 +60,19 @@
     box-shadow: 0 0 0 2px var(--amarelo, #f7d647);
 }
 
+#superuser-toggle {
+    display: flex;
+    gap: 10px;
+}
+
+.grid-3 {
+    display: flex;
+}
+
+.cover-photo .cover-avatar.no-hover::before {
+  content: none;
+}
+
 /* Ajuste para mobile */
 @media (max-width: 700px) {
     .permissoes-row {

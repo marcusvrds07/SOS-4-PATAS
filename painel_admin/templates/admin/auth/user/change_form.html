@@ -13,78 +13,120 @@
   <form method="post" enctype="multipart/form-data" class="animal-form">
     {% csrf_token %}
 
-    <div id="superuser-toggle">É um Super Usuário?
-        {% for fieldset in adminform %}
-            {% if fieldset.name == "Permissões" %}
-            {% for line in fieldset %}
-                {% for field in line %}
-                <div class="field checkbox-field">
-                    {% if field.is_readonly %}
-                    <input type="checkbox" id="{{ field.id_for_label }}" disabled
-                        {% if field.contents %}checked{% endif %}>
-                    <label for="{{ field.id_for_label }}" id='readonly'></label>
-                    <span>{{ field.label }}</span>
-                    {% else %}
-                    {{ field.field }}
-                    <label for="{{ field.id_for_label }}"></label>
-                    {% endif %}
-                    <span>{{ field.label }}</span>
-                </div>
-                {% endfor %}
-            {% endfor %}
-            {% endif %}
-        {% endfor %}
-        </div>
-
+  <div id="superuser-toggle">É um Administrador?
+      {% for fieldset in adminform %}
+          {% if fieldset.name == "Permissões" %}
+          {% for line in fieldset %}
+              {% for field in line %}
+                  {% if field.field.name == "is_superuser" %}
+                      <div class="field checkbox-field">
+                          {% if not request.user.is_superuser or field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                              <input type="checkbox" id="{{ field.id_for_label }}" disabled
+                                  {% if field.field.value %}checked{% endif %}>
+                              <label for="{{ field.id_for_label }}" id='readonly'></label>
+                              <span>{{ field.label }}</span>
+                          {% else %}
+                              {{ field.field }}
+                              <label for="{{ field.id_for_label }}"></label>
+                              <span>{{ field.label }}</span>
+                          {% endif %}
+                      </div>
+                  {% endif %}
+              {% endfor %}
+          {% endfor %}
+          {% endif %}
+      {% endfor %}
+  </div>
 
     {% for fieldset in adminform %}
       {% if fieldset.name == "Permissões" %}
       {% elif fieldset.name == "Perfil" %}
-        <section class="section">
-          <h2>{{ fieldset.name }}</h2>
-          <div class="cover-photo" style="align-items:center;">
-            <label for="id_foto" style="cursor:pointer;">
-              <div id="avatar" class="cover-avatar"
-                {% if form.foto.value %}
-                  style="background-image: url('{{ form.foto.value.url }}');"
-                {% endif %}
-              ></div>
-              <input type="file" name="foto" accept="image/*" id="id_foto" style="display:none;">
-            </label>
-            {% if form.foto.errors %}
-              <div class="field-errors">{{ form.foto.errors }}</div>
-            {% endif %}
-          </div>
-        </section>
+      <section class="section">
+        <h2>{{ fieldset.name }}</h2>
+        <div class="cover-photo" style="align-items:center;">
+          {% for line in fieldset %}
+            {% for field in line %}
+              {% if field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                  <div id="avatar" class="cover-avatar no-hover"
+                       {% if original.profile.foto and original.profile.foto.url %}
+                         style="background-image: url('{{ original.profile.foto.url }}');"
+                       {% endif %}>
+                  </div>
+              {% else %}
+                <label for="id_foto" style="cursor:pointer;">
+                  {% if original.profile.foto and original.profile.foto.url %}
+                      <div id="avatar" class="cover-avatar image-set"
+                           style="background-image: url('{{ original.profile.foto.url }}');"></div>
+                  {% else %}
+                      <div id="avatar" class="cover-avatar"></div>
+                  {% endif %}
+                  <input type="file" name="foto" accept="image/*" id="id_foto" style="display:none;">
+                </label>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}  
+          {% if form.foto.errors %}
+            <div class="field-errors">{{ form.foto.errors }}</div>
+          {% endif %}
+        </div>
+      </section>
       {% else %}
         <section class="section">
-          {% if fieldset.name %}
-            <h2>{{ fieldset.name }}</h2>
-          {% endif %}
-          <div class="grid-3">
-            {% for line in fieldset %}
-              {% for field in line %}
-                <div class="field">
-                  {{ field.label_tag }}
-                  {% if field.is_readonly %}
-                    <span class="readonly-input">{{ field.contents }}</span>
-                  {% else %}
+        {% if fieldset.name %}
+          <h2>{{ fieldset.name }}</h2>
+        {% endif %}
+        <div class="grid-3">
+          {% for line in fieldset %}
+            {% for field in line %}
+              <div class="field">
+                {{ field.label_tag }}
+                {% if field.field.name == "cargo" %}
+                {% if field.is_readonly or not perms.auth.change_user %}
+                    <span class="readonly-input">
+                        {% with group=original.groups.first %}
+                            {{ group.name|default:"Nenhum" }}
+                            <input type="hidden" name="cargo" value="{{ group.pk }}">
+                        {% endwith %}
+                    </span>
+                {% else %}
                     {{ field.field }}
-                  {% endif %}
-                  {{ field.errors }}
-                </div>
-              {% endfor %}
+                {% endif %}
+                {% elif field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                    <span class="readonly-input">
+                        {% if field.field.name == 'password' %}
+                          Não informada
+                        {% else %}
+                          {{ field.contents }}
+                        {% endif %}
+                    </span>
+                {% else %}
+                    {{ field.field }}
+                {% endif %}
+                {{ field.errors }}
+              </div>
             {% endfor %}
-          </div>
-        </section>
+          {% endfor %}
+        </div>
+      </section>
       {% endif %}
     {% endfor %}
 
-    <div class="actions sticky-actions">
+<div class="actions sticky-actions">
+  {% if perms.auth.change_user or request.user.id == original.id %}
       <input type="submit" class="btn save" value="Salvar">
       <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
-      <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
-    </div>
+      {% if perms.auth.add_user %}
+        <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+      {% endif %}
+  {% endif %}
+  {% if original and has_delete_permission %}
+    <button class="btn btn-danger" id="btn-excluir-form"
+      data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">
+      Excluir
+    </button>
+  {% endif %}
+</div>
+
   </form>
 
   <div class="modal-overlay" id="crud-modal-overlay">
