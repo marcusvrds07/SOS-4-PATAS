@@ -80,3 +80,139 @@
         gap: 20px;
     }
 }   
+
+
+/* =================== FORMULÁRIO DE TROCA DE SENHA =================== */
+
+/* Labels */
+.form-group label {
+  display: block;
+  font-family: "Montserrat", "Comfortaa", sans-serif;
+  font-size: 13px;
+  color: #223;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Campos de senha */
+.form-group input[type="password"],
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 15px;
+  padding-right: 44px !important;  /* espaço para o olho */
+  border: 1.5px solid #1954cb;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: "Comfortaa", sans-serif;
+  transition: border 0.18s;
+  outline: none;
+  color: #222;
+  background: #f9fafd;
+  box-sizing: border-box;
+  height: 48px;
+  display: block;
+}
+
+.form-group input:focus {
+  border-color: #1954cb;
+  box-shadow: 0 0 0 3px rgba(25,84,203,0.13);
+}
+
+/* Container para o input de senha + olho */
+.password-container {
+  position: relative;
+  width: 100%;
+}
+
+/* Ícone do olho (mostrar/esconder senha) */
+.toggle-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  z-index: 2;
+  display: block;
+}
+
+.toggle-icon:hover {
+  opacity: 1;
+}
+
+.toggle-icon:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Regras de senha */
+#password-rules {
+  list-style: none;
+  padding-top: 20px;
+  font-family: "Montserrat", "Comfortaa", sans-serif;
+  font-size: 16px;
+  margin: 0 0 14px 0;
+}
+#password-rules li.invalid {
+  color: #c13584;
+}
+#password-rules li.valid {
+  color: #188135;
+}
+
+/* Mensagem de erro (opcional) */
+#password-error {
+  font-family: "Montserrat", "Comfortaa", sans-serif;
+  color: #c13584;
+  font-size: 14px;
+  padding: 0;
+  margin-bottom: 8px;
+  margin-top: 8px;
+  min-height: 18px;
+}
+
+/* Botão salvar */
+#change-password-form .btn,
+#change-password-form button,
+button.submit {
+  font-family: "Sour Gummy", "Comfortaa", sans-serif;
+  width: 100%;
+  height: 42px;
+  background-color: #1954cb;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.22s;
+  margin-top: 2px;
+  box-shadow: 0 2px 8px rgba(25, 84, 203, 0.07);
+  transition: background var(--transicao), transform var(--transicao);
+
+}
+
+#change-password-form .btn:hover,
+#change-password-form button:hover,
+button.submit:hover {
+  background-color: #0e3fa8;
+}
+
+/* Responsividade dos inputs e do olho */
+@media (max-width: 500px) {
+  .form-group input[type="password"],
+  .form-group input[type="text"] {
+    font-size: 15px;
+    height: 42px;
+    padding-right: 38px !important;
+  }
+  .toggle-icon {
+    width: 22px;
+    height: 22px;
+    right: 8px;
+  }
+}

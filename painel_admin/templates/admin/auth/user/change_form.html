@@ -143,6 +143,49 @@
     </div>
   </div>
 </div>
+
+        <div class="modal-overlay" id="modal-change-password" style="display:none;">
+          <div class="modal">
+            <div class="modal-header">
+              <h2>Redefinição de senha</h2>
+              <button class="close-modal" id="close-change-password-modal">&times;</button>
+            </div>
+            <div class="modal-content" id="change-password-content">
+              <form id="change-password-form" autocomplete="off">
+                <div class="form-group">
+                  <label for="id_new_password1">Nova senha:</label>
+                  <div class="password-container">
+                    <input type="password" name="new_password1" id="id_new_password1" autocomplete="new-password" required onkeyup="validatePassword()">
+                    <img src="/static/global/imgs/olho.png" data-show="/static/global/imgs/olho.png"
+                        data-hide="/static/global/imgs/olho-fechado.png" id="togglePassword1" class="toggle-icon" alt="Mostrar senha"
+                        onclick="togglePasswordVisibility('id_new_password1', 'togglePassword1')">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="id_new_password2">Confirmação da nova senha:</label>
+                  <div class="password-container">
+                    <input type="password" name="new_password2" id="id_new_password2" autocomplete="new-password" required onkeyup="isSamePassword()">
+                    <img src="/static/global/imgs/olho.png" data-show="/static/global/imgs/olho.png"
+                        data-hide="/static/global/imgs/olho-fechado.png" id="togglePassword2" class="toggle-icon" alt="Mostrar senha"
+                        onclick="togglePasswordVisibility('id_new_password2', 'togglePassword2')">
+                  </div>
+                </div>
+                <ul id="password-rules">
+                  <li id="length" class="invalid">Pelo menos 8 caracteres</li>
+                  <li id="number" class="invalid">Pelo menos um número</li>
+                  <li id="lowercase" class="invalid">Pelo menos uma letra minúscula</li>
+                  <li id="uppercase" class="invalid">Pelo menos uma letra maiúscula</li>
+                  <li id="special" class="invalid">Pelo menos um caracter especial</li>
+                  <li id="isSame" class="invalid">As senhas precisam ser iguais</li>
+                </ul>
+                <input type="hidden" id="modal-password-user-id">
+                <div id="password-error" style="color:#c13584;margin-top:10px;"></div>
+                <button type="submit" class="btn whatsapp-btn">Alterar Senha</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
 {% endblock %}
 
 {% block extrajs %}

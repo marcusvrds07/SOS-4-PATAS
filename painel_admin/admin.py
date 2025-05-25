@@ -11,10 +11,8 @@ from django.db import transaction
 from django.core.exceptions import PermissionDenied
 
 def delete_selected(modeladmin, request, queryset):
-    # Só permite deleção se for superuser
     if not request.user.is_superuser:
         raise PermissionDenied("Apenas superusuários podem excluir usuários.")
-    # Não permite auto-exclusão
     if queryset.filter(pk=request.user.pk).exists():
         raise PermissionDenied("Você não pode se excluir.")
     queryset.delete()
@@ -52,14 +50,10 @@ class CustomUserAdmin(BaseUserAdmin):
     )
 
     def response_change(self, request, obj):
-        # Se não for superuser:
         if not request.user.is_superuser:
-            # Só redireciona para admin se NÃO clicou em "continuar editando" ou "adicionar outro"
             if "_continue" not in request.POST and "_addanother" not in request.POST:
                 return HttpResponseRedirect(reverse('admin:index'))
-            # Se clicou em continuar/adicionar outro, segue o fluxo padrão (fica na edição)
             return super().response_change(request, obj)
-        # Se for superuser, segue o fluxo normal (vai pra lista de usuários)
         if "_continue" not in request.POST and "_addanother" not in request.POST:
             if request.user.has_perm("auth.view_user"):
                 return HttpResponseRedirect(reverse("admin:auth_user_changelist"))
@@ -67,7 +61,6 @@ class CustomUserAdmin(BaseUserAdmin):
                 return HttpResponseRedirect(reverse("admin:index"))
         return super().response_change(request, obj)
 
-    # Permissão para adicionar
     def has_add_permission(self, request):
         return request.user.is_superuser
 
@@ -77,29 +70,22 @@ class CustomUserAdmin(BaseUserAdmin):
             return qs
         return qs.filter(pk=request.user.pk)
 
-    # Permissão para editar
     def has_change_permission(self, request, obj=None):
-        # Superuser pode tudo
         if request.user.is_superuser:
             return True
-        # Só pode editar a si mesmo
         if obj is not None and obj == request.user:
             return True
         return False
 
-    # Permissão para deletar
     def has_delete_permission(self, request, obj=None):
-        # Só superuser pode excluir e não pode se auto-excluir
         if not request.user.is_superuser:
             return False
         if obj is not None and obj == request.user:
             return False
         return True
     
-    # Restringe edição de campo "is_superuser"
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        # Só desabilita para não superuser
         if not request.user.is_superuser:
             if 'cargo' in form.base_fields:
                 form.base_fields['cargo'].disabled = True
@@ -107,15 +93,22 @@ class CustomUserAdmin(BaseUserAdmin):
                 if 'is_superuser' in form.base_fields:
                     form.base_fields['is_superuser'].disabled = True
         else:
-            # Superuser pode editar tudo, nunca desabilite os campos para ele
             if 'cargo' in form.base_fields:
                 form.base_fields['cargo'].disabled = False
             if 'is_superuser' in form.base_fields:
                 form.base_fields['is_superuser'].disabled = False
         return form
     
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        if extra_context is None:
+            extra_context = {}
+        extra_context['app_list'] = list(self.admin_site.get_app_list(request))
+        return super().changeform_view(request, object_id, form_url, extra_context=extra_context)
+
     def changelist_view(self, request, extra_context=None):
-        # Só superuser acessa a lista. Usuário comum é redirecionado para o dashboard do admin.
+        if extra_context is None:
+            extra_context = {}
+        extra_context['app_list'] = list(self.admin_site.get_app_list(request))
         if not request.user.is_superuser:
             return HttpResponseRedirect(reverse('admin:index'))
         return super().changelist_view(request, extra_context=extra_context)
@@ -133,7 +126,6 @@ class CustomUserAdmin(BaseUserAdmin):
                 profile.foto = foto
                 profile.save()
 
-    # Evita auto-exclusão pelo painel
     def delete_model(self, request, obj):
         if obj == request.user:
             raise PermissionDenied("Você não pode se excluir.")

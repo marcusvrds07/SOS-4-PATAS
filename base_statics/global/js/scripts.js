@@ -61,11 +61,37 @@ function isSamePassword() {
     element.classList.add('active');
   }
 
-  function menu_options() {
-    menu = document.querySelector('.menu-options')
+function menu_options() {
+  const menu = document.querySelector('.menu-options');
+  menu.classList.toggle("active");
 
-    menu.classList.toggle("active")
+  // Fecha ao clicar fora
+  function handleClickOutside(event) {
+    if (!menu.contains(event.target) && !event.target.matches('.profile-wrapper, .profile-wrapper *')) {
+      menu.classList.remove('active');
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('scroll', handleScroll, true);
+    }
   }
+
+  // Fecha ao scrollar
+  function handleScroll() {
+    menu.classList.remove('active');
+    document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('scroll', handleScroll, true);
+  }
+
+  if (menu.classList.contains('active')) {
+    setTimeout(() => { // Delay pra não fechar imediatamente ao abrir
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('scroll', handleScroll, true);
+    }, 10);
+  } else {
+    document.removeEventListener('mousedown', handleClickOutside);
+    document.removeEventListener('scroll', handleScroll, true);
+  }
+}
+
   
   document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("pageInput")
