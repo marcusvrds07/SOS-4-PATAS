@@ -7,13 +7,12 @@
 <link rel="stylesheet" href="{% static "global/css/change_list.css" %}">
 {% endblock extrastyle %}
 {% block content-pad %}
-<h1>Gerenciar Usuários</h1>
+<h1>Gerenciar Grupos</h1>
 
 <div class="search-content">
   <form method="get" class="search-container">
     <div class="search-input-wrapper">
       <input type="text" name="q" placeholder="Buscar..." value="{{ cl.query }}">
-      <i class="fas fa-filter" id="open-filters"></i>
     </div>
     <div class="search-buttons">
       <button type="submit"><i class="fas fa-search"></i> Buscar</button>

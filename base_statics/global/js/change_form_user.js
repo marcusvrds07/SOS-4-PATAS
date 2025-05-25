@@ -141,7 +141,6 @@ function abrirModalTrocarSenha(userId) {
     document.getElementById('change-password-form').reset();
     document.getElementById('password-error').innerText = '';
     document.getElementById('modal-password-user-id').value = userId || '';
-    // Resetar visual das regras
     ['length', 'number', 'lowercase', 'uppercase', 'special', 'isSame'].forEach(id => {
         document.getElementById(id).className = 'invalid';
     });
@@ -187,13 +186,10 @@ document.addEventListener('DOMContentLoaded', function () {
             var errorBox = document.getElementById('password-error');
             var userId = document.getElementById('modal-password-user-id').value;
 
-            // Checagem rápida no front
             if (newPassword !== confirmPassword) {
                 errorBox.innerText = 'As senhas precisam ser iguais.';
                 return;
             }
-            // Aqui você pode bloquear envio se quiser que todas as regras estejam válidas no front
-            // MAS: quem valida oficialmente é o backend Django
 
             fetch('/admin/auth/user/' + userId + '/change_password_ajax/', {
                 method: 'POST',

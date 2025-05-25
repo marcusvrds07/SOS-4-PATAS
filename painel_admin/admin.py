@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
+from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -16,6 +18,59 @@ def delete_selected(modeladmin, request, queryset):
     if queryset.filter(pk=request.user.pk).exists():
         raise PermissionDenied("Você não pode se excluir.")
     queryset.delete()
+
+admin.site.unregister(Group)
+
+class CustomGroupAdmin(BaseGroupAdmin):
+    list_display = ('name', 'acoes',)
+    search_fields = ('name',)
+    ordering = ('name',)
+    fields = ('name', 'permissions')
+    filter_horizontal = ('permissions',)  
+
+    def get_list_display(self, request):
+        self._current_request = request
+        return super().get_list_display(request)
+
+    def has_add_permission(self, request):
+        return request.user.is_superuser
+
+    def has_change_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_delete_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_superuser
+
+    def acoes(self, obj):
+        request = getattr(self, '_current_request', None)
+        if not request or not request.user.is_superuser:
+            return '-'
+
+        change_url = reverse('admin:auth_group_change', args=[obj.pk])
+        delete_url = reverse('admin:auth_group_delete', args=[obj.pk])
+        view_url = change_url  # Não existe "visualizar" só para grupos padrão
+
+        edit_icon = static('global/imgs/lapis.png')
+        delete_icon = static('global/imgs/x.png')
+
+        parts = [
+            format_html(
+                '<a href="{}"><img class="action-icon" src="{}" alt="Editar" title="Editar"/></a>',
+                change_url, edit_icon
+            ),
+            format_html(
+                '<a href="{}"><img class="action-icon" src="{}" alt="Excluir" title="Excluir"/></a>',
+                delete_url, delete_icon
+            ),
+        ]
+        return format_html(' '.join(parts))
+
+    acoes.short_description = 'Ações'
+    acoes.allow_tags = True
+
 
 class CustomUserAdmin(BaseUserAdmin):
     actions = [delete_selected]
@@ -171,3 +226,4 @@ class CustomUserAdmin(BaseUserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(Group, CustomGroupAdmin)
