@@ -1,0 +1,390 @@
+{# your_project/templates/admin/auth/group/change_form.html #}
+{% extends "admin/change_form.html" %}
+{% load static i18n admin_urls %}
+
+{% block extrahead %}
+  {{ block.super }}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'global/css/partials-css/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'global/css/group_form.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hamburgers@1.1.3/dist/hamburgers.min.css">
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+
+    <nav class="sidebar">
+    <button class="hamburger hamburger--collapse sidebar-hamburger" type="button" id="sidebar-hamburger">
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+
+      <div class="sidebar-top-fixed">
+        <div class="logo-container">
+          <a href="{% url 'home:index' %}">
+            <img src="{% static 'home/img/sos.png' %}" alt="logo sos 4 patas">
+          </a>
+        </div>
+        <div id="hr"></div>
+      </div>
+
+      <div class="options">
+        <h3>Atalhos de Navegação</h3>
+        <div class="menu-item">
+          <a href="/admin">
+            <button class="menu-button">
+                <i class="fas fa-home"></i> Inicio
+            </button>
+          </a>
+        </div>
+        <div class="menu-item">
+          <a href="{% url 'home:index' %}" target='_blank'>
+            <button class="menu-button">
+                <i class="fas fa-paw"></i> Ver site
+            </button>
+          </a>
+        </div>
+        {% if perms.animais.view_animais or perms.animais.view_tipoanimais %}
+        <h3>Central Administrativa</h3>
+          <div class="menu-item">
+            <button class="menu-button" onclick="toggleMenu('tables', this)">
+              <i class="fas fa-database"></i> Base de Dados <i class="arrow down"></i>
+            </button>
+            <ul class="submenu" id="tables">
+              {% for app in app_list %}
+                {% if app.app_label != 'auth' %}
+                  {% for model in app.models %}
+                    {% if model.admin_url %}
+                      <li class="model-item" onclick="location.href='{{ model.admin_url }}'">
+                        <span class="model-name">{{ model.name }}</span>
+                        <span class="model-actions">
+                          {% if model.add_url %}
+                            <a href="{{ model.add_url }}" class="icon-btn" title="Adicionar {{ model.name }}">
+                              <i class="fas fa-plus"></i>
+                            </a>
+                          {% endif %}
+                        </span>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+
+        {% if request.user.is_superuser %}
+          <div class="menu-item">
+            <button class="menu-button" onclick="toggleMenu('management', this)">
+              <i class="fas fa-users-cog"></i> Gerência <i class="arrow down"></i>
+            </button>
+            <ul class="submenu" id="management">
+              <li class="model-item"
+                  onclick="window.location.href='{% url 'admin:auth_group_changelist' %}'">
+                <span class="model-name">Grupos</span>
+                <span class="model-actions">
+                  <a href="{% url 'admin:auth_group_add' %}"
+                    class="icon-btn"
+                    title="Adicionar Grupos"
+                    onclick="event.stopPropagation();">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                </span>
+              </li>
+              <li class="model-item" onclick="window.location.href='{% url 'admin:auth_user_changelist' %}'">
+                <span class="model-name">Usuários</span>
+                <span class="model-actions">
+                  <a href="{% url 'admin:auth_user_add' %}" class="icon-btn" title="Adicionar Usuários" onclick="event.stopPropagation();">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                </span>
+              </li>
+            </ul>            
+          </div>
+        {% endif %}
+
+
+      {% block extranav %}{% endblock extranav %}
+    </nav>
+
+    <div class="content">
+      <div class="content-pad">
+        <div class="profile">
+        {% if request.user.is_authenticated and request.user.profile.foto %}
+          <button class="profile-wrapper" onclick='menu_options()'>
+            <img src="{{ request.user.profile.foto.url }}" alt="Foto do usuário">
+          </button>
+        {% else %}
+          <button class="profile-wrapper" onclick='menu_options()'>
+            <img src="{% static "home/img/user-foto.png" %}" alt="Foto do usuário">
+          </button>
+        {% endif %}
+        <div class="menu-options">
+          <ul>
+            <li><a href="{% url 'admin:auth_user_change' request.user.id %}">Perfil</a></li>
+            <li><form id="logout-form" method="post" action="{% url 'admin:logout' %}" class="logout-form">
+              {% csrf_token %}
+              <button type="submit" class="logout-button">
+                Sair
+              </button>
+            </form></li>
+          </ul>
+        </div>
+      </div>
+        {% block content-pad %}
+          <h1>Editar Cargo</h1>
+
+            <div class="grp-content">
+            <form method="post" id="group_form" novalidate>
+                {% csrf_token %}
+                {{ adminform.form.non_field_errors }}
+
+                <div class="form-row field-name">
+                {{ adminform.form.name.errors }}
+                {{ adminform.form.name.label_tag }}
+                {{ adminform.form.name }}
+                </div>
+
+                {{ adminform.form.permissions }}
+
+                <script>
+                window.allPerms = [
+                    {% for perm in adminform.form.fields.permissions.queryset %}
+                    { id: {{ perm.id }}, name: "{{ perm.name|escapejs }}" }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ];
+                window.chosenIds = [
+                    {% if original %}
+                    {% for perm in original.permissions.all %}
+                        {{ perm.id }}{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                    {% endif %}
+                ];
+                </script>
+
+                <div id="permission-wrapper">
+                <div class="permission-box">
+                    <h3>{% trans "Permissões Disponíveis" %}</h3>
+                    <div class="permission-content" id="available-content"></div>
+                </div>
+                <div class="permission-box">
+                    <h3>{% trans "Permissões Escolhidas" %}</h3>
+                    <div class="permission-content" id="chosen-content"></div>
+                </div>
+                </div>
+
+                {% if original and has_delete_permission %}
+                <div class="deletelink-box">
+                    <a href="{{ delete_url }}">{% trans "Remover" %}</a>
+                </div>
+                {% endif %}
+
+                <div class="actions sticky-actions">
+                    {% if perms.auth.change_user or request.user.id == original.id %}
+                        <input type="submit" class="btn save" value="Salvar">
+                        <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+                        {% if has_add_permission %}
+                            <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+                        {% endif %}
+                    {% endif %}
+                    {% if original and has_delete_permission %}
+                        <button class="btn btn-danger" id="btn-excluir-form"
+                        data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">
+                        Excluir
+                        </button>
+                    {% endif %}
+                </div>
+            </form>
+            </div>
+
+            <div class="modal-overlay" id="crud-modal-overlay">
+        <div class="modal">
+          <div class="modal-header">
+            <h2 class="modal-title" id="crud-modal-title">Título do Modal</h2>
+            <button class="close-modal" id="close-crud-modal">&times;</button>
+          </div>
+          <div class="modal-content" id="crud-modal-content"></div>
+          <div class="crud-modal-buttons" id="crud-modal-buttons"></div>
+        </div>
+      </div>
+    </div>
+
+        {% endblock content-pad %}
+        <div id="filters-overlay" class="filters-overlay"></div>
+    </div>
+  </div>
+
+<script>
+// --- CSRF Token Utility ---
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
+
+// --- CRUD Modal Functions ---
+function openCrudModal({ title, contentHtml, buttons }) {
+  document.getElementById('crud-modal-title').textContent = title;
+  document.getElementById('crud-modal-content').innerHTML = contentHtml;
+  var btnContainer = document.getElementById('crud-modal-buttons');
+  btnContainer.innerHTML = '';
+  buttons.forEach(function(btn) {
+    var el = document.createElement('button');
+    el.type = 'button';
+    el.className = btn.className || '';
+    el.innerHTML = btn.text;
+    el.onclick = btn.onClick;
+    btnContainer.appendChild(el);
+  });
+  document.getElementById('crud-modal-overlay').style.display = 'block';
+}
+var closeBtn = document.getElementById('close-crud-modal');
+if (closeBtn) {
+  closeBtn.onclick = function() {
+    document.getElementById('crud-modal-overlay').style.display = 'none';
+  };
+}
+var overlayModal = document.getElementById('crud-modal-overlay');
+if (overlayModal) {
+  overlayModal.onclick = function(e) {
+    if (e.target === this) this.style.display = 'none';
+  };
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const excluirBtn = document.getElementById('btn-excluir-form');
+  if (excluirBtn) {
+    excluirBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const url = excluirBtn.getAttribute('data-delete-url');
+
+      openCrudModal({
+        title: 'Excluir Cargo',
+        contentHtml: `<p>Tem certeza que deseja excluir este Cargo?</p>`,
+        buttons: [
+          {
+            text: 'Cancelar',
+            className: 'instagram-btn',
+            onClick: () => document.getElementById('crud-modal-overlay').style.display = 'none'
+          },
+          {
+            text: 'Excluir',
+            className: 'whatsapp-btn',
+            onClick: () => {
+              fetch(url, {
+                method: 'POST',
+                headers: {
+                  'X-CSRFToken': csrftoken,
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'post=yes'
+              }).then(res => {
+                if (res.redirected) {
+                  window.location.href = res.url;
+                } else {
+                  location.reload();
+                }
+              }).catch(() => alert('Erro ao tentar excluir o registro.'));
+            }
+          }
+        ]
+      });
+    });
+  }
+});
+
+
+(function(){
+  const form       = document.getElementById('group_form');
+  const availBox   = document.getElementById('available-content');
+  const chosenBox  = document.getElementById('chosen-content');
+  const allPerms   = window.allPerms;
+  const chosenIds  = new Set(window.chosenIds);
+
+  const originalSelect = document.getElementById('id_permissions');
+  originalSelect.removeAttribute('name');
+  originalSelect.disabled = true;
+
+  const hiddenCtn = document.createElement('div');
+  form.appendChild(hiddenCtn);
+
+  function syncHiddenInputs(){
+    hiddenCtn.innerHTML = '';
+    chosenIds.forEach(id=>{
+      const inp = document.createElement('input');
+      inp.type  = 'hidden';
+      inp.name  = 'permissions';
+      inp.value = id;
+      hiddenCtn.appendChild(inp);
+    });
+  }
+
+  function makePill(perm){
+    const pill = document.createElement('div');
+    pill.className   = 'permission-pill';
+    pill.textContent = perm.name;
+    pill.dataset.value = perm.id;
+    return pill;
+  }
+
+  allPerms.forEach(perm=>{
+    const pill = makePill(perm);
+    if (chosenIds.has(perm.id)) {
+      const rem = document.createElement('span');
+      rem.className   = 'remove';
+      rem.textContent = '×';
+      pill.appendChild(rem);
+      chosenBox.appendChild(pill);
+    } else {
+      availBox.appendChild(pill);
+    }
+  });
+  syncHiddenInputs();
+
+  availBox.addEventListener('click', e=>{
+    const p = e.target.closest('.permission-pill');
+    if (!p) return;
+    const id = Number(p.dataset.value);
+    if (!chosenIds.has(id)) {
+      chosenIds.add(id);
+      const rem = document.createElement('span');
+      rem.className   = 'remove';
+      rem.textContent = '×';
+      p.appendChild(rem);
+      chosenBox.appendChild(p);
+      syncHiddenInputs();
+    }
+  });
+
+  chosenBox.addEventListener('click', e=>{
+    if (!e.target.classList.contains('remove')) return;
+    const p = e.target.closest('.permission-pill');
+    const id = Number(p.dataset.value);
+    chosenIds.delete(id);
+    p.removeChild(e.target);
+    availBox.appendChild(p);
+    syncHiddenInputs();
+  });
+})();
+</script>
+
+  <script src="{% static 'global/js/scripts.js' %}"></script>
+  <script src="{% static 'global/js/partials-js/sidebar.js' %}"></script>
+{% endblock %}
