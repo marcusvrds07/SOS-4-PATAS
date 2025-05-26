@@ -1,0 +1,78 @@
+{% extends "partials/sidebar.html" %}
+{% load static %}
+{% load admin_urls %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'global/css/change_form.css' %}">
+{% endblock %}
+
+{% block content-pad %}
+<div class="main-content">
+  <h1>Cadastrar Usuário</h1>
+  <form method="post" enctype="multipart/form-data" class="animal-form">
+    {% csrf_token %}
+
+    {% for fieldset in adminform %}
+    <section class="section">
+        {% if fieldset.name %}
+        <h2>{{ fieldset.name }}</h2>
+        {% endif %}
+
+        {% if fieldset.name == "Perfil" %}
+        <div class="cover-photo" style="align-items:center;">
+        <label for="id_foto" style="cursor:pointer;">
+            <div id="avatar" class="cover-avatar"
+            {% if form.foto.value %}
+                style="background-image: url('{{ form.foto.value.url }}');"
+            {% endif %}
+            ></div>
+            <input type="file" name="foto" accept="image/*" id="id_foto" style="display:none;">
+        </label>
+        {% if form.foto.errors %}
+            <div class="field-errors">{{ form.foto.errors }}</div>
+        {% endif %}
+        </div>
+        {% else %}
+        <div class="grid-3">
+            {% for line in fieldset %}
+            {% for field in line %}
+                <div class="field">
+                {{ field.label_tag }}
+                {% if field.is_readonly %}
+                    <span class="readonly-input">{{ field.contents }}</span>
+                {% else %}
+                    {{ field.field }}
+                {% endif %}
+                {{ field.errors }}
+                </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </section>
+    {% endfor %}
+
+
+    <div class="actions sticky-actions">
+      <input type="submit" class="btn save" value="Salvar">
+      <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+      <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+    </div>
+  </form>
+
+  <div class="modal-overlay" id="crud-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="crud-modal-title">Título do Modal</h2>
+        <button class="close-modal" id="close-crud-modal">&times;</button>
+      </div>
+      <div class="modal-content" id="crud-modal-content"></div>
+      <div class="crud-modal-buttons" id="crud-modal-buttons"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<script src='{% static "global/js/add_form.js" %}'></script>
+{% endblock %}

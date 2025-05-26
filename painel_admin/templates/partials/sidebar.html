@@ -14,6 +14,7 @@
 
   {% block favicon %}<link rel="shortcut icon" href="{% static "global/imgs/logo.ico" %}" type="image/x-icon">{% endblock favicon %}
   {% block extrastyle %}{% endblock %}
+  {% block extrahead %}{% endblock %}
 </head>
 <body>
 
@@ -54,8 +55,8 @@
             </button>
           </a>
         </div>
+        {% if perms.animais.view_animais or perms.animais.view_tipoanimais %}
         <h3>Central Administrativa</h3>
-        {% if app_list %}
           <div class="menu-item">
             <button class="menu-button" onclick="toggleMenu('tables', this)">
               <i class="fas fa-database"></i> Base de Dados <i class="arrow down"></i>
@@ -82,34 +83,37 @@
             </ul>
           </div>
         {% endif %}
-        <div class="menu-item">
-          <button class="menu-button" onclick="toggleMenu('management', this)">
-            <i class="fas fa-users-cog"></i> Gerência <i class="arrow down"></i>
-          </button>
-          <ul class="submenu" id="management">
-            <li class="model-item"
-                onclick="window.location.href='{% url 'admin:auth_group_changelist' %}'">
-              <span class="model-name">Grupos</span>
-              <span class="model-actions">
-                <a href="{% url 'admin:auth_group_add' %}"
-                  class="icon-btn"
-                  title="Adicionar Grupos"
-                  onclick="event.stopPropagation();">
-                  <i class="fas fa-plus"></i>
-                </a>
-              </span>
-            </li>
-            <li class="model-item" onclick="window.location.href='{% url 'admin:auth_user_changelist' %}'">
-              <span class="model-name">Usuários</span>
-              <span class="model-actions">
-                <a href="{% url 'admin:auth_user_add' %}" class="icon-btn" title="Adicionar Usuários" onclick="event.stopPropagation();">
-                  <i class="fas fa-plus"></i>
-                </a>
-              </span>
-            </li>
-          </ul>            
-        </div>
-      </div>
+
+        {% if request.user.is_superuser %}
+          <div class="menu-item">
+            <button class="menu-button" onclick="toggleMenu('management', this)">
+              <i class="fas fa-users-cog"></i> Gerência <i class="arrow down"></i>
+            </button>
+            <ul class="submenu" id="management">
+              <li class="model-item"
+                  onclick="window.location.href='{% url 'admin:auth_group_changelist' %}'">
+                <span class="model-name">Grupos</span>
+                <span class="model-actions">
+                  <a href="{% url 'admin:auth_group_add' %}"
+                    class="icon-btn"
+                    title="Adicionar Grupos"
+                    onclick="event.stopPropagation();">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                </span>
+              </li>
+              <li class="model-item" onclick="window.location.href='{% url 'admin:auth_user_changelist' %}'">
+                <span class="model-name">Usuários</span>
+                <span class="model-actions">
+                  <a href="{% url 'admin:auth_user_add' %}" class="icon-btn" title="Adicionar Usuários" onclick="event.stopPropagation();">
+                    <i class="fas fa-plus"></i>
+                  </a>
+                </span>
+              </li>
+            </ul>            
+          </div>
+        {% endif %}
+
 
       {% block extranav %}{% endblock extranav %}
     </nav>
@@ -128,8 +132,7 @@
         {% endif %}
         <div class="menu-options">
           <ul>
-            <li><a href="">Perfil</a></li>
-            <li><a href="password_change/">Alterar senha</a></li>
+            <li><a href="{% url 'admin:auth_user_change' request.user.id %}">Perfil</a></li>
             <li><form id="logout-form" method="post" action="{% url 'admin:logout' %}" class="logout-form">
               {% csrf_token %}
               <button type="submit" class="logout-button">

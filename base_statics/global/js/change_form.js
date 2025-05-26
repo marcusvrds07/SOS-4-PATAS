@@ -318,7 +318,6 @@ if (switchbutton) {
     excluirBtn.addEventListener('click', function (e) {
       e.preventDefault();
 
-      // Pega a URL do data attribute:
       const url = excluirBtn.getAttribute('data-delete-url');
 
       openCrudModal({

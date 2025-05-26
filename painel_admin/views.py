@@ -4,6 +4,45 @@ from django.contrib.auth.models import User
 from django.contrib.admin.sites import site
 from django.contrib.admin.models import LogEntry
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.contrib.auth import get_user_model
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+import json
+
+@csrf_exempt
+def change_password_ajax(request, user_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({'success': False, 'error': 'Não autenticado.'})
+
+    if request.method != 'POST':
+        return JsonResponse({'success': False, 'error': 'Requisição inválida.'})
+
+    if not (request.user.is_superuser or request.user.pk == int(user_id)):
+        return JsonResponse({'success': False, 'error': 'Sem permissão.'})
+
+    try:
+        data = json.loads(request.body)
+        new_password = data.get('password', '')
+    except Exception:
+        return JsonResponse({'success': False, 'error': 'Dados inválidos.'})
+
+    User = get_user_model()
+    try:
+        user = User.objects.get(pk=user_id)
+    except User.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Usuário não encontrado.'})
+
+    try:
+        validate_password(new_password, user=user)
+    except Exception as e:
+        error_msgs = [str(msg) for msg in e.error_list] if hasattr(e, 'error_list') else [str(e)]
+        return JsonResponse({'success': False, 'error': ' '.join(error_msgs)})
+
+    user.set_password(new_password)
+    user.save()
+    return JsonResponse({'success': True})
 
 
 @login_required

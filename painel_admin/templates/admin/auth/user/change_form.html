@@ -1,0 +1,194 @@
+{% extends "partials/sidebar.html" %}
+{% load static %}
+{% load admin_urls %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{% static 'global/css/change_form.css' %}">
+    <link rel="stylesheet" href="{% static 'global/css/change_form_user.css' %}">
+{% endblock %}
+
+{% block content-pad %}
+<div class="main-content">
+  <h1>Editar Usuário</h1>
+  <form method="post" enctype="multipart/form-data" class="animal-form">
+    {% csrf_token %}
+
+    <div id="superuser-toggle">É um Administrador?
+        {% for fieldset in adminform %}
+            {% if fieldset.name == "Permissões" %}
+                {% for line in fieldset %}
+                    {% for field in line %}
+                        {% if field.field.name == "is_superuser" %}
+                            <div class="field checkbox-field">
+                                {% if not request.user.is_superuser or field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                                    <input type="checkbox"
+                                        id="{{ field.id_for_label }}"
+                                        disabled
+                                        {% if original.is_superuser %}checked{% endif %}>
+                                    <label for="{{ field.id_for_label }}" id="readonly"></label>
+                                    <span>{{ field.label }}</span>
+                                {% else %}
+                                    {{ field.field }}
+                                    <label for="{{ field.id_for_label }}"></label>
+                                    <span>{{ field.label }}</span>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    {% for fieldset in adminform %}
+      {% if fieldset.name == "Permissões" %}
+      {% elif fieldset.name == "Perfil" %}
+      <section class="section">
+        <h2>{{ fieldset.name }}</h2>
+        <div class="cover-photo" style="align-items:center;">
+          {% for line in fieldset %}
+            {% for field in line %}
+              {% if field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                  <div id="avatar" class="cover-avatar no-hover"
+                       {% if original.profile.foto and original.profile.foto.url %}
+                         style="background-image: url('{{ original.profile.foto.url }}');"
+                       {% endif %}>
+                  </div>
+              {% else %}
+                <label for="id_foto" style="cursor:pointer;">
+                  {% if original.profile.foto and original.profile.foto.url %}
+                      <div id="avatar" class="cover-avatar image-set"
+                           style="background-image: url('{{ original.profile.foto.url }}');"></div>
+                  {% else %}
+                      <div id="avatar" class="cover-avatar"></div>
+                  {% endif %}
+                  <input type="file" name="foto" accept="image/*" id="id_foto" style="display:none;">
+                </label>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}  
+          {% if form.foto.errors %}
+            <div class="field-errors">{{ form.foto.errors }}</div>
+          {% endif %}
+        </div>
+      </section>
+      {% else %}
+        <section class="section">
+        {% if fieldset.name %}
+          <h2>{{ fieldset.name }}</h2>
+        {% endif %}
+        <div class="grid-3">
+          {% for line in fieldset %}
+            {% for field in line %}
+              <div class="field">
+                {{ field.label_tag }}
+                {% if field.field.name == "cargo" %}
+                {% if field.is_readonly or not perms.auth.change_user %}
+                    <span class="readonly-input">
+                        {% with group=original.groups.first %}
+                            {{ group.name|default:"Nenhum" }}
+                            <input type="hidden" name="cargo" value="{{ group.pk }}">
+                        {% endwith %}
+                    </span>
+                {% else %}
+                    {{ field.field }}
+                {% endif %}
+                {% elif field.is_readonly or not perms.auth.change_user and request.user.id != original.id %}
+                    <span class="readonly-input">
+                        {% if field.field.name == 'password' %}
+                          Não informada
+                        {% else %}
+                          {{ field.contents }}
+                        {% endif %}
+                    </span>
+                {% else %}
+                    {{ field.field }}
+                {% endif %}
+                {{ field.errors }}
+              </div>
+            {% endfor %}
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    {% endfor %}
+
+<div class="actions sticky-actions">
+  {% if perms.auth.change_user or request.user.id == original.id %}
+      <input type="submit" class="btn save" value="Salvar">
+      <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+      {% if has_add_permission %}
+        <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+      {% endif %}
+  {% endif %}
+  {% if original and has_delete_permission %}
+    <button class="btn btn-danger" id="btn-excluir-form"
+      data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">
+      Excluir
+    </button>
+  {% endif %}
+</div>
+
+  </form>
+
+  <div class="modal-overlay" id="crud-modal-overlay">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="crud-modal-title">Título do Modal</h2>
+        <button class="close-modal" id="close-crud-modal">&times;</button>
+      </div>
+      <div class="modal-content" id="crud-modal-content"></div>
+      <div class="crud-modal-buttons" id="crud-modal-buttons"></div>
+    </div>
+  </div>
+</div>
+
+        <div class="modal-overlay" id="modal-change-password" style="display:none;">
+          <div class="modal">
+            <div class="modal-header">
+              <h2>Redefinição de senha</h2>
+              <button class="close-modal" id="close-change-password-modal">&times;</button>
+            </div>
+            <div class="modal-content" id="change-password-content">
+              <form id="change-password-form" autocomplete="off">
+                <div class="form-group">
+                  <label for="id_new_password1">Nova senha:</label>
+                  <div class="password-container">
+                    <input type="password" name="new_password1" id="id_new_password1" autocomplete="new-password" required onkeyup="validatePassword()">
+                    <img src="/static/global/imgs/olho.png" data-show="/static/global/imgs/olho.png"
+                        data-hide="/static/global/imgs/olho-fechado.png" id="togglePassword1" class="toggle-icon" alt="Mostrar senha"
+                        onclick="togglePasswordVisibility('id_new_password1', 'togglePassword1')">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="id_new_password2">Confirmação da nova senha:</label>
+                  <div class="password-container">
+                    <input type="password" name="new_password2" id="id_new_password2" autocomplete="new-password" required onkeyup="isSamePassword()">
+                    <img src="/static/global/imgs/olho.png" data-show="/static/global/imgs/olho.png"
+                        data-hide="/static/global/imgs/olho-fechado.png" id="togglePassword2" class="toggle-icon" alt="Mostrar senha"
+                        onclick="togglePasswordVisibility('id_new_password2', 'togglePassword2')">
+                  </div>
+                </div>
+                <ul id="password-rules">
+                  <li id="length" class="invalid">Pelo menos 8 caracteres</li>
+                  <li id="number" class="invalid">Pelo menos um número</li>
+                  <li id="lowercase" class="invalid">Pelo menos uma letra minúscula</li>
+                  <li id="uppercase" class="invalid">Pelo menos uma letra maiúscula</li>
+                  <li id="special" class="invalid">Pelo menos um caracter especial</li>
+                  <li id="isSame" class="invalid">As senhas precisam ser iguais</li>
+                </ul>
+                <input type="hidden" id="modal-password-user-id">
+                <div id="password-error" style="color:#c13584;margin-top:10px;"></div>
+                <button type="submit" class="btn whatsapp-btn">Alterar Senha</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+{% endblock %}
+
+{% block extrajs %}
+<script src='{% static "global/js/add_form.js" %}'></script>
+<script src='{% static "global/js/change_form_user.js" %}'></script>
+{% endblock %}

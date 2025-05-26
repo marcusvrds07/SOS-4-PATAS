@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
             text: 'Excluir',
             className: 'whatsapp-btn',
             onClick: () => {
-              fetch(`/admin/animais/animais/${id}/delete/`, {
+              fetch(`/admin/auth/user/${id}/delete/`, {
                 method: 'POST',
                 headers: {
                   'X-CSRFToken': csrftoken,
@@ -159,6 +159,17 @@ document.addEventListener('DOMContentLoaded', function () {
           
           contentHtml = `<p>Tem certeza que deseja excluir os usuários abaixo?</p>${nomesHtml}`
         } 
+        else if (window.location.pathname.startsWith('/admin/auth/group/')) {
+          let nomes = Array.from(checked)
+            .map(el => el.closest('tr').querySelector('th.field-name')?.innerText.trim() || '')
+            .filter(Boolean);
+
+          let nomesHtml = nomes.length
+            ? `<ul style="margin: 8px 0 0 0; padding-left: 18px; color:#1941a0;">${nomes.map(nome => `<li>${nome}</li>`).join('')}</ul>`
+            : '';
+          
+          contentHtml = `<p>Tem certeza que deseja excluir os grupos abaixo?</p>${nomesHtml}`
+        }
         else {
           let nomes = Array.from(checked)
             .map(el => el.closest('tr').querySelector('td.field-nome')?.innerText.trim() || '')
