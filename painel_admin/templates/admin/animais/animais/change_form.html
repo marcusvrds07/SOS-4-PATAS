@@ -131,17 +131,26 @@
       {% endif %}
       {% if fieldset.name == "Status" %}
       <div class="actions">
-        {% if perms.animais.change_animais %}
-            <input type="submit" class="btn save" value="Salvar">
-            <input type="submit" class="btn cancel" name="_continue" value="Salvar e continuar editando">
+        {% if add and perms.animais.add_animais %}
+            <input type="submit" class="btn save"       value="Salvar">
+            <input type="submit" class="btn cancel"     name="_addanother"  value="Salvar e adicionar outro">
+        {% endif %}
+
+        {% if not add and perms.animais.change_animais %}
+            <input type="submit" class="btn save"       value="Salvar">
+            <input type="submit" class="btn cancel"     name="_continue"    value="Salvar e continuar editando">
             {% if perms.animais.add_animais %}
-              <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
+              <input type="submit" class="btn cancel" name="_addanother"  value="Salvar e adicionar outro">
             {% endif %}
         {% endif %}
-            {% if original and has_delete_permission %}
-              <button class="btn btn-danger" id="btn-excluir-form"  data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">Excluir</button>
-            {% endif %}
-          </div>
+        {% if not add and original and has_delete_permission %}
+          <button class="btn btn-danger"
+                  id="btn-excluir-form"
+                  data-delete-url="{% url opts|admin_urlname:'delete' original.pk|admin_urlquote %}">
+            Excluir
+          </button>
+        {% endif %}
+      </div>
       {% endif %}
 
     {% endfor %}

@@ -137,7 +137,7 @@
         </div>
       </div>
         {% block content-pad %}
-          <h1>Editar Cargo</h1>
+          <h1>{% if original %}Editar Cargo {% else %}Cadastrar Cargo{% endif %}</h1>
 
             <div class="grp-content">
             <form method="post" id="group_form" novalidate>
@@ -152,21 +152,20 @@
 
                 {{ adminform.form.permissions }}
 
-                <script>
+              <script>
                 window.allPerms = [
-                    {% for perm in adminform.form.fields.permissions.queryset %}
-                    { id: {{ perm.id }}, name: "{{ perm.name|escapejs }}" }{% if not forloop.last %},{% endif %}
-                    {% endfor %}
+                  {% for val, label in adminform.form.fields.permissions.choices %}
+                    { id: {{ val }}, name: "{{ label|escapejs }}" }{% if not forloop.last %},{% endif %}
+                  {% endfor %}
                 ];
                 window.chosenIds = [
-                    {% if original %}
+                  {% if original %}
                     {% for perm in original.permissions.all %}
-                        {{ perm.id }}{% if not forloop.last %},{% endif %}
+                      {{ perm.id }}{% if not forloop.last %},{% endif %}
                     {% endfor %}
-                    {% endif %}
+                  {% endif %}
                 ];
-                </script>
-
+              </script>
                 <div id="permission-wrapper">
                 <div class="permission-box">
                     <h3>{% trans "Permissões Disponíveis" %}</h3>
@@ -268,6 +267,13 @@ if (overlayModal) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
+
+  labelName = document.querySelector('.form-row label')
+
+  if (labelName) {
+    labelName.innerText = 'Nome do Cargo:'
+  }
+
   const excluirBtn = document.getElementById('btn-excluir-form');
   if (excluirBtn) {
     excluirBtn.addEventListener('click', function (e) {

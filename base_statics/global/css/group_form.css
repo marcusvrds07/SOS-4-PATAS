@@ -16,12 +16,19 @@
 body {
     box-sizing: content-box !important;
 }
-
 .content-pad h1 {
     font-size: 2rem;
     color: #1941a0;
+    width: 80%;
 }
 
+@media (max-width: 454px) {
+  .content-pad h1 {
+    font-size: 2rem;
+    color: #1941a0;
+    padding-left: 1rem;
+}
+}
 .logout-button {
     all: initial;
     width: 80% !important;
@@ -73,6 +80,11 @@ body {
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
 }
 
+.errorlist li {
+  position: relative;
+  top: 6rem;
+}
+
 .model-actions .icon-btn {
     color: #fff !important;
     font-size: 14px;
@@ -96,7 +108,7 @@ body {
 
 .grp-content {
     max-width: 100%;
-    padding: 0 1rem;
+    padding: 0 1rem;  
 }
 
 #permission-wrapper {

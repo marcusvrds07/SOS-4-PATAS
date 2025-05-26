@@ -139,17 +139,19 @@ class AnimalAdmin(admin.ModelAdmin):
     preview.short_description = 'Foto da Capa'
 
     def get_readonly_fields(self, request, obj=None):
-        if not request.user.has_perm('animais.change_animais'):
+        if obj is not None and not request.user.has_perm('animais.change_animais'):
             fields = [f.name for f in self.model._meta.fields]
-            m2m = [f.name for f in self.model._meta.many_to_many]
+            m2m    = [f.name for f in self.model._meta.many_to_many]
             return fields + m2m
         return super().get_readonly_fields(request, obj)
     
     def has_change_permission(self, request, obj=None):
-        if not request.user.has_perm('animais.change_animais'):
-            if request.method in ['POST', 'PUT']:
-                return False
-        return super().has_change_permission(request, obj)
+        if obj is None:
+            return (
+                request.user.has_perm('animais.add_animais') or
+                request.user.has_perm('animais.change_animais')
+            )
+        return request.user.has_perm('animais.change_animais')
 
     def acoes(self, obj):
         user = getattr(self, 'request', None)

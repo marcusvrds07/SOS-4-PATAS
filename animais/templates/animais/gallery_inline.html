@@ -33,8 +33,14 @@
       </div>
     {% endfor %}
   {% else %}
-    <span style="color: red; font-weight: 600; padding: 20px 0; display: block; text-align: center;">
-      Não há fotos na galeria para serem visualizadas.
-    </span>
+    {% if perms.animais.add_animais and not perms.animais.change_animais and not original%}
+      <span style="color: red; font-weight: 600; padding: 20px 0; display: block; text-align: center;">
+        Para adicionar Imagens você precisa da permissão de "Alterar animais".
+      </span>
+    {% else %}
+      <span style="color: red; font-weight: 600; padding: 20px 0; display: block; text-align: center;">
+        Não há fotos na galeria para serem visualizadas.
+      </span>
+    {% endif %}
   {% endif %}
 </div>

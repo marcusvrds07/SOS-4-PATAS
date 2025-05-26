@@ -46,7 +46,7 @@
   {% csrf_token %}
   <div class="table-container">
 
-    {% if has_add_permission or perms.animais.delete_animais%}
+    {% if perms.animais.delete_animais%}
       <div class="actions-bar">
         {% if perms.animais.delete_animais %}
           <span id="selected-count">0 selecionados</span>

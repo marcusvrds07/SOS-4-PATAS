@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.admin import GroupAdmin as BaseGroupAdmin
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -11,6 +11,7 @@ from .models import Profile
 from .forms import UserProfileCreationForm, UserProfileChangeForm
 from django.db import transaction
 from django.core.exceptions import PermissionDenied
+from django.utils.translation import gettext_lazy as _
 
 def delete_selected(modeladmin, request, queryset):
     if not request.user.is_superuser:
@@ -55,6 +56,61 @@ class CustomGroupAdmin(BaseGroupAdmin):
 
     def has_view_permission(self, request, obj=None):
         return request.user.is_superuser
+    
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "permissions":
+            kwargs["queryset"] = Permission.objects.exclude(
+                codename__in=[
+                    "delete_logentry",
+                    "view_logentry",
+                    "change_logentry",
+                    "add_logentry",
+                    "add_animalimage",
+                    "change_animalimage",
+                    "delete_animalimage",
+                    "view_animalimage",
+                    "view_group",
+                    "change_group",
+                    "add_group",
+                    "delete_group",
+                    "add_user",
+                    "delete_user",
+                    "change_user",
+                    "view_user",
+                    "view_permission",
+                    "delete_permission",
+                    "change_permission",
+                    "add_permission",
+                    "add_contenttype",
+                    "delete_contenttype",
+                    "change_contenttype",
+                    "view_contenttype",
+                    "view_profile",
+                    "change_profile",
+                    "add_profile",
+                    "delete_profile",
+                    "delete_session",
+                    "change_session",
+                    "view_session",
+                    "add_session",
+                ]
+            )
+            field = super().formfield_for_manytomany(db_field, request, **kwargs)
+
+            action_map = {
+                "add": _("Adicionar"),
+                "change": _("Alterar"),
+                "delete": _("Excluir"),
+                "view": _("Visualizar"),
+            }
+            def label_from_instance(obj):
+                verb = obj.codename.split("_")[0]
+                return f"{action_map.get(verb, verb)} {obj.content_type.name}"
+            field.label_from_instance = label_from_instance
+
+            return field
+
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
 
     def acoes(self, obj):
         request = getattr(self, '_current_request', None)
@@ -63,7 +119,7 @@ class CustomGroupAdmin(BaseGroupAdmin):
 
         change_url = reverse('admin:auth_group_change', args=[obj.pk])
         delete_url = reverse('admin:auth_group_delete', args=[obj.pk])
-        view_url = change_url  # Não existe "visualizar" só para grupos padrão
+        view_url = change_url
 
         edit_icon = static('global/imgs/lapis.png')
         delete_icon = static('global/imgs/x.png')
