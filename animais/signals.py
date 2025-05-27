@@ -5,6 +5,35 @@ import os, gc
 import time
 import shutil
 from .models import Animais, AnimalImage
+from .models import AnimaisAdotados, AnimalImageAdotado, adopted_capa_upload_path, adopted_gallery_upload_path
+
+@receiver(pre_save, sender=AnimaisAdotados)
+def store_old_capa_adotado(sender, instance, **kwargs):
+    if not instance.pk: return
+    try:
+        old = AnimaisAdotados.objects.get(pk=instance.pk)
+        instance._old_capa = old.foto
+    except AnimaisAdotados.DoesNotExist:
+        instance._old_capa = None
+
+@receiver(post_save, sender=AnimaisAdotados)
+def delete_old_capa_adotado(sender, instance, **kwargs):
+    old = getattr(instance, '_old_capa', None)
+    if old and old.name != instance.foto.name:
+        try: old.close()
+        except: pass
+        path = os.path.join(settings.MEDIA_ROOT, old.name)
+        if os.path.isfile(path): os.remove(path)
+
+@receiver(post_delete, sender=AnimaisAdotados)
+def delete_folder_adotado(sender, instance, **kwargs):
+    folder = os.path.join(settings.MEDIA_ROOT, 'animaladotado')
+    shutil.rmtree(folder, ignore_errors=True)
+
+@receiver(pre_delete, sender=AnimalImageAdotado)
+def delete_gallery_adotado(sender, instance, **kwargs):
+    path = os.path.join(settings.MEDIA_ROOT, instance.image.name)
+    if os.path.isfile(path): os.remove(path)
 
 def safe_remove(path):
     try:

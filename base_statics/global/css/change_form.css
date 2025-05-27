@@ -358,7 +358,102 @@ body {
   }
 }
 
-/* Substitua os paths para o seu ícone real se quiser */
+.adoption-modal-header {
+  display: none;
+}
+
+/* ======== Modal de Adoção  ======== */
+.adoption-modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center; justify-content: center;
+  z-index: 10000;
+}
+.adoption-modal-overlay.active {
+  display: flex;
+}
+
+.adoption-modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.adoption-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.adoption-modal-header h2 {
+  font-size: 1.5rem;
+  color: #1941a0;
+  margin: 0;
+}
+.adoption-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.adoption-modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.adoption-modal-content label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+.adoption-modal-content input,
+.adoption-modal-content textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  color: #333;
+  box-sizing: border-box;
+}
+.adoption-modal-content textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.adoption-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+.adoption-modal-buttons .btn {
+  background-color: #1941a0;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.adoption-modal-buttons .btn:hover {
+  background-color: #16357a;
+}
+/* ==================================================== */
+
+
 .grp-add-related,
 .add-related {
   display: inline-block;

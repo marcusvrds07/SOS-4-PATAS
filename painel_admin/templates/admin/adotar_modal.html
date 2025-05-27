@@ -1,0 +1,11 @@
+<form method="post">
+  {% csrf_token %}
+  {% if step == 'cpf' %}
+    <div class="field">
+      {{ form.cpf.label_tag }}<br>
+      {{ form.cpf }}
+    </div>
+  {% else %}
+    {{ form.as_p }}
+  {% endif %}
+</form>

@@ -30,7 +30,7 @@ while True:
     if 1 <= qtd <= 10:
         break
 
-print("Raças disponíveis:", ", ".join(racas))
+print("Raças disponíveis:", ", ".join(tipos))
 
 while True:
     escolha_tipo = input("Escolha um tipo (digite exatamente): ").strip()

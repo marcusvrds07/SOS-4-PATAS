@@ -150,6 +150,16 @@
             Excluir
           </button>
         {% endif %}
+        {% if original%}
+          <button
+            type="button"
+            class="btn"
+            id="btn-adotado"
+            data-url="{% url 'admin:animais_animais_adotar' original.pk %}">
+            Adotado?
+          </button>
+        {% endif %}
+
       </div>
       {% endif %}
 
@@ -167,6 +177,17 @@
     </div>
     <div class="crud-modal-buttons" id="crud-modal-buttons">
     </div>
+  </div>
+</div>
+
+<div class="adoption-modal-overlay" id="adoption-modal-overlay">
+  <div class="adoption-modal">
+    <div class="adoption-modal-header">
+      <h2 id="adoption-modal-title"></h2>
+      <button type="button" id="adoption-close" class="adoption-close">&times;</button>
+    </div>
+    <div id="adoption-modal-content" class="adoption-modal-content"></div>
+    <div id="adoption-modal-buttons" class="adoption-modal-buttons"></div>
   </div>
 </div>
 

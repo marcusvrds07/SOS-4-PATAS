@@ -355,3 +355,48 @@ if (switchbutton) {
   }
 });
 
+// ========== Sessão: Modal de Adoção Separado ==========
+document.addEventListener('DOMContentLoaded', function() {
+  const btnAdotar    = document.getElementById('btn-adotado');
+  const overlayAd    = document.getElementById('adoption-modal-overlay');
+  const titleAd      = document.getElementById('adoption-modal-title');
+  const contentAd    = document.getElementById('adoption-modal-content');
+  const buttonsAd    = document.getElementById('adoption-modal-buttons');
+  const closeAd      = document.getElementById('adoption-close');
+
+  if (!btnAdotar) return;
+
+  btnAdotar.addEventListener('click', function() {
+    const url = btnAdotar.dataset.url;
+    fetch(url)
+      .then(r => {
+        if (!r.ok) throw new Error(r.statusText);
+        return r.text();
+      })
+      .then(html => {
+        titleAd.textContent      = 'Informações do Adotante';
+        contentAd.innerHTML      = html;
+        buttonsAd.innerHTML       = '<button type="button" class="btn save" id="confirm-adopt">Confirmar</button>';
+        overlayAd.classList.add('active');
+
+        document
+          .getElementById('confirm-adopt')
+          .addEventListener('click', function() {
+            const form = contentAd.querySelector('form');
+            const data = new FormData(form);
+            fetch(url, {
+              method: 'POST',
+              headers: { 'X-CSRFToken': getCookie('csrftoken') },
+              body: data
+            }).then(resp => {
+              if (resp.redirected) return window.location.href = resp.url;
+              resp.text().then(t => contentAd.innerHTML = t);
+            });
+          });
+      })
+      .catch(err => console.error('Erro ao abrir modal de adoção:', err));
+  });
+
+  closeAd.addEventListener('click', () => overlayAd.classList.remove('active'));
+  overlayAd.addEventListener('click', e => { if (e.target === overlayAd) overlayAd.classList.remove('active'); });
+});
