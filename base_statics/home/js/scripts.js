@@ -106,6 +106,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
   setupDonationSystem();
   setupContactModal();
+
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      const doacaoModal = document.getElementById("doacao-modal-overlay");
+      const contatoModal = document.getElementById("contato-modal-overlay");
+      
+      if (doacaoModal && doacaoModal.style.display === "block") {
+        doacaoModal.style.display = "none";
+      }
+      if (contatoModal && contatoModal.style.display === "block") {
+        contatoModal.style.display = "none";
+      }
+    }
+  });
 })
 
 function setupDonationSystem() {
@@ -116,33 +130,43 @@ function setupDonationSystem() {
   const pixKey = "21968049191";
   
   if (doarBtn) {
-    doarBtn.addEventListener("click", function() {
-      doacaoModal.style.display = "block";
+    doarBtn.addEventListener("click", function(event) {
+      event.preventDefault();
+      if (doacaoModal) {
+        doacaoModal.style.display = "block";
+      }
     });
   }
   
   if (closeDoacaoModal) {
     closeDoacaoModal.addEventListener("click", function() {
-      doacaoModal.style.display = "none";
+      if (doacaoModal) {
+        doacaoModal.style.display = "none";
+      }
     });
   }
   
   if (copyPixBtn) {
     copyPixBtn.addEventListener("click", function() {
       navigator.clipboard.writeText(pixKey).then(() => {
+        const originalText = this.textContent;
         this.textContent = "Chave copiada!";
         setTimeout(() => {
-          this.textContent = "Copiar chave PIX";
+          this.textContent = originalText;
         }, 2000);
+      }).catch(err => {
+        console.error('Erro ao copiar a chave PIX: ', err);
       });
     });
   }
   
-  window.addEventListener("click", function(event) {
-    if (event.target === doacaoModal) {
-      doacaoModal.style.display = "none";
-    }
-  });
+  if (doacaoModal) {
+    doacaoModal.addEventListener("click", function(event) {
+      if (event.target === doacaoModal) {
+        doacaoModal.style.display = "none";
+      }
+    });
+  }
 }
 
 function setupContactModal() {
@@ -153,19 +177,25 @@ function setupContactModal() {
   if (contatoLink) {
     contatoLink.addEventListener("click", function(e) {
       e.preventDefault();
-      contatoModal.style.display = "block";
+      if (contatoModal) {
+        contatoModal.style.display = "block";
+      }
     });
   }
   
   if (closeContatoModal) {
     closeContatoModal.addEventListener("click", function() {
-      contatoModal.style.display = "none";
+      if (contatoModal) {
+        contatoModal.style.display = "none";
+      }
     });
   }
   
-  window.addEventListener("click", function(event) {
-    if (event.target === contatoModal) {
-      contatoModal.style.display = "none";
-    }
-  });
+  if (contatoModal) {
+    contatoModal.addEventListener("click", function(event) {
+      if (event.target === contatoModal) {
+        contatoModal.style.display = "none";
+      }
+    });
+  }
 }

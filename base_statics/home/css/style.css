@@ -11,6 +11,7 @@ html, body {
   font-family: "Comfortaa", cursive;
   background: #fff;
 }
+
 .carroussel-container {
   position: relative;
   width: 100vw;
@@ -41,11 +42,13 @@ html, body {
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 0; left: 0;
+  top: 0; 
+  left: 0;
   opacity: 0;
   transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
   z-index: 1;
-  margin: 0; padding: 0;
+  margin: 0; 
+  padding: 0;
 }
 
 .slide.active {
@@ -63,7 +66,6 @@ html, body {
   object-position: center;
   display: block;
   background: #1954cb;
-  padding-top: 10rem;
 }
 
 .carrossel-texto {
@@ -73,21 +75,20 @@ html, body {
   right: 0;
   transform: translateY(-50%);
   z-index: 10;
-  width: 48vw;
-  min-width: 200px;
-  max-width: 650px;
-  padding: 0 4vw 0 2vw;
+  width: clamp(200px, 48vw, 650px);
+  padding: 0 clamp(1vw, 4vw, 4vw) 0 clamp(1vw, 2vw, 2vw);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: clamp(4px, 2vw, 16px);
   background: none;
   box-shadow: none;
   color: #fff;
   text-align: left;
   pointer-events: none;
 }
+
 .carrossel-texto h1 {
-  font-size: 2.6rem;
+  font-size: clamp(0.8rem, 4vw, 2.6rem);
   font-weight: 800;
   margin: 0 0 10px 0;
   color: #f7d647;
@@ -99,7 +100,7 @@ html, body {
 }
 
 .carrossel-texto p {
-  font-size: 1.2rem;
+  font-size: clamp(0.7rem, 2.5vw, 1.2rem);
   margin: 0;
   font-weight: 500;
   color: #fff;
@@ -107,81 +108,41 @@ html, body {
   pointer-events: auto;
 }
 
-@media (max-width: 1100px) {
-  .carrossel-texto {
-    width: 56vw;
-    left: 45%;
-    max-width: 420px;
-    padding: 0 2vw 0 1vw;
-    gap: 12px;
+@media (max-width: 768px) {
+  .carroussel-container {
+    height: clamp(250px, 60vw, 400px);
+    min-height: 250px;
   }
-  .carrossel-texto h1 { font-size: 1.8rem; }
-  .carrossel-texto p { font-size: 1.02rem; }
-}
-@media (max-width: 800px) {
+  
+  .slide img, 
+  .carrossel-img {
+    height: clamp(250px, 60vw, 400px);
+    min-height: 250px;
+  }
+  
   .carrossel-texto {
     top: 55%;
-    left: 45%;
-    width: 50vw;
-    max-width: 340px;
-    padding: 0 2vw 0 1vw;
-    gap: 8px;
+    left: 42%;
+    width: clamp(120px, 52vw, 350px);
   }
-  .carrossel-texto h1 { font-size: 1.12rem; }
-  .carrossel-texto p { font-size: 0.90rem; }
 }
-@media (max-width: 600px) {
+
+@media (max-width: 480px) {
+  .carroussel-container {
+    height: clamp(200px, 70vw, 300px);
+    min-height: 200px;
+  }
+  
+  .slide img, 
+  .carrossel-img {
+    height: clamp(200px, 70vw, 300px);
+    min-height: 200px;
+  }
+  
   .carrossel-texto {
     top: 60%;
-    left: 42%;
-    width: 48vw;
-    max-width: 98vw;
-    min-width: 110px;
-    gap: 6px;
-    padding: 0 2vw 0 1vw;
-  }
-  .carrossel-texto h1 { font-size: 0.92rem; }
-  .carrossel-texto p { font-size: 0.80rem; }
-}
-@media (max-width: 420px) {
-  .carrossel-texto {
-    top: 65%;
-    width: 50vw;
-    left: 40%;
-    max-width: 98vw;
-    min-width: 80px;
-    gap: 4px;
-    padding: 0 4vw 0 2vw;
-  }
-  .carrossel-texto h1 { font-size: 0.81rem; }
-  .carrossel-texto p { font-size: 0.72rem; }
-}
-
-
-@media (max-width: 800px) {
-  .carroussel-container {
-    height: 54vw;
-    min-height: 270px;
-    max-height: 420px;
-  }
-  .slide img, .carrossel-img {
-    height: 54vw;
-    min-height: 270px;
-    max-height: 420px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-  .carroussel-container {
-    height: 70vw;
-    min-height: 170px;
-    max-height: 310px;
-  }
-  .slide img, .carrossel-img {
-    height: 70vw;
-    min-height: 170px;
-    max-height: 310px;
+    left: 38%;
+    width: clamp(100px, 55vw, 280px);
   }
 }
 
@@ -193,9 +154,9 @@ html, body {
   color: #f7d647;
   border: none;
   border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  font-size: 2.2rem;
+  width: clamp(40px, 8vw, 56px);
+  height: clamp(40px, 8vw, 56px);
+  font-size: clamp(1.2rem, 3vw, 2.2rem);
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(25,84,203,0.13);
   transition: background 0.2s;
@@ -204,8 +165,15 @@ html, body {
   align-items: center;
   justify-content: center;
 }
-.seta.esquerda { left: 18px; }
-.seta.direita { right: 18px; }
+
+.seta.esquerda { 
+  left: clamp(8px, 2vw, 18px); 
+}
+
+.seta.direita { 
+  right: clamp(8px, 2vw, 18px); 
+}
+
 .seta:hover {
   background: #f7d647;
   color: #1954cb;
@@ -213,16 +181,17 @@ html, body {
 
 .carroussel-indicators {
   position: absolute;
-  bottom: 24px;
+  bottom: clamp(12px, 3vw, 24px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 18px;
+  gap: clamp(8px, 2vw, 18px);
   z-index: 7;
 }
+
 .carroussel-indicators .indicator {
-  width: 16px;
-  height: 16px;
+  width: clamp(12px, 2vw, 16px);
+  height: clamp(12px, 2vw, 16px);
   background: #fff;
   border: 2.5px solid #f7d647;
   border-radius: 50%;
@@ -230,6 +199,7 @@ html, body {
   transition: background 0.3s, border 0.3s;
   opacity: 0.88;
 }
+
 .carroussel-indicators .indicator.active {
   background: #f7d647;
   border: 2.5px solid #1954cb;
@@ -246,7 +216,7 @@ html, body {
 
 #adoption {
   scroll-margin-top: 85px;
-  margin: 40px 0;
+  margin: clamp(20px, 5vw, 40px) 0;
 }
 
 .adoption-section {
@@ -256,13 +226,14 @@ html, body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: clamp(20px, 5vw, 40px) clamp(15px, 3vw, 20px);
 }
 
 .adoption-section h2 {
-  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
+  font-size: clamp(1.2rem, 4vw, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 5vw, 40px);
   position: relative;
   text-align: center;
   text-transform: uppercase;
@@ -271,7 +242,7 @@ html, body {
 
 .adoption-section h2::after {
   content: "";
-  width: 60px;
+  width: clamp(40px, 8vw, 60px);
   height: 4px;
   background-color: var(--amarelo-principal);
   position: absolute;
@@ -283,12 +254,13 @@ html, body {
 }
 
 .cards-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 25vw, 280px), 1fr));
+  gap: clamp(15px, 4vw, 30px);
+  margin: clamp(15px, 4vw, 30px) auto;
   max-width: 1200px;
+  padding: 0 clamp(10px, 3vw, 15px);
+  width: 100%;
 }
 
 .card-wrapper {
@@ -297,14 +269,17 @@ html, body {
 }
 
 .card-top {
-  width: calc(3vw + 150px);
-  height: calc(4.5vw + 225px);
+  width: 100%;
+  max-width: clamp(250px, 35vw, 320px);
   background-color: #ffffff;
   text-align: center;
   border-radius: 14px;
   box-shadow: 0 6px 16px var(--shadow-color);
   transition: all 0.3s ease;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
 }
 
 .card-top:hover {
@@ -313,8 +288,9 @@ html, body {
 }
 
 .card-top img {
-  margin-top: 8px;
-  width: calc(2.6vw + 130px);
+  margin: 8px auto 0 auto;
+  width: calc(100% - 16px);
+  max-width: clamp(120px, 25vw, 180px);
   height: auto;
   aspect-ratio: 1/1;
   object-fit: cover;
@@ -324,30 +300,34 @@ html, body {
 }
 
 .animal-name {
-  margin: 7.5px 0 3px;
-  padding: 0 5px;
-  font-size: 16px;
+  margin: 10px 5px 5px;
+  padding: 0 10px;
+  font-size: clamp(14px, 2.5vw, 16px);
   color: var(--azul-principal);
   font-weight: bold;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  min-height: calc(1.2em * 2);
+  line-height: 1.2em;
 }
 
 .animal-info {
-  font-size: 14px;
+  font-size: clamp(12px, 2vw, 14px);
   color: var(--azul-principal);
   text-align: center;
   font-weight: 500;
-  margin: 2px 0 1%;
-  line-height: 1rem;
+  margin: 5px 10px 15px 10px;
+  line-height: 1.3;
 }
 
 .btn-3d-wrapper {
   width: 80%;
-  margin: 0 auto;
+  max-width: 200px;
+  margin: auto auto 15px auto;
   transform: none;
   z-index: 1;
   text-decoration: none;
@@ -357,13 +337,13 @@ html, body {
 .btn-3d-wrapper .btn-top {
   width: 100%;
   margin-top: 0;
-  padding: 12px 0;
+  padding: clamp(8px, 2vw, 12px) 0;
   background-color: var(--azul-principal);
   color: var(--amarelo-principal);
   font-weight: bold;
   border-radius: 8px;
   text-decoration: none;
-  font-size: 16px;
+  font-size: clamp(14px, 2.5vw, 16px);
   display: block;
   border: none;
   cursor: pointer;
@@ -377,8 +357,10 @@ html, body {
 .btn-3d-wrapper .btn-top::before {
   content: "";
   position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
+  top: 0; 
+  left: -100%;
+  width: 100%; 
+  height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: 0.5s;
 }
@@ -396,7 +378,7 @@ html, body {
 .btn-3d-wrapper .btn-top span {
   position: relative;
   z-index: 1;
-  font-size: 15px;
+  font-size: clamp(13px, 2vw, 15px);
   font-weight: bold;
 }
 
@@ -407,14 +389,16 @@ html, body {
   color: var(--azul-principal);
   font-weight: bold;
   background-color: rgba(247, 214, 71, 0.2);
-  padding: 15px;
+  padding: clamp(10px, 3vw, 15px);
   border-radius: 8px;
   max-width: 600px;
+  font-size: clamp(14px, 2.5vw, 16px);
 }
 
 .custom-select {
-  margin: 0 auto;
-  width: 300px;
+  margin: 0 auto clamp(15px, 3vw, 20px) auto;
+  width: 100%;
+  max-width: clamp(250px, 40vw, 300px);
   position: relative;
 }
 
@@ -422,7 +406,7 @@ html, body {
   background-color: white;
   border: 2px solid var(--azul-principal);
   color: var(--azul-principal);
-  padding: 12px 15px;
+  padding: clamp(8px, 2vw, 12px) clamp(10px, 2vw, 15px);
   cursor: pointer;
   border-radius: 8px;
   display: flex;
@@ -432,6 +416,7 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   font-weight: bold;
+  font-size: clamp(14px, 2.5vw, 16px);
   transition: all 0.3s ease;
 }
 
@@ -459,7 +444,8 @@ html, body {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 100;
-  top: 100%; left: 0;
+  top: 100%; 
+  left: 0;
   max-height: 0;
   opacity: 0;
   overflow: hidden;
@@ -476,9 +462,10 @@ html, body {
 .option {
   color: var(--azul-principal);
   display: block;
-  padding: 12px 15px;
+  padding: clamp(8px, 2vw, 12px) clamp(10px, 2vw, 15px);
   cursor: pointer;
   text-decoration: none;
+  font-size: clamp(14px, 2.5vw, 16px);
   transition: all 0.2s ease;
 }
 
@@ -494,7 +481,7 @@ html, body {
   text-align: center;
   position: relative;
   top: 30px;
-  font-size: 12px;
+  font-size: clamp(10px, 2vw, 12px);
   color: var(--azul-principal);
 }
 
@@ -502,17 +489,18 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin: 40px 0;
+  gap: clamp(6px, 2vw, 12px);
+  margin: clamp(20px, 5vw, 40px) 0;
   color: var(--azul-principal);
+  flex-wrap: wrap;
 }
 
 .arrow-btn {
-  width: 36px;
-  height: 36px;
+  width: clamp(30px, 6vw, 36px);
+  height: clamp(30px, 6vw, 36px);
   background-color: var(--amarelo-principal);
   color: var(--azul-principal);
-  font-size: 18px;
+  font-size: clamp(14px, 3vw, 18px);
   font-weight: bold;
   border: none;
   border-radius: 8px;
@@ -543,13 +531,13 @@ html, body {
 
 .page-form input[type="number"] {
   color: var(--azul-principal);
-  width: 50px;
-  height: 36px;
+  width: clamp(40px, 8vw, 50px);
+  height: clamp(30px, 6vw, 36px);
   padding: 0;
   text-align: center;
   border: none;
   background-color: #eee;
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   font-weight: 600;
   border-bottom: 2px solid var(--azul-principal);
   border-radius: 8px;
@@ -564,15 +552,15 @@ html, body {
 }
 
 .display-box {
-  width: 50px;
-  height: 36px;
+  width: clamp(40px, 8vw, 50px);
+  height: clamp(30px, 6vw, 36px);
   background-color: #eee;
   border-bottom: 2px solid var(--azul-principal);
   border-radius: 8px;
   text-align: center;
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   font-weight: 600;
-  line-height: 36px;
+  line-height: clamp(30px, 6vw, 36px);
   cursor: default;
   display: flex;
   align-items: center;
@@ -581,33 +569,48 @@ html, body {
 
 .divider {
   width: 1px;
-  height: 36px;
+  height: clamp(30px, 6vw, 36px);
   background-color: var(--azul-principal);
-  margin: 0 8px;
+  margin: 0 clamp(4px, 1vw, 8px);
 }
 
 .modal-overlay {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
   backdrop-filter: blur(5px);
+  padding: clamp(10px, 2vw, 20px);
+  box-sizing: border-box;
 }
 
 .modal {
   position: fixed;
-  top: 50%; left: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  padding: 30px;
-  border-radius: 16px;
+  padding: clamp(15px, 4vw, 30px);
+  border-radius: clamp(12px, 2vw, 16px);
   box-shadow: 0 8px 24px var(--shadow-color);
   z-index: 1001;
-  max-width: 500px;
-  width: 90%;
+  width: clamp(280px, 90vw, 500px);
+  max-width: 90vw;
+  max-height: none;
+  overflow: visible;
   animation: modalFadeIn 0.3s ease-out;
+  box-sizing: border-box;
+}
+
+@media (max-height: 600px) {
+  .modal {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
 }
 
 @keyframes modalFadeIn {
@@ -624,31 +627,37 @@ html, body {
 .modal-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  align-items: flex-start;
+  margin-bottom: clamp(15px, 3vw, 20px);
+  gap: clamp(10px, 2vw, 15px);
 }
 
 .modal-title {
   color: var(--azul-principal);
-  font-size: 24px;
+  font-size: clamp(18px, 4vw, 24px);
   margin: 0;
   border-bottom: 3px solid var(--amarelo-principal);
-  padding-bottom: 8px;
+  padding-bottom: clamp(6px, 1vw, 8px);
+  flex: 1;
+  word-wrap: break-word;
+  line-height: 1.2;
 }
 
 .close-modal {
   background: none;
   border: none;
-  font-size: 28px;
+  font-size: clamp(24px, 5vw, 28px);
   cursor: pointer;
   color: var(--azul-principal);
-  width: 40px;
-  height: 40px;
+  width: clamp(32px, 6vw, 40px);
+  height: clamp(32px, 6vw, 40px);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-top: -5px;
 }
 
 .close-modal:hover {
@@ -656,32 +665,70 @@ html, body {
 }
 
 .modal-content {
-  margin-bottom: 25px;
+  margin-bottom: clamp(15px, 4vw, 25px);
 }
 
 .modal-content p {
   line-height: 1.6;
   color: var(--azul-principal);
-  margin-bottom: 15px;
+  margin-bottom: clamp(10px, 3vw, 15px);
   background-color: rgba(9, 45, 115, 0.05);
-  padding: 12px;
+  padding: clamp(10px, 2vw, 12px);
   border-radius: 8px;
   border-left: 3px solid var(--azul-principal);
+  font-size: clamp(14px, 2.5vw, 16px);
+}
+
+.modal-content .qrcode-container {
+  background-color: rgba(9, 45, 115, 0.05);
+  padding: clamp(15px, 4vw, 20px);
+  border-radius: 8px;
+  border-left: 3px solid var(--azul-principal);
+  margin-bottom: clamp(10px, 3vw, 15px);
+  text-align: center;
+}
+
+.modal-content .qrcode-container img {
+  max-width: clamp(120px, 25vw, 160px);
+  height: auto;
+  display: block;
+  margin: 0 auto clamp(10px, 3vw, 15px) auto;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.modal-content .pix-key {
+  display: block;
+  margin: 0 auto;
+  font-weight: bold;
+  color: var(--azul-principal);
+  background-color: rgba(247, 214, 71, 0.15);
+  padding: clamp(8px, 2vw, 10px) clamp(10px, 3vw, 15px);
+  border-radius: 6px;
+  width: fit-content;
+  font-size: clamp(14px, 2.5vw, 16px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .contact-buttons {
   display: flex;
-  gap: 15px;
-  margin-top: 10px;
+  gap: clamp(10px, 3vw, 15px);
+  margin-top: clamp(15px, 3vw, 20px);
+  flex-wrap: wrap;
+  padding: 0 clamp(5px, 1vw, 10px);
+  box-sizing: border-box;
 }
 
 .whatsapp-btn {
   background-color: #25d366;
   color: white;
-  padding: 14px 28px;
+  padding: clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px);
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  font-size: clamp(14px, 2.5vw, 16px);
   display: block;
   border: none;
   cursor: pointer;
@@ -689,6 +736,9 @@ html, body {
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
   text-align: center;
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .whatsapp-btn:hover {
@@ -700,10 +750,11 @@ html, body {
 .instagram-btn {
   background-color: #e1306c;
   color: white;
-  padding: 14px 28px;
+  padding: clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px);
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  font-size: clamp(14px, 2.5vw, 16px);
   display: block;
   border: none;
   cursor: pointer;
@@ -711,6 +762,9 @@ html, body {
   box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
   text-align: center;
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .instagram-btn:hover {
@@ -719,13 +773,146 @@ html, body {
   box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
 }
 
+@media (max-width: 768px) {
+  .modal {
+    width: clamp(280px, 95vw, 500px);
+    padding: clamp(18px, 3vw, 25px);
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-buttons {
+    flex-direction: column;
+    gap: clamp(8px, 2vw, 12px);
+    padding: 0;
+  }
+
+  .whatsapp-btn,
+  .instagram-btn {
+    width: 100%;
+    min-width: auto;
+    margin: 0;
+  }
+
+  .modal {
+    width: clamp(280px, 96vw, 500px);
+    padding: clamp(16px, 3vw, 20px);
+  }
+
+  .modal-title {
+    font-size: clamp(16px, 4vw, 20px);
+  }
+
+  .modal-content p {
+    font-size: clamp(13px, 2.5vw, 14px);
+    padding: clamp(8px, 2vw, 10px);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal {
+    width: clamp(280px, 97vw, 500px);
+    padding: clamp(14px, 3vw, 18px);
+  }
+  
+  .modal-title {
+    font-size: clamp(16px, 4vw, 18px);
+  }
+
+  .close-modal {
+    width: clamp(28px, 6vw, 35px);
+    height: clamp(28px, 6vw, 35px);
+    font-size: clamp(20px, 5vw, 24px);
+  }
+}
+
+@media (max-width: 414px) {
+  .modal-overlay {
+    padding: clamp(8px, 2vw, 15px);
+  }
+  
+  .modal {
+    width: clamp(280px, 98vw, 500px);
+    padding: clamp(12px, 3vw, 16px);
+  }
+  
+  .modal-header {
+    margin-bottom: clamp(12px, 3vw, 15px);
+  }
+  
+  .modal-content {
+    margin-bottom: clamp(12px, 3vw, 15px);
+  }
+  
+  .modal-content p {
+    font-size: clamp(12px, 2.5vw, 13px);
+    padding: clamp(6px, 2vw, 8px);
+  }
+}
+
+@media (max-width: 360px) {
+  .modal {
+    width: clamp(280px, 99vw, 500px);
+    padding: clamp(10px, 3vw, 14px);
+  }
+  
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: clamp(10px, 3vw, 12px) clamp(15px, 4vw, 20px);
+    font-size: clamp(12px, 2.5vw, 13px);
+  }
+
+  .modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(8px, 2vw, 10px);
+  }
+  
+  .modal-title {
+    width: 100%;
+    font-size: clamp(14px, 4vw, 16px);
+  }
+  
+  .close-modal {
+    position: absolute;
+    top: clamp(10px, 3vw, 12px);
+    right: clamp(10px, 3vw, 12px);
+    width: clamp(24px, 6vw, 28px);
+    height: clamp(24px, 6vw, 28px);
+    font-size: clamp(18px, 5vw, 20px);
+  }
+}
+
+@media (max-width: 320px) {
+  .modal {
+    width: calc(100vw - 20px);
+    margin: 10px;
+    padding: 10px;
+  }
+  
+  .modal-title {
+    font-size: 14px;
+  }
+  
+  .modal-content p {
+    font-size: 12px;
+    padding: 6px;
+  }
+  
+  .whatsapp-btn,
+  .instagram-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
 .btn-doacao {
   background-color: var(--amarelo-principal);
   color: var(--azul-principal);
-  padding: 12px 25px;
+  padding: clamp(8px, 2vw, 12px) clamp(15px, 4vw, 25px);
   border-radius: 8px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: clamp(14px, 2.5vw, 16px);
   font-family: "Comfortaa", cursive;
   border: none;
   cursor: pointer;
@@ -736,38 +923,26 @@ html, body {
   text-decoration: none;
   position: relative;
   overflow: hidden;
-  max-width: 250px;
+  max-width: clamp(200px, 40vw, 250px);
   margin: 0 auto;
+  min-width: 120px;
 }
 
 .btn-doacao-grande {
-  font-size: 20px;
-  padding: 16px 40px;
-  min-width: 200px;
-  max-width: 300px;
-  margin: 20px auto;
-}
-
-@media (max-width: 768px) {
-  .btn-doacao-grande {
-    font-size: 18px;
-    padding: 14px 30px;
-  }
-}
-
-@media (max-width: 480px) {
-  .btn-doacao-grande {
-    font-size: 16px;
-    padding: 12px 25px;
-    min-width: 180px;
-  }
+  font-size: clamp(16px, 3vw, 20px);
+  padding: clamp(12px, 3vw, 16px) clamp(25px, 6vw, 40px);
+  min-width: clamp(150px, 30vw, 200px);
+  max-width: clamp(250px, 50vw, 300px);
+  margin: clamp(15px, 4vw, 20px) auto;
 }
 
 .btn-doacao::before {
   content: "";
   position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
+  top: 0; 
+  left: -100%;
+  width: 100%; 
+  height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
   transition: 0.5s;
 }
@@ -790,11 +965,11 @@ html, body {
 .donation-options {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: clamp(15px, 4vw, 20px) 0;
 }
 
 .aboutus-section {
-  padding: 40px 20px 60px;
+  padding: clamp(20px, 5vw, 40px) clamp(15px, 3vw, 20px) clamp(40px, 8vw, 60px);
   background-color: #ffffff;
   text-align: center;
   min-height: calc(100vh - 80px);
@@ -805,16 +980,16 @@ html, body {
 }
 
 .aboutus-section h2 {
-  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
+  font-size: clamp(1.2rem, 4vw, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 5vw, 40px);
   position: relative;
 }
 
 .aboutus-section h2::after {
   content: "";
-  width: 60px;
+  width: clamp(40px, 8vw, 60px);
   height: 4px;
   background-color: var(--amarelo-principal);
   position: absolute;
@@ -827,7 +1002,7 @@ html, body {
 .aboutus-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: clamp(20px, 5vw, 40px);
   justify-content: space-between;
   align-items: flex-start;
   max-width: 1200px;
@@ -836,39 +1011,27 @@ html, body {
 }
 
 .aboutus-texto {
-  flex: 1 1 65%;
-  min-width: 320px;
-  font-size: clamp(0.90rem, 1.5vw + 0.6rem, 1.15rem);
+  flex: 1 1 clamp(300px, 60%, 65%);
+  min-width: 300px;
+  font-size: clamp(0.9rem, 2.5vw, 1.15rem);
   line-height: 1.8;
   color: #333;
 }
 
 .aboutus-imagem {
-  flex: 1 1 30%;
-  max-width: 380px;
-  min-width: 260px;
+  flex: 1 1 clamp(250px, 35%, 30%);
+  max-width: clamp(300px, 50vw, 380px);
+  min-width: 250px;
   margin: 0 auto;
 }
 
 .aboutus-imagem img {
   width: 100%;
   height: auto;
-  max-height: 520px;
+  max-height: clamp(300px, 60vw, 520px);
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-@media (max-width: 768px) {
-  .aboutus-imagem img {
-    max-height: 260px;
-  }
-}
-
-@media (max-width: 480px) {
-  .aboutus-imagem img {
-    max-height: 220px;
-  }
 }
 
 .momentos-section {
@@ -879,7 +1042,7 @@ html, body {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  padding: 80px 40px;
+  padding: clamp(40px, 8vw, 80px) clamp(20px, 5vw, 40px);
   background: #f5f7fa;
   box-sizing: border-box;
   text-align: center;
@@ -889,18 +1052,17 @@ html, body {
   flex-direction: column;
 }
 
-
 .momentos-section h2 {
-  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
+  font-size: clamp(1.2rem, 4vw, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 5vw, 40px);
   position: relative;
 }
 
 .momentos-section h2::after {
   content: "";
-  width: 60px;
+  width: clamp(40px, 8vw, 60px);
   height: 4px;
   background-color: var(--amarelo-principal);
   position: absolute;
@@ -912,12 +1074,12 @@ html, body {
 
 .momentos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 30vw, 240px), 1fr));
+  gap: clamp(15px, 4vw, 30px);
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 clamp(15px, 3vw, 20px);
   box-sizing: border-box;
 }
 
@@ -935,207 +1097,23 @@ html, body {
 
 .momento-item img {
   width: 100%;
-  height: 180px;
+  height: clamp(120px, 25vw, 180px);
   object-fit: cover;
   display: block;
 }
 
 .momento-item p {
   margin: 0;
-  padding: 15px 10px;
+  padding: clamp(10px, 3vw, 15px) clamp(8px, 2vw, 10px);
   font-weight: bold;
   color: var(--azul-principal);
-  font-size: 15px;
+  font-size: clamp(13px, 2.5vw, 15px);
   background-color: #fff;
   border-top: 2px solid var(--amarelo-principal);
 }
 
-@media (min-width: 1400px) {
-  .slide-content img {
-    max-height: 450px;
-  }
-  .card-top {
-    width: calc(3vw + 150px);
-    height: calc(4.5vw + 225px);
-  }
-  .card-top img {
-    width: calc(2.6vw + 130px);
-  }
-}
-
-@media (max-width: 1200px) {
-  .slide-content img {
-    max-height: 400px;
-  }
-}
-
-@media (max-width: 992px) {
-  .cards-grid {
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-  }
-  .slide-content img {
-    max-height: 350px;
-  }
-}
-
-
-@media (max-width: 768px) {
-  .card-top {
-    width: 180px;
-    height: 270px;
-  }
-  .card-top img {
-    width: 155px;
-  }
-  .modal {
-    width: 95%;
-    padding: 25px;
-  }
-  .pagination {
-    gap: 8px;
-  }
-  .display-box,
-  .page-form input[type="number"] {
-    width: 40px;
-    height: 36px;
-    font-size: 14px;
-  }
-  .btn-doacao {
-    padding: 10px 20px;
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 600px) {
-  .contact-buttons {
-    flex-direction: column;
-  }
-  .whatsapp-btn,
-  .instagram-btn {
-    padding: 12px 20px;
-    font-size: 14px;
-    width: 100%;
-  }
-  .modal {
-    padding: 20px;
-  }
-  .modal-title {
-    font-size: 20px;
-  }
-  .modal-content p {
-    font-size: 14px;
-    padding: 10px;
-  }
-  .pagination {
-    gap: 6px;
-  }
-  .arrow-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
-  }
-  .btn-doacao {
-    width: 100%;
-    max-width: 200px;
-  }
-}
-
-@media (max-width: 576px) {
-  .card-top {
-    width: 200px;
-    height: 290px;
-  }
-  .card-top img {
-    width: 175px;
-  }
-  .slide-content img {
-    max-height: 250px;
-  }
-  .selected-option {
-    max-width: 250px;
-    margin: 0 auto;
-  }
-  .seta {
-    width: 30px;
-    height: 30px;
-    font-size: 1.2rem;
-  }
-  .btn-doacao {
-    padding: 10px 15px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .modal-title {
-    font-size: 18px;
-  }
-  .close-modal {
-    width: 35px;
-    height: 35px;
-    font-size: 24px;
-  }
-  .pagination {
-    gap: 4px;
-  }
-  .display-box,
-  .page-form input[type="number"] {
-    width: 36px;
-    height: 32px;
-    font-size: 13px;
-  }
-  .arrow-btn {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
-  }
-  .btn-doacao {
-    padding: 8px 15px;
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 400px) {
-  .card-top {
-    width: 180px;
-    height: 270px;
-  }
-  .card-top img {
-    width: 155px;
-  }
-  .slide-content img {
-    max-height: 200px;
-  }
-  .seta {
-    width: 28px;
-    height: 28px;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .modal-content p {
-    font-size: 13px;
-  }
-  .whatsapp-btn,
-  .instagram-btn {
-    padding: 10px 15px;
-    font-size: 13px;
-  }
-  .modal-header {
-    margin-bottom: 15px;
-  }
-  .modal-content {
-    margin-bottom: 15px;
-  }
-  .btn-doacao {
-    padding: 8px 12px;
-    font-size: 12px;
-  }
-}
-
 .donation-section {
-  padding: 60px 20px 80px;
+  padding: clamp(40px, 8vw, 60px) clamp(15px, 3vw, 20px) clamp(60px, 10vw, 80px);
   background-color: #f5f7fa;
   text-align: center;
   min-height: calc(100vh - 80px);
@@ -1147,16 +1125,16 @@ html, body {
 }
 
 .donation-section h2 {
-  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
+  font-size: clamp(1.2rem, 4vw, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
-  margin-bottom: 40px;
+  margin-bottom: clamp(20px, 5vw, 40px);
   position: relative;
 }
 
 .donation-section h2::after {
   content: "";
-  width: 60px;
+  width: clamp(40px, 8vw, 60px);
   height: 4px;
   background-color: var(--amarelo-principal);
   position: absolute;
@@ -1169,13 +1147,14 @@ html, body {
 .donation-container {
   display: flex;
   flex-direction: column;
-  max-width: 800px;
+  max-width: clamp(600px, 80vw, 800px);
   margin: 0 auto;
+  width: 100%;
 }
 
 .donation-text {
-  margin-bottom: 30px;
-  font-size: clamp(0.90rem, 1.5vw + 0.6rem, 1.15rem);
+  margin-bottom: clamp(20px, 5vw, 30px);
+  font-size: clamp(0.9rem, 2.5vw, 1.15rem);
   line-height: 1.8;
   color: #333;
 }
@@ -1183,23 +1162,23 @@ html, body {
 .donation-amount-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: clamp(10px, 3vw, 15px);
   justify-content: center;
-  margin: 20px auto;
+  margin: clamp(15px, 4vw, 20px) auto;
 }
 
 .donation-amount {
   background-color: var(--azul-principal);
   color: var(--amarelo-principal);
-  padding: 15px 25px;
+  padding: clamp(10px, 3vw, 15px) clamp(15px, 4vw, 25px);
   border-radius: 8px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: clamp(16px, 3vw, 18px);
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(9, 45, 115, 0.3);
-  min-width: 120px;
+  min-width: clamp(100px, 20vw, 120px);
 }
 
 .donation-amount:hover {
@@ -1221,33 +1200,27 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px 0;
-}
-
-#qrcode {
-  margin: 15px auto;
-  padding: 15px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: clamp(15px, 4vw, 20px) 0;
 }
 
 .pix-key {
-  margin-top: 10px;
+  margin-top: clamp(8px, 2vw, 10px);
   font-weight: bold;
   color: var(--azul-principal);
   background-color: rgba(247, 214, 71, 0.2);
-  padding: 8px 15px;
+  padding: clamp(6px, 2vw, 8px) clamp(10px, 3vw, 15px);
   border-radius: 5px;
+  font-size: clamp(14px, 2.5vw, 16px);
 }
 
 .copy-pix-btn {
   background-color: var(--azul-principal);
   color: white;
-  padding: 14px 28px;
+  padding: clamp(10px, 3vw, 14px) clamp(15px, 4vw, 28px);
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  font-size: clamp(14px, 2.5vw, 16px);
   display: block;
   border: none;
   cursor: pointer;
@@ -1265,17 +1238,19 @@ html, body {
 
 .donation-buttons {
   display: flex;
-  gap: 15px;
-  margin-top: 10px;
+  gap: clamp(10px, 3vw, 15px);
+  margin-top: clamp(8px, 2vw, 10px);
+  flex-wrap: wrap;
 }
 
 .confirm-donation-btn {
   background-color: var(--azul-principal);
   color: white;
-  padding: 14px 28px;
+  padding: clamp(10px, 3vw, 14px) clamp(15px, 4vw, 28px);
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  font-size: clamp(14px, 2.5vw, 16px);
   display: block;
   border: none;
   cursor: pointer;
@@ -1295,20 +1270,21 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
-  gap: 10px;
+  margin: clamp(15px, 4vw, 20px) 0;
+  gap: clamp(8px, 2vw, 10px);
+  flex-wrap: wrap;
 }
 
 .custom-donation-input span {
-  font-size: 20px;
+  font-size: clamp(18px, 3vw, 20px);
   font-weight: bold;
   color: var(--azul-principal);
 }
 
 .custom-donation-input input {
-  width: 100px;
-  height: 40px;
-  font-size: 20px;
+  width: clamp(80px, 15vw, 100px);
+  height: clamp(35px, 6vw, 40px);
+  font-size: clamp(18px, 3vw, 20px);
   text-align: center;
   border: 2px solid var(--azul-principal);
   border-radius: 8px;
@@ -1316,34 +1292,34 @@ html, body {
   outline: none;
 }
 
-@media (max-width: 768px) {
-  .donation-amount {
-    padding: 12px 20px;
-    font-size: 16px;
-    min-width: 100px;
-  }
-}
-
-@media (max-width: 576px) {
-  .donation-amount-container {
-    gap: 10px;
-  }
-
-  .donation-amount {
-    padding: 10px 15px;
-    font-size: 14px;
-    min-width: 90px;
-  }
-}
-
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .donation-amount-container {
     flex-direction: column;
     align-items: center;
-    gap: 10px;
   }
-
+  
   .donation-amount {
     width: 80%;
+    max-width: 200px;
+  }
+  
+  .aboutus-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .aboutus-texto {
+    min-width: auto;
+  }
+}
+
+@media (min-width: 1400px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+  }
+  
+  .momentos-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 }
