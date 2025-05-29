@@ -6,6 +6,12 @@ from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 
+def voluntario(request):
+    context = {
+        'title': 'Voluntário',
+    }
+    return render(request, 'home/voluntarios.html', context)
+
 def home(request):
     types = TipoAnimal.objects.all()
     type_id = request.GET.get('tipo_id')
@@ -59,6 +65,7 @@ def home(request):
 
         # Contexto para o template
         context = {
+            'title': 'Inicio',
             'first_type': type_selected,
             'data_types': data_types,
             'animals': page_obj,
@@ -66,6 +73,7 @@ def home(request):
         }
     else:
         context = {
+        'title': 'Inicio',
         'first_type': 'Nenhum Campo',
         'data_types': [],
         'animals': [],

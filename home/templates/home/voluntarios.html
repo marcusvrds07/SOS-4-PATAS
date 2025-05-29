@@ -1,0 +1,23 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block navbar_links %}
+  <a href="#">Home</a>
+  <a href="#" id="contato-link">Contato</a>
+  <a href="#doacao">Doar</a>
+  <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
+{% endblock navbar_links %}
+
+{% block head-links %}
+    <link rel="stylesheet" href="{% static 'home/css/voluntarios.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/partials-css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/partials-css/footer.css' %}">
+{% endblock head-links %}
+
+{% block content-base %}
+    <h1 style='padding-top: 80px; color: black;'>AQUI É ONDE VOCÊ VAI COLCOAR AS COISAS</h1>
+{% include "home/partials/footer.html" %}
+{% endblock content-base %}
+
+{% block script %}
+{% endblock script %}

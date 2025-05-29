@@ -1,0 +1,13 @@
+:root {
+  --amarelo-principal: #f7d647;
+  --azul-principal: #004AAD;
+  --shadow-color: rgba(9, 45, 115, 0.15);
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: "Comfortaa", cursive;
+  background: #fff;
+}

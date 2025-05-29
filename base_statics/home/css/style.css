@@ -52,6 +52,7 @@ html, body {
 }
 
 .slide.active {
+  margin-top: 5rem;
   opacity: 1;
   z-index: 2;
 }
@@ -109,9 +110,14 @@ html, body {
 }
 
 @media (max-width: 768px) {
+    .slide.active {
+    margin-top: 3.5rem;
+    opacity: 1;
+    z-index: 2;
+  }
   .carroussel-container {
-    height: clamp(250px, 60vw, 400px);
-    min-height: 250px;
+    height: clamp(280px, 60vw, 400px);
+    min-height: 280px;
   }
   
   .slide img, 
@@ -121,7 +127,7 @@ html, body {
   }
   
   .carrossel-texto {
-    top: 55%;
+    top: 45%;
     left: 42%;
     width: clamp(120px, 52vw, 350px);
   }
@@ -140,70 +146,10 @@ html, body {
   }
   
   .carrossel-texto {
-    top: 60%;
+    top: 45%;
     left: 38%;
     width: clamp(100px, 55vw, 280px);
   }
-}
-
-.seta {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(25,84,203,0.88);
-  color: #f7d647;
-  border: none;
-  border-radius: 50%;
-  width: clamp(40px, 8vw, 56px);
-  height: clamp(40px, 8vw, 56px);
-  font-size: clamp(1.2rem, 3vw, 2.2rem);
-  cursor: pointer;
-  box-shadow: 0 6px 18px rgba(25,84,203,0.13);
-  transition: background 0.2s;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.seta.esquerda { 
-  left: clamp(8px, 2vw, 18px); 
-}
-
-.seta.direita { 
-  right: clamp(8px, 2vw, 18px); 
-}
-
-.seta:hover {
-  background: #f7d647;
-  color: #1954cb;
-}
-
-.carroussel-indicators {
-  position: absolute;
-  bottom: clamp(12px, 3vw, 24px);
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: clamp(8px, 2vw, 18px);
-  z-index: 7;
-}
-
-.carroussel-indicators .indicator {
-  width: clamp(12px, 2vw, 16px);
-  height: clamp(12px, 2vw, 16px);
-  background: #fff;
-  border: 2.5px solid #f7d647;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.3s, border 0.3s;
-  opacity: 0.88;
-}
-
-.carroussel-indicators .indicator.active {
-  background: #f7d647;
-  border: 2.5px solid #1954cb;
-  opacity: 1;
 }
 
 .container-base {
