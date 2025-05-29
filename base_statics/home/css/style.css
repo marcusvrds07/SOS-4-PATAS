@@ -162,7 +162,7 @@ html, body {
 
 #adoption {
   scroll-margin-top: 85px;
-  margin: clamp(20px, 5vw, 40px) 0;
+  margin: 40px 0;
 }
 
 .adoption-section {
@@ -176,10 +176,10 @@ html, body {
 }
 
 .adoption-section h2 {
-  font-size: clamp(1.2rem, 4vw, 2.4rem);
+  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
-  margin-bottom: clamp(20px, 5vw, 40px);
+  margin-bottom: 40px;
   position: relative;
   text-align: center;
   text-transform: uppercase;
@@ -188,7 +188,7 @@ html, body {
 
 .adoption-section h2::after {
   content: "";
-  width: clamp(40px, 8vw, 60px);
+  width: 60px;
   height: 4px;
   background-color: var(--amarelo-principal);
   position: absolute;
@@ -200,12 +200,13 @@ html, body {
 }
 
 .cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 25vw, 280px), 1fr));
-  gap: clamp(15px, 4vw, 30px);
-  margin: clamp(15px, 4vw, 30px) auto;
+ display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  margin: 30px auto;
   max-width: 1200px;
-  padding: 0 clamp(10px, 3vw, 15px);
+  /* padding: 0 clamp(10px, 3vw, 15px); */
   width: 100%;
 }
 
@@ -215,17 +216,14 @@ html, body {
 }
 
 .card-top {
-  width: 100%;
-  max-width: clamp(250px, 35vw, 320px);
+  width: calc(3vw + 150px);
+  height: calc(4.5vw + 225px);
   background-color: #ffffff;
   text-align: center;
   border-radius: 14px;
   box-shadow: 0 6px 16px var(--shadow-color);
   transition: all 0.3s ease;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 15px;
 }
 
 .card-top:hover {
@@ -234,9 +232,8 @@ html, body {
 }
 
 .card-top img {
-  margin: 8px auto 0 auto;
-  width: calc(100% - 16px);
-  max-width: clamp(120px, 25vw, 180px);
+  margin-top: 8px;
+  width: calc(2.6vw + 130px);
   height: auto;
   aspect-ratio: 1/1;
   object-fit: cover;
@@ -246,34 +243,30 @@ html, body {
 }
 
 .animal-name {
-  margin: 10px 5px 5px;
-  padding: 0 10px;
-  font-size: clamp(14px, 2.5vw, 16px);
+margin: 7.5px 0 3px;
+  padding: 0 5px;
+  font-size: 16px;
   color: var(--azul-principal);
   font-weight: bold;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
-  min-height: calc(1.2em * 2);
-  line-height: 1.2em;
 }
 
 .animal-info {
-  font-size: clamp(12px, 2vw, 14px);
+  font-size: 14px;
   color: var(--azul-principal);
   text-align: center;
   font-weight: 500;
-  margin: 5px 10px 15px 10px;
-  line-height: 1.3;
+  margin: 2px 0 1%;
+  line-height: 1rem;
 }
 
 .btn-3d-wrapper {
   width: 80%;
-  max-width: 200px;
-  margin: auto auto 15px auto;
+  margin: 0 auto;
   transform: none;
   z-index: 1;
   text-decoration: none;
@@ -283,13 +276,13 @@ html, body {
 .btn-3d-wrapper .btn-top {
   width: 100%;
   margin-top: 0;
-  padding: clamp(8px, 2vw, 12px) 0;
+  padding: 12px 0;
   background-color: var(--azul-principal);
   color: var(--amarelo-principal);
   font-weight: bold;
   border-radius: 8px;
   text-decoration: none;
-  font-size: clamp(14px, 2.5vw, 16px);
+  font-size: 16px;
   display: block;
   border: none;
   cursor: pointer;
@@ -303,10 +296,8 @@ html, body {
 .btn-3d-wrapper .btn-top::before {
   content: "";
   position: absolute;
-  top: 0; 
-  left: -100%;
-  width: 100%; 
-  height: 100%;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   transition: 0.5s;
 }
@@ -324,7 +315,7 @@ html, body {
 .btn-3d-wrapper .btn-top span {
   position: relative;
   z-index: 1;
-  font-size: clamp(13px, 2vw, 15px);
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -342,9 +333,8 @@ html, body {
 }
 
 .custom-select {
-  margin: 0 auto clamp(15px, 3vw, 20px) auto;
-  width: 100%;
-  max-width: clamp(250px, 40vw, 300px);
+  margin: 0 auto;
+  width: 300px;
   position: relative;
 }
 
@@ -352,7 +342,7 @@ html, body {
   background-color: white;
   border: 2px solid var(--azul-principal);
   color: var(--azul-principal);
-  padding: clamp(8px, 2vw, 12px) clamp(10px, 2vw, 15px);
+  padding: 12px 15px;
   cursor: pointer;
   border-radius: 8px;
   display: flex;
@@ -362,7 +352,6 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   font-weight: bold;
-  font-size: clamp(14px, 2.5vw, 16px);
   transition: all 0.3s ease;
 }
 
@@ -408,7 +397,7 @@ html, body {
 .option {
   color: var(--azul-principal);
   display: block;
-  padding: clamp(8px, 2vw, 12px) clamp(10px, 2vw, 15px);
+  padding: 12px 15px;
   cursor: pointer;
   text-decoration: none;
   font-size: clamp(14px, 2.5vw, 16px);
@@ -427,7 +416,7 @@ html, body {
   text-align: center;
   position: relative;
   top: 30px;
-  font-size: clamp(10px, 2vw, 12px);
+  font-size: 12px;
   color: var(--azul-principal);
 }
 
@@ -435,18 +424,17 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(6px, 2vw, 12px);
-  margin: clamp(20px, 5vw, 40px) 0;
+  gap: 12px;
+  margin: 40px 0;
   color: var(--azul-principal);
-  flex-wrap: wrap;
 }
 
 .arrow-btn {
-  width: clamp(30px, 6vw, 36px);
-  height: clamp(30px, 6vw, 36px);
+  width: 36px;
+  height: 36px;
   background-color: var(--amarelo-principal);
   color: var(--azul-principal);
-  font-size: clamp(14px, 3vw, 18px);
+  font-size: 18px;
   font-weight: bold;
   border: none;
   border-radius: 8px;
@@ -477,13 +465,13 @@ html, body {
 
 .page-form input[type="number"] {
   color: var(--azul-principal);
-  width: clamp(40px, 8vw, 50px);
-  height: clamp(30px, 6vw, 36px);
+  width: 50px;
+  height: 36px;
   padding: 0;
   text-align: center;
   border: none;
   background-color: #eee;
-  font-size: clamp(14px, 3vw, 16px);
+  font-size: 16px;
   font-weight: 600;
   border-bottom: 2px solid var(--azul-principal);
   border-radius: 8px;
@@ -498,15 +486,15 @@ html, body {
 }
 
 .display-box {
-  width: clamp(40px, 8vw, 50px);
-  height: clamp(30px, 6vw, 36px);
+  width: 50px;
+  height: 36px;
   background-color: #eee;
   border-bottom: 2px solid var(--azul-principal);
   border-radius: 8px;
   text-align: center;
-  font-size: clamp(14px, 3vw, 16px);
+  font-size: 16px;
   font-weight: 600;
-  line-height: clamp(30px, 6vw, 36px);
+  line-height: 36px;
   cursor: default;
   display: flex;
   align-items: center;
@@ -515,9 +503,9 @@ html, body {
 
 .divider {
   width: 1px;
-  height: clamp(30px, 6vw, 36px);
+  height: 36px;
   background-color: var(--azul-principal);
-  margin: 0 clamp(4px, 1vw, 8px);
+  margin: 0 8px;
 }
 
 .modal-overlay {
@@ -988,7 +976,7 @@ html, body {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  padding: clamp(40px, 8vw, 80px) clamp(20px, 5vw, 40px);
+  padding: 80px 40px;
   background: #f5f7fa;
   box-sizing: border-box;
   text-align: center;
@@ -999,16 +987,16 @@ html, body {
 }
 
 .momentos-section h2 {
-  font-size: clamp(1.2rem, 4vw, 2.4rem);
+  font-size: clamp(1.10rem, 2vw + 1rem, 2.4rem);
   font-weight: bold;
   color: var(--azul-principal);
-  margin-bottom: clamp(20px, 5vw, 40px);
+  margin-bottom: 40px;
   position: relative;
 }
 
 .momentos-section h2::after {
   content: "";
-  width: clamp(40px, 8vw, 60px);
+  width: 60px;
   height: 4px;
   background-color: var(--amarelo-principal);
   position: absolute;
@@ -1020,12 +1008,12 @@ html, body {
 
 .momentos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(clamp(200px, 30vw, 240px), 1fr));
-  gap: clamp(15px, 4vw, 30px);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 clamp(15px, 3vw, 20px);
+  padding: 0 20px;
   box-sizing: border-box;
 }
 
@@ -1043,17 +1031,17 @@ html, body {
 
 .momento-item img {
   width: 100%;
-  height: clamp(120px, 25vw, 180px);
+  height: 180px;
   object-fit: cover;
   display: block;
 }
 
 .momento-item p {
   margin: 0;
-  padding: clamp(10px, 3vw, 15px) clamp(8px, 2vw, 10px);
+  padding: 15px 10px;
   font-weight: bold;
   color: var(--azul-principal);
-  font-size: clamp(13px, 2.5vw, 15px);
+  font-size: 15px;
   background-color: #fff;
   border-top: 2px solid var(--amarelo-principal);
 }
@@ -1259,13 +1247,136 @@ html, body {
   }
 }
 
+
 @media (min-width: 1400px) {
-  .cards-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
+  .slide-content img {
+    max-height: 450px;
   }
-  
-  .momentos-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  .card-top {
+    width: calc(3vw + 150px);
+    height: calc(4.5vw + 225px);
+  }
+  .card-top img {
+    width: calc(2.6vw + 130px);
+  }
+}
+
+@media (max-width: 1200px) {
+  .slide-content img {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 992px) {
+  .cards-grid {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+  .slide-content img {
+    max-height: 350px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .card-top {
+    width: 180px;
+    height: 270px;
+  }
+  .card-top img {
+    width: 155px;
+  }
+  .modal {
+    width: 95%;
+    padding: 25px;
+  }
+  .pagination {
+    gap: 8px;
+  }
+  .display-box,
+  .page-form input[type="number"] {
+    width: 40px;
+    height: 36px;
+    font-size: 14px;
+  }
+  .btn-doacao {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pagination {
+    gap: 6px;
+  }
+  .arrow-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+  .btn-doacao {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-top {
+    width: 200px;
+    height: 290px;
+  }
+  .card-top img {
+    width: 175px;
+  }
+  .slide-content img {
+    max-height: 250px;
+  }
+  .selected-option {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+  .btn-doacao {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 4px;
+  }
+  .display-box,
+  .page-form input[type="number"] {
+    width: 36px;
+    height: 32px;
+    font-size: 13px;
+  }
+  .arrow-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+  .btn-doacao {
+    padding: 8px 15px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card-top {
+    width: 180px;
+    height: 270px;
+  }
+  .card-top img {
+    width: 155px;
+  }
+  .slide-content img {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 360px) {
+  .btn-doacao {
+    padding: 8px 12px;
+    font-size: 12px;
   }
 }

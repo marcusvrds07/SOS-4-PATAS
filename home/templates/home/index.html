@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block navbar_links %}
-  <a href="#">Home</a>
+  <a href="{% url "home:index" %}">Home</a>
   <a href="#" id="contato-link">Contato</a>
-  <a href="#doacao">Doar</a>
-  <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
+  <a href=" {% url "home:index" %}#doacao">Doar</a>
+  <a href='{% url "home:voluntarios" %}'>Voluntarios</a>
+  <a href=" {% url "home:index" %}#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
 {% endblock navbar_links %}
 
 {% block content-base %}

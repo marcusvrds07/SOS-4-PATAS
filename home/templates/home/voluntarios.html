@@ -2,14 +2,15 @@
 {% load static %}
 
 {% block navbar_links %}
-  <a href="#">Home</a>
+  <a href="{% url "home:index" %}">Home</a>
   <a href="#" id="contato-link">Contato</a>
-  <a href="#doacao">Doar</a>
-  <a href="#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
+  <a href=" {% url "home:index" %}#doacao">Doar</a>
+  <a href=" {% url "home:index" %}#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
 {% endblock navbar_links %}
 
 {% block head-links %}
     <link rel="stylesheet" href="{% static 'home/css/voluntarios.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'home/css/partials-css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'home/css/partials-css/footer.css' %}">
 {% endblock head-links %}
@@ -17,7 +18,27 @@
 {% block content-base %}
     <h1 style='padding-top: 80px; color: black;'>AQUI É ONDE VOCÊ VAI COLCOAR AS COISAS</h1>
 {% include "home/partials/footer.html" %}
+
+<div class="modal-overlay" id="contato-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Contato - SOS 4 PATAS</h2>
+      <button class="close-modal" id="close-contato-modal">&times;</button>
+    </div>
+    <div class="modal-content">
+      <p>Entre em contato conosco através dos seguintes canais:</p>
+      <p><strong>WhatsApp:</strong> (51) 99999-9999</p>
+      <p><strong>Instagram:</strong> @sos4patasitaipuacu</p>
+    </div>
+    <div class="contact-buttons">
+      <a href="https://wa.me/5551999999999" class="whatsapp-btn" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/sos4patasitaipuacu" class="instagram-btn" target="_blank">Instagram</a>
+    </div>
+  </div>
+</div>
+
 {% endblock content-base %}
 
 {% block script %}
+<script src='{% static "home/js/partials-js/modal.js" %}'></script>
 {% endblock script %}
