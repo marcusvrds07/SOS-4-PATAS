@@ -1134,6 +1134,70 @@ html, body {
   }
 }
 
+.doacao-conteudo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 20px 80px;
+  gap: 40px;
+}
+
+.doacao-texto {
+  flex: 1 1 500px;
+  text-align: left;
+}
+
+.doacao-texto h2 {
+  font-size: clamp(1.8rem, 2vw + 1rem, 2.6rem);
+  color: var(--azul-principal);
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.doacao-texto p {
+  font-size: 1.05rem;
+  color: var(--texto-principal);
+  margin-bottom: 15px;
+  line-height: 1.7;
+}
+
+.doacao-texto i {
+  margin-right: 8px;
+  color: var(--amarelo);
+}
+
+.doacao-img {
+  flex: 1 1 400px;
+  text-align: center;
+}
+
+.doacao-img img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: var(--sombra-sutil);
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .doacao-conteudo {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .doacao-texto {
+    text-align: center;
+  }
+
+  .doacao-texto i {
+    display: none;
+  }
+}
+
+
 .donation-section {
   padding: 60px 20px 80px;
   background-color: #f5f7fa;
