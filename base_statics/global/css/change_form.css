@@ -728,3 +728,13 @@ body {
   background: var(--cinza-medio);
   transform: translateY(-2px);
 }
+
+
+/*==========Animais adotados============*/
+
+.endereco-field textarea {
+  height: 80px;
+  resize: vertical;
+  max-width: 100%;
+  min-height: 50px;
+}

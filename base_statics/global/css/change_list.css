@@ -179,6 +179,7 @@ form[method="get"] button:hover {
   transition: 0.2s ease;
 }
 
+
 .delete-btn {
   border: none;
   background: none;
@@ -452,6 +453,8 @@ form[method="get"] button:hover {
   width: 32px !important;
   height: 32px !important;
 }
+
+
 
 /* Sessão 8: Paginação */
 .pagination-container h4 {
@@ -850,3 +853,5 @@ form[method="get"] button:hover {
     gap: 10px;
   }
 }
+
+
