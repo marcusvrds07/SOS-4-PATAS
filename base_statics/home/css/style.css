@@ -1155,6 +1155,7 @@ html, body {
   color: var(--azul-principal);
   margin-bottom: 25px;
   position: relative;
+  display: inline-block;
 }
 
 .doacao-texto p {
@@ -1181,7 +1182,6 @@ html, body {
   box-shadow: var(--sombra-sutil);
 }
 
-/* Responsivo */
 @media (max-width: 900px) {
   .doacao-conteudo {
     flex-direction: column-reverse;
