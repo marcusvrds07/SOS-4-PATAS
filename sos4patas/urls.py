@@ -27,7 +27,6 @@ from painel_admin.views import dashboard_admin, change_password_ajax
 
 urlpatterns = [
     path('', include('home.urls')),
-    path('admin/', admin.site.urls),
 
     path('admin/animais/tipoanimal/delete_ajax/', delete_tipoanimal_ajax, name='delete_tipoanimal_ajax'),
     path('admin/animais/tipoanimal/edit_ajax/', edit_tipoanimal_ajax, name='edit_tipoanimal_ajax'),
