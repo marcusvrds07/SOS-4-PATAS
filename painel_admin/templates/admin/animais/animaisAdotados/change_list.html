@@ -2,12 +2,12 @@
 {% load admin_list static %}
 {% load admin_urls %}
 
-
 {% block extrastyle %}
 <link rel="stylesheet" href="{% static "global/css/change_list.css" %}">
 {% endblock extrastyle %}
+
 {% block content-pad %}
-<h1>Gerenciar Animais</h1>
+<h1>Gerenciar Animais Adotados</h1>
 
 <div class="search-content">
   <form method="get" class="search-container">
@@ -41,31 +41,29 @@
   </ul>
 </aside>
 
-
 <form method="post" id="changelist-form" action="">
   {% csrf_token %}
   <div class="table-container">
 
-    {% if perms.animais.delete_animais%}
+    {% if perms.animaisadotados.delete_animaisadotados %}
       <div class="actions-bar">
-        {% if perms.animais.delete_animais %}
-          <span id="selected-count">0 selecionados</span>
-          <button type="button"
-                  id="btn-remove"
-                  class="btn-action"
-                  disabled>
-                  <i class="fas fa-trash"></i> Remover selecionados
-              </button>
-        {% endif %}
+        <span id="selected-count">0 selecionados</span>
+        <button type="submit"
+                id="btn-remove"
+                class="btn-action"
+                name="action"
+                value="delete_selected"
+                disabled>
+          <i class="fas fa-trash"></i> Remover selecionados
+        </button>
       </div>
-    {% endif %} 
-  
+    {% endif %}
+
     <div class="table-wrapper">
       {% result_list cl %}
-
-      {% if cl.result_count == 0%}
+      {% if cl.result_count == 0 %}
         <p class="no-results">Nenhum resultado encontrado.</p>
-      {% endif %} 
+      {% endif %}
     </div>
   </div>
 </form>
@@ -81,7 +79,6 @@
   <div class="pagination-container">
     <h4>VOCÊ ESTÁ NA PÁGINA</h4>
     <div class="pagination">
-
       {% if cl.page_num > 1 %}
         <button type="button" class="arrow-btn" id="prevPage">‹</button>
       {% else %}
@@ -112,7 +109,6 @@
       {% else %}
         <button type="button" class="arrow-btn disabled" disabled>›</button>
       {% endif %}
-
     </div>
     <button type="button" class="show-all-btn" id="showAll">Mostrar tudo</button>
   </div>
@@ -129,11 +125,8 @@
   </div>
 </div>
 
-  
-{% endblock %}
+{% endblock %}
 
 {% block extrajs %}
 <script src='{% static "global/js/change_list.js" %}'></script>
 {% endblock extrajs %}
-
-

@@ -3,6 +3,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import TipoAnimal
 import json
+from django.utils.timezone import now
+from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.http import require_POST
+from django.contrib import messages
+
+from .models import Animais, AnimaisAdotados
+
+
 
 # Create your views here.
 
@@ -49,3 +57,37 @@ def add_tipoanimal_ajax(request):
         obj = TipoAnimal.objects.create(nome=nome)
         return JsonResponse({"success": True, "id": obj.id, "nome": obj.nome})
     return JsonResponse({"success": False, "error": "Método inválido"}, status=405)
+
+@require_POST
+def marcar_adotado(request, animal_id):
+    animal = get_object_or_404(Animais, id=animal_id)
+
+    # Pegando dados do formulário do adotante
+    nome_adotante = request.POST.get("nome_adotante")
+    telefone_adotante = request.POST.get("telefone_adotante")
+    email_adotante = request.POST.get("email_adotante")
+    endereco_adotante = request.POST.get("endereco_adotante")
+
+    if not all([nome_adotante, telefone_adotante, email_adotante, endereco_adotante]):
+        messages.error(request, "Por favor, preencha todos os campos do adotante.")
+        return redirect(request.META.get('HTTP_REFERER', '/admin/animais/animais/'))
+
+    # Criar registro em AnimaisAdotados
+    adotado = AnimaisAdotados.objects.create(
+        nome=animal.nome,
+        especie=animal.especie,
+        idade_anos=animal.idade_anos,
+        nome_adotante=nome_adotante,
+        telefone_adotante=telefone_adotante,
+        email_adotante=email_adotante,
+        endereco_adotante=endereco_adotante,
+        # copie outros campos se houver...
+    )
+
+    # Remover animal da tabela de disponíveis
+    animal.delete()
+
+    messages.success(request, f"O animal {adotado.nome} foi adotado com sucesso!")
+
+    # Redireciona para a lista de animais no admin
+    return redirect('/admin/animais/animais/')

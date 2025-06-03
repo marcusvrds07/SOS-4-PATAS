@@ -22,8 +22,12 @@ from django.contrib.auth import views as auth_views
 from animais.views import add_tipoanimal_ajax, edit_tipoanimal_ajax, delete_tipoanimal_ajax
 from painel_admin.views import dashboard_admin, change_password_ajax
 
+
+
+
 urlpatterns = [
     path('', include('home.urls')),
+
     path('admin/animais/tipoanimal/delete_ajax/', delete_tipoanimal_ajax, name='delete_tipoanimal_ajax'),
     path('admin/animais/tipoanimal/edit_ajax/', edit_tipoanimal_ajax, name='edit_tipoanimal_ajax'),
     path('admin/animais/tipoanimal/add_ajax/', add_tipoanimal_ajax, name='add_tipoanimal_ajax'),
@@ -41,6 +45,8 @@ urlpatterns = [
     path('admin/', dashboard_admin, name='admin-index'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+
+
 ]
 
 #config para as imagens funcionar com link

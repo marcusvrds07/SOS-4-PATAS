@@ -205,3 +205,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+
+// ==================Adotado============
+
+
+
+

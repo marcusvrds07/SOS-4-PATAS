@@ -73,3 +73,44 @@ class AnimalImage(models.Model):
             if os.path.isfile(self.image.path):
                 os.remove(self.image.path)
         super().delete(*args, **kwargs)
+
+
+class AnimaisAdotados(models.Model):
+    class Meta:
+        verbose_name = "Animal Adotado"
+        verbose_name_plural = "Animais Adotados"
+
+    foto = models.ImageField(upload_to=capa_upload_path)
+    nome = models.CharField(max_length=100)
+    data_nascimento = models.DateField(blank=True, null=True)
+    idade_anos = models.IntegerField(blank=True, null=True)
+    idade_meses = models.IntegerField(blank=True, null=True)
+    sexo = models.CharField(max_length=6, choices=[('Fêmea', 'Fêmea'), ('Macho', 'Macho')])
+    porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
+    raca = models.CharField(max_length=30)
+    especie = models.CharField(max_length=100)
+    descricao = models.TextField(blank=True, default='')
+
+    # Campos do adotante==========
+    nome_adotante = models.CharField(max_length=150, default="")
+    telefone_adotante = models.CharField(max_length=20, blank=True, null=True)
+    email_adotante = models.EmailField(blank=True, null=True)
+    endereco_adotante = models.TextField(blank=True, null=True)
+
+    data_adocao = models.DateField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if self.idade_anos is not None or self.idade_meses is not None:
+            anos = self.idade_anos if self.idade_anos is not None else 0
+            meses = self.idade_meses if self.idade_meses is not None else 0
+
+            if anos > 0 or meses > 0:
+                delta = relativedelta(years=anos, months=meses)
+                self.data_nascimento = date.today() - delta
+            else:
+                self.data_nascimento = None
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.nome
