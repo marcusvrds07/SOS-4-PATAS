@@ -4,98 +4,109 @@
 {% block navbar_links %}
   <a href="{% url "home:index" %}">Home</a>
   <a href="#" id="contato-link">Contato</a>
-  <a href=" {% url "home:index" %}#doacao">Doar</a>
-  <a href=" {% url "home:index" %}#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
-{% endblock navbar_links %}
+  <a href="{% url "home:index" %}#doacao">Doar</a>
+  <a href="{% url "home:index" %}#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
+{% endblock %}
 
 {% block head-links %}
-    <link rel="stylesheet" href="{% static 'home/css/voluntarios.css' %}">
-    <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'home/css/partials-css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'home/css/partials-css/footer.css' %}">
-{% endblock head-links %}
+  <link rel="stylesheet" href="{% static 'home/css/voluntarios.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/partials-css/navbar.css' %}">
+  <link rel="stylesheet" href="{% static 'home/css/partials-css/footer.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+{% endblock %}
 
 {% block content-base %}
-<!-- Seção 1: Banner Inicial -->
-<section class="voluntarios-banner">
-  <div class="container" data-aos="fade-up">
-    <h1>Seja um Voluntário</h1>
-    <p>Transforme vidas com a sua dedicação. Venha fazer parte do SOS 4 PATAS.</p>
-    <a href="#formulario" class="btn-principal">Quero me voluntariar</a>
-  </div>
-</section>
 
-<!-- Seção 2: Como Ajudar -->
-<section class="voluntarios-atuacao" id="como-ajudar">
-  <div class="container" data-aos="fade-right">
-    <h2>Como você pode ajudar</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Feiras de Adoção</h3>
-        <p>Auxilie na organização e acompanhamento dos animais durante os eventos.</p>
-      </div>
-      <div class="card">
-        <h3>Divulgação Online</h3>
-        <p>Ajude a compartilhar campanhas e fotos dos animais nas redes sociais.</p>
-      </div>
-      <div class="card">
-        <h3>Lar Temporário</h3>
-        <p>Ofereça abrigo temporário para animais até que encontrem um lar definitivo.</p>
+<div class="container-baseV">
+  <div class="carroussel-containerV">
+    <div class="carrousselV" id="carrousselV">
+      <div class="slide activeV">
+        <img src="{% static 'home/img/Pet-Shop.png' %}" alt="Um lar muda tudo" class="carrossel-img">
+        <div class="carrosselV-texto">
+          <h1>Adote um amigo, mude uma vida.</h1>
+          <p>Cada animal resgatado é uma história de esperança. Dê um novo lar!</p>
+        </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- Seção 3: Formulário -->
-<section class="voluntarios-formulario" id="formulario">
-  <div class="container" data-aos="zoom-in">
-    <h2>Formulário de Inscrição</h2>
-    <form method="POST" action="{% url 'home:voluntarios' %}">
-      {% csrf_token %}
-      <input type="text" name="nome" placeholder="Nome completo" required>
-      <input type="email" name="email" placeholder="Seu e-mail" required>
-      <input type="tel" name="telefone" placeholder="Telefone" required>
-      <textarea name="mensagem" placeholder="Por que deseja ser voluntário?" required></textarea>
-      <button type="submit">Enviar Inscrição</button>
-    </form>
-  </div>
-</section>
+  <!-- Seção 2: Como Ajudar -->
+  <section id="como-ajudar">
+    <div class="container" data-aos="fade-right">
+      <h2>Maneiras de Ajudar</h2>
+      <div class="cards">
+        <div class="card" data-aos="zoom-in">
+          <i class="fas fa-dog icon-voluntario"></i>
+          <h3>Feiras de Adoção</h3>
+          <p>Colabore na organização e apoio aos animais nos eventos.</p>
+        </div>
+        <div class="card" data-aos="zoom-in" data-aos-delay="100">
+          <i class="fas fa-bullhorn icon-voluntario"></i>
+          <h3>Divulgação Online</h3>
+          <p>Compartilhe campanhas e histórias nas redes sociais.</p>
+        </div>
+        <div class="card" data-aos="zoom-in" data-aos-delay="200">
+          <i class="fas fa-home icon-voluntario"></i>
+          <h3>Lar Temporário</h3>
+          <p>Ofereça abrigo até o animal ser adotado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<!-- Seção 5: FAQ -->
-<section class="voluntarios-faq">
-  <div class="container" data-aos="fade-left">
-    <h2>Dúvidas Frequentes</h2>
-    <details>
-      <summary>Preciso ter experiência?</summary>
-      <p>Você só precisa de boa vontade e amor pelos animais. Treinamos você no caminho.</p>
-    </details>
-    <details>
-      <summary>Quantas horas preciso dedicar?</summary>
-      <p>Você escolhe o quanto pode se comprometer. Toda ajuda é bem-vinda!</p>
-    </details>
-  </div>
-</section>
+  <!-- Seção 3: FAQ -->
+  <section id="faq" class="voluntarios-faq">
+    <div class="container" data-aos="fade-left">
+      <h2>Perguntas Frequentes</h2>
+      <div class="faq-accordion">
+        <div class="faq-item">
+          <input type="checkbox" id="faq1">
+          <label for="faq1" class="faq-question">Preciso ter experiência?</label>
+          <div class="faq-answer">
+            <p>Não. Só precisa de amor pelos animais. Nós te treinamos.</p>
+          </div>
+        </div>
 
-<div class="modal-overlay" id="contato-modal-overlay">
-  <div class="modal">
-    <div class="modal-header">
-      <h2 class="modal-title">Contato - SOS 4 PATAS</h2>
-      <button class="close-modal" id="close-contato-modal">&times;</button>
+        <div class="faq-item">
+          <input type="checkbox" id="faq2">
+          <label for="faq2" class="faq-question">Quantas horas preciso dedicar?</label>
+          <div class="faq-answer">
+            <p>Você decide sua disponibilidade. Toda ajuda importa.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="modal-content">
-      <p>Entre em contato conosco através dos seguintes canais:</p>
-      <p><strong>WhatsApp:</strong> (51) 99999-9999</p>
-      <p><strong>Instagram:</strong> @sos4patasitaipuacu</p>
+  </section>
+
+  <!-- Seção 4: Formulário -->
+  <section id="formulario">
+    <div class="container" data-aos="zoom-in">
+      <h2>Inscreva-se como Voluntário</h2>
+      <form method="POST" action="{% url 'home:voluntarios' %}">
+        {% csrf_token %}
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Ex: Maria da Silva" required>
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="Ex: maria@email.com" required>
+
+        <label for="telefone">Telefone</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(DDD) 90000-0000" required>
+
+        <label for="mensagem">Por que deseja ser voluntário?</label>
+        <textarea id="mensagem" name="mensagem" placeholder="Fale brevemente sobre sua motivação." required></textarea>
+
+        <div class="form-botao-center">
+          <button type="submit" class="btn-principal">Enviar Inscrição</button>
+        </div>
+      </form>
     </div>
-    <div class="contact-buttons">
-      <a href="https://wa.me/5551999999999" class="whatsapp-btn" target="_blank">WhatsApp</a>
-      <a href="https://instagram.com/sos4patasitaipuacu" class="instagram-btn" target="_blank">Instagram</a>
-    </div>
-  </div>
+  </section>
 </div>
 
 {% include "home/partials/footer.html" %}
-{% endblock content-base %}
+{% endblock %}
 
 {% block script %}
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>

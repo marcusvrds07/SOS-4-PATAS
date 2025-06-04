@@ -1,99 +1,153 @@
-/* === CSS da página de voluntariado === */
-
-:root {
-  --azul-principal: #1941a0;
-  --amarelo-principal: #f7d647;
-  --cinza-fundo: #f8f9fb;
-  --texto-principal: #2e3a46;
-  --branco: #ffffff;
-  --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --raio-borda: 12px;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: "Segoe UI", sans-serif;
-  background-color: var(--cinza-fundo);
-  color: var(--texto-principal);
+/* ------------------------------
+   Estrutura e layout principal
+------------------------------- */
+html {
   scroll-behavior: smooth;
 }
 
-.container {
-  width: 90%;
-  max-width: 1100px;
-  margin: auto;
+.container-baseV {
+  overflow-x: hidden;
 }
 
 section {
-  padding: 80px 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  box-sizing: border-box;
 }
 
-h1, h2, h3 {
-  color: var(--azul-principal);
-  margin-bottom: 20px;
+.container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+h1, h2 {
   text-align: center;
-}
-
-p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  text-align: center;
-  transition: color 0.3s ease;
-}
-
-p:hover {
+  font-size: clamp(2rem, 4vw, 3rem);
   color: var(--azul-principal);
+  margin-bottom: 30px;
 }
 
-/* === Banner === */
-.voluntarios-banner {
+/* ------------------------------
+   Carrossel Inicial
+------------------------------- */
+.carroussel-containerV {
   position: relative;
-  color: var(--branco);
-  text-align: center;
-  padding: 0;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #1954cb;
+}
+
+.carrousselV {
+  width: 100%;
+  height: 100%;
+  position: relative;
   overflow: hidden;
 }
 
-.voluntarios-banner img {
+.slide,
+.slide.activeV {
   width: 100%;
-  height: auto;
-  max-height: 600px;
-  object-fit: cover;
-  display: block;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  z-index: 1;
 }
 
-.voluntarios-banner .container {
+.slide.activeV {
+  margin-top: 5rem;
+  opacity: 1;
+  z-index: 2;
+}
+
+.slide img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  background: #1954cb;
+}
+
+.carrosselV-texto {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 40px;
-  border-radius: var(--raio-borda);
+  left: 45%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: clamp(200px, 48vw, 650px);
+  padding: 0 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #fff;
+  text-align: left;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
 }
 
-.voluntarios-banner .btn-principal {
-  margin-top: 30px;
-  background-color: var(--amarelo-principal);
-  color: #000;
-  padding: 14px 32px;
-  border: none;
-  border-radius: var(--raio-borda);
-  font-weight: bold;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-  text-decoration: none;
-  display: inline-block;
+.carrosselV-texto h1 {
+  font-size: clamp(1.2rem, 4vw, 2.6rem);
+  font-weight: 800;
+  color: #f7d647;
+  line-height: 1.2;
+  letter-spacing: 1.2px;
+  text-shadow: 2px 4px 16px #123b7c, 0 2px 16px #000c;
 }
 
-.voluntarios-banner .btn-principal:hover {
-  background-color: #e5c933;
+.carrosselV-texto p {
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 1px 2px 10px #19346b, 0 2px 8px #000a;
 }
 
-/* === Cards === */
+@media (max-width: 768px) {
+  .slide.activeV {
+    margin-top: 3.5rem;
+  }
+  .carroussel-containerV {
+    height: clamp(280px, 60vw, 400px);
+  }
+  .slide img {
+    height: clamp(250px, 60vw, 400px);
+  }
+  .carrosselV-texto {
+    top: 45%;
+    left: 42%;
+    width: clamp(120px, 52vw, 350px);
+  }
+}
+
+@media (max-width: 480px) {
+  .carroussel-containerV {
+    height: clamp(200px, 70vw, 300px);
+  }
+  .slide img {
+    height: clamp(200px, 70vw, 300px);
+  }
+  .carrosselV-texto {
+    top: 45%;
+    left: 38%;
+    width: clamp(100px, 55vw, 280px);
+  }
+}
+
+/* ------------------------------
+   Cards: Como Ajudar
+------------------------------- */
 .cards {
   display: flex;
   flex-wrap: wrap;
@@ -103,114 +157,160 @@ p:hover {
 }
 
 .card {
-  background-color: var(--branco);
-  box-shadow: var(--sombra-suave);
+  background-color: white;
   padding: 30px;
-  border-radius: var(--raio-borda);
-  width: 300px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   text-align: center;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* === Formulário === */
-.voluntarios-formulario form {
+.card h3 {
+  margin: 15px 0 10px;
+  color: var(--azul-principal);
+  font-size: 1.4rem;
+}
+
+.card p {
+  color: var(--texto-secundario);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.icon-voluntario {
+  font-size: 2.5rem;
+  color: var(--azul-principal);
+  margin-bottom: 10px;
+}
+
+/* ------------------------------
+   FAQ Accordion
+------------------------------- */
+.faq-accordion {
+  max-width: 700px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 600px;
-  margin: auto;
-  background-color: var(--branco);
-  padding: 40px;
-  border-radius: var(--raio-borda);
-  box-shadow: var(--sombra-suave);
+  gap: 15px;
 }
 
-.voluntarios-formulario input,
-.voluntarios-formulario textarea {
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  width: 100%;
+.faq-item {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
 }
 
-.voluntarios-formulario button {
-  background-color: var(--azul-principal);
-  color: var(--branco);
-  padding: 14px;
-  border: none;
-  border-radius: 8px;
+.faq-item input {
+  display: none;
+}
+
+.faq-question {
+  display: block;
+  padding: 16px 20px;
+  background-color: var(--cinza-claro);
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.voluntarios-formulario button:hover {
-  background-color: #0f2f7c;
-}
-
-/* === FAQ === */
-.voluntarios-faq details {
-  background: var(--branco);
-  border-radius: var(--raio-borda);
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  box-shadow: var(--sombra-suave);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.voluntarios-faq summary {
-  font-weight: bold;
-  font-size: 1.1rem;
-  list-style: none;
   position: relative;
-  padding-right: 25px;
+  color: var(--azul-escuro);
 }
 
-.voluntarios-faq summary::after {
-  content: "\25BC";
+.faq-question::after {
+  content: "+";
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 20px;
+  font-size: 1.5rem;
   transition: transform 0.3s ease;
 }
 
-.voluntarios-faq details[open] summary::after {
+.faq-item input:checked + .faq-question::after {
+  content: "-";
   transform: rotate(180deg);
 }
 
-/* === Responsividade === */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 20px;
+  background: white;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item input:checked ~ .faq-answer {
+  max-height: 200px;
+  padding: 15px 20px 20px;
+}
+
+/* ------------------------------
+   Formulário
+------------------------------- */
+form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--texto-principal);
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+form textarea {
+  min-height: 120px;
+}
+
+form button {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--azul-principal);
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+form button:hover {
+  background-color: var(--azul-claro);
+}
+
+.form-botao-center {
+  display: flex;
+  justify-content: center;
+}
+
+/* ------------------------------
+   Responsivo
+------------------------------- */
 @media (max-width: 768px) {
   .cards {
     flex-direction: column;
     align-items: center;
   }
 
-  .voluntarios-banner .container {
-    padding: 20px;
-  }
-
-  .voluntarios-formulario form {
-    padding: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .voluntarios-banner .btn-principal {
-    font-size: 1rem;
-    padding: 12px 24px;
+  .card {
+    width: 100%;
+    max-width: 90%;
   }
 }
