@@ -16,8 +16,65 @@
 {% endblock head-links %}
 
 {% block content-base %}
-    <h1 style='padding-top: 80px; color: black;'>AQUI É ONDE VOCÊ VAI COLCOAR AS COISAS</h1>
-{% include "home/partials/footer.html" %}
+<!-- Seção 1: Banner Inicial -->
+<section class="voluntarios-banner">
+  <div class="container" data-aos="fade-up">
+    <h1>Seja um Voluntário</h1>
+    <p>Transforme vidas com a sua dedicação. Venha fazer parte do SOS 4 PATAS.</p>
+    <a href="#formulario" class="btn-principal">Quero me voluntariar</a>
+  </div>
+</section>
+
+<!-- Seção 2: Como Ajudar -->
+<section class="voluntarios-atuacao" id="como-ajudar">
+  <div class="container" data-aos="fade-right">
+    <h2>Como você pode ajudar</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Feiras de Adoção</h3>
+        <p>Auxilie na organização e acompanhamento dos animais durante os eventos.</p>
+      </div>
+      <div class="card">
+        <h3>Divulgação Online</h3>
+        <p>Ajude a compartilhar campanhas e fotos dos animais nas redes sociais.</p>
+      </div>
+      <div class="card">
+        <h3>Lar Temporário</h3>
+        <p>Ofereça abrigo temporário para animais até que encontrem um lar definitivo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Seção 3: Formulário -->
+<section class="voluntarios-formulario" id="formulario">
+  <div class="container" data-aos="zoom-in">
+    <h2>Formulário de Inscrição</h2>
+    <form method="POST" action="{% url 'home:voluntarios' %}">
+      {% csrf_token %}
+      <input type="text" name="nome" placeholder="Nome completo" required>
+      <input type="email" name="email" placeholder="Seu e-mail" required>
+      <input type="tel" name="telefone" placeholder="Telefone" required>
+      <textarea name="mensagem" placeholder="Por que deseja ser voluntário?" required></textarea>
+      <button type="submit">Enviar Inscrição</button>
+    </form>
+  </div>
+</section>
+
+<!-- Seção 5: FAQ -->
+<section class="voluntarios-faq">
+  <div class="container" data-aos="fade-left">
+    <h2>Dúvidas Frequentes</h2>
+    <details>
+      <summary>Preciso ter experiência?</summary>
+      <p>Você só precisa de boa vontade e amor pelos animais. Treinamos você no caminho.</p>
+    </details>
+    <details>
+      <summary>Quantas horas preciso dedicar?</summary>
+      <p>Você escolhe o quanto pode se comprometer. Toda ajuda é bem-vinda!</p>
+    </details>
+  </div>
+</section>
 
 <div class="modal-overlay" id="contato-modal-overlay">
   <div class="modal">
@@ -37,8 +94,12 @@
   </div>
 </div>
 
+{% include "home/partials/footer.html" %}
 {% endblock content-base %}
 
 {% block script %}
-<script src='{% static "home/js/partials-js/modal.js" %}'></script>
-{% endblock script %}
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000, once: true });
+</script>
+{% endblock %}

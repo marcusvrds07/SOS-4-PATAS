@@ -1,13 +1,216 @@
+/* === CSS da página de voluntariado === */
+
 :root {
+  --azul-principal: #1941a0;
   --amarelo-principal: #f7d647;
-  --azul-principal: #004AAD;
-  --shadow-color: rgba(9, 45, 115, 0.15);
+  --cinza-fundo: #f8f9fb;
+  --texto-principal: #2e3a46;
+  --branco: #ffffff;
+  --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --raio-borda: 12px;
 }
 
 html, body {
   margin: 0;
   padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--cinza-fundo);
+  color: var(--texto-principal);
   scroll-behavior: smooth;
-  font-family: "Comfortaa", cursive;
-  background: #fff;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+section {
+  padding: 80px 0;
+}
+
+h1, h2, h3 {
+  color: var(--azul-principal);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+p:hover {
+  color: var(--azul-principal);
+}
+
+/* === Banner === */
+.voluntarios-banner {
+  position: relative;
+  color: var(--branco);
+  text-align: center;
+  padding: 0;
+  overflow: hidden;
+}
+
+.voluntarios-banner img {
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: cover;
+  display: block;
+}
+
+.voluntarios-banner .container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 40px;
+  border-radius: var(--raio-borda);
+}
+
+.voluntarios-banner .btn-principal {
+  margin-top: 30px;
+  background-color: var(--amarelo-principal);
+  color: #000;
+  padding: 14px 32px;
+  border: none;
+  border-radius: var(--raio-borda);
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.voluntarios-banner .btn-principal:hover {
+  background-color: #e5c933;
+}
+
+/* === Cards === */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.card {
+  background-color: var(--branco);
+  box-shadow: var(--sombra-suave);
+  padding: 30px;
+  border-radius: var(--raio-borda);
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* === Formulário === */
+.voluntarios-formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 600px;
+  margin: auto;
+  background-color: var(--branco);
+  padding: 40px;
+  border-radius: var(--raio-borda);
+  box-shadow: var(--sombra-suave);
+}
+
+.voluntarios-formulario input,
+.voluntarios-formulario textarea {
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.voluntarios-formulario button {
+  background-color: var(--azul-principal);
+  color: var(--branco);
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.voluntarios-formulario button:hover {
+  background-color: #0f2f7c;
+}
+
+/* === FAQ === */
+.voluntarios-faq details {
+  background: var(--branco);
+  border-radius: var(--raio-borda);
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--sombra-suave);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.voluntarios-faq summary {
+  font-weight: bold;
+  font-size: 1.1rem;
+  list-style: none;
+  position: relative;
+  padding-right: 25px;
+}
+
+.voluntarios-faq summary::after {
+  content: "\25BC";
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: transform 0.3s ease;
+}
+
+.voluntarios-faq details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+/* === Responsividade === */
+@media (max-width: 768px) {
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .voluntarios-banner .container {
+    padding: 20px;
+  }
+
+  .voluntarios-formulario form {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .voluntarios-banner .btn-principal {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
 }
