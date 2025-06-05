@@ -38,6 +38,8 @@ class Animais(models.Model):
     especie = models.ForeignKey(TipoAnimal, on_delete=models.SET_NULL, null=True)
     disponivel_para_adocao = models.BooleanField(default=True)
     descricao = models.TextField(blank=True)
+    idade_anos = models.IntegerField(blank=True, null=True)
+    idade_meses = models.IntegerField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if self.idade_anos is not None or self.idade_meses is not None:

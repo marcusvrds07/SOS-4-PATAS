@@ -10,6 +10,10 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from django.contrib import admin
 from .models import AnimaisAdotados
+from django.http import HttpResponseRedirect
+from django.urls import path
+from datetime import datetime, timedelta
+from django.utils import timezone
 
 
 
@@ -135,6 +139,10 @@ class AnimalAdmin(admin.ModelAdmin):
     actions = [delete_selected]
     form = AnimalForm
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.filter(disponivel_para_adocao=True)
+
     def preview(self, obj):
         if obj.foto:
             try:
@@ -201,30 +209,65 @@ class AnimalAdmin(admin.ModelAdmin):
                     obj.pk, obj.nome, delete_icon
                 )
             )
+            mark_adopted_url = reverse('admin:marcar_como_adotado', args=[obj.pk])
+
             parts.append(
                 format_html(
-                    '''
-                    <button type="button"
-                        class="mark-adopted-btn"
-                        data-id="{id}" 
-                        data-nome="{nome}"
-                        data-especie="{especie}"
-                        data-idade="{idade}"
-                        title="Marcar como Adotado"
-                        style="margin-left: -25px; background: none; border: none;">
-                        <img src="{icon}" class="btn-marcar-adotado" alt="Marcar como Adotado" style="cursor:pointer;" />
-                    </button>
-                    ''',
-                    id=obj.pk,
-                    nome=obj.nome,
-                    especie=obj.especie,
-                    idade=getattr(obj, "idade", "Não informado"),
-                    icon=mark_adopted_icon
+                    '<a href="{}" title="Marcar como Adotado">'
+                    '<img src="{}" class="btn-marcar-adotado" style="cursor:pointer;" alt="Marcar como Adotado" />'
+                    '</a>',
+                    mark_adopted_url,
+                    mark_adopted_icon
                 )
             )
 
         return format_html(' '.join(parts))
     acoes.short_description = 'Ações'
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                'marcar_como_adotado/<int:animal_id>/',
+                self.admin_site.admin_view(self.marcar_como_adotado),
+                name='marcar_como_adotado',
+            ),
+        ]
+        return custom_urls + urls
+
+    def marcar_como_adotado(self, request, animal_id):
+        from .models import Animais, AnimaisAdotados
+
+        try:
+            animal = Animais.objects.get(pk=animal_id)
+        except Animais.DoesNotExist:
+            self.message_user(request, "Animal não encontrado.", level='error')
+            return HttpResponseRedirect(reverse('admin:animais_animais_changelist'))
+
+        # Cria o registro do animal adotado com os dados do animal
+        novo_adotado = AnimaisAdotados.objects.create(
+            nome=animal.nome,
+            foto=animal.foto,
+            sexo=animal.sexo,
+            porte=animal.porte,
+            raca=animal.raca,
+            especie=str(animal.especie),  # FK para string
+            descricao=animal.descricao or '',
+            idade_anos=getattr(animal, 'idade_anos', None),
+            idade_meses=getattr(animal, 'idade_meses', None),
+            data_nascimento=animal.data_nascimento,
+        )
+
+        # Marca o animal original como não disponível para adoção
+        animal.disponivel_para_adocao = False
+        animal.save()
+
+        self.message_user(request, f'O animal "{animal.nome}" foi marcado como adotado.')
+
+        # Redireciona para o admin de edição do animal adotado recém-criado
+        return HttpResponseRedirect(
+            reverse('admin:animais_animaisadotados_change', args=[novo_adotado.pk])
+        )
 
     def get_queryset(self, request):
         self.request = request
