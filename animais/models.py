@@ -82,6 +82,7 @@ class AnimaisAdotados(models.Model):
         verbose_name = "Animal Adotado"
         verbose_name_plural = "Animais Adotados"
 
+    animal_original_id = models.IntegerField(null=True, blank=True)
     foto = models.ImageField(upload_to=capa_upload_path)
     nome = models.CharField(max_length=100)
     data_nascimento = models.DateField(blank=True, null=True)

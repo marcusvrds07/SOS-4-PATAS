@@ -1,4 +1,6 @@
 from django.contrib import admin, messages
+from django.core.files.base import ContentFile
+
 from animais import models
 from django.utils.html import format_html
 from django.urls import reverse
@@ -246,6 +248,7 @@ class AnimalAdmin(admin.ModelAdmin):
 
         # Cria o registro do animal adotado com os dados do animal
         novo_adotado = AnimaisAdotados.objects.create(
+            animal_original_id=animal.id,
             nome=animal.nome,
             foto=animal.foto,
             sexo=animal.sexo,
@@ -258,9 +261,17 @@ class AnimalAdmin(admin.ModelAdmin):
             data_nascimento=animal.data_nascimento,
         )
 
+        if animal.foto:
+            # Copiar arquivo da foto para o novo objeto
+            novo_adotado.foto.save(
+                animal.foto.name,
+                ContentFile(animal.foto.read()),
+                save=False
+            )
+
         # Marca o animal original como não disponível para adoção
-        animal.disponivel_para_adocao = False
-        animal.save()
+        novo_adotado.save()
+        animal.delete()
 
         self.message_user(request, f'O animal "{animal.nome}" foi marcado como adotado.')
 
