@@ -1,0 +1,307 @@
+:root {
+    --amarelo-principal: #f7d647;
+    --azul-principal: #004aad;
+    --shadow-color: rgba(9, 45, 115, 0.15);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Comfortaa", cursive !important;
+    background-color: #f5f7fa;
+    color: var(--azul-principal);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .error-container-404 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 20px 10px;
+    width: 100%;
+    flex: 1;
+    min-height: calc(100vh - 80px);
+    font-family: "Comfortaa", cursive;
+    color: var(--azul-principal);
+    margin-top: 0px;
+  }
+  
+  .error-content {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    max-width: 600px;
+    width: 90%;
+    animation: fadeIn 0.5s ease-out;
+    margin-bottom: 40px;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .error-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .error-image i.fas.fa-paw {
+    font-size: 80px;
+    color: var(--amarelo-principal);
+    margin-right: 20px;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  .error-number {
+    font-size: 100px;
+    font-weight: bold;
+    color: var(--azul-principal);
+    line-height: 1;
+  }
+  
+  .error-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--azul-principal);
+    font-family: "Comfortaa", cursive;
+    font-weight: 700;
+  }
+  
+  .error-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    color: #555;
+    background-color: rgba(9, 45, 115, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 3px solid var(--azul-principal);
+    font-family: "Comfortaa", cursive;
+  }
+  
+  .error-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  
+  .btn-home,
+  .btn-adoption {
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    font-family: "Comfortaa", cursive;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-home {
+    background-color: var(--azul-principal);
+    color: white;
+  }
+  
+  .btn-adoption {
+    background-color: var(--amarelo-principal);
+    color: var(--azul-principal);
+  }
+  
+  .btn-home::before,
+  .btn-adoption::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+  }
+  
+  .btn-home:hover,
+  .btn-adoption:hover {
+    transform: translateY(-3px);
+  }
+  
+  .btn-home:hover {
+    background-color: #0a3690;
+    box-shadow: 0 6px 15px rgba(9, 45, 115, 0.4);
+  }
+  
+  .btn-adoption:hover {
+    background-color: #f4c900;
+    box-shadow: 0 6px 15px rgba(247, 214, 71, 0.5);
+  }
+  
+  .btn-home:hover::before,
+  .btn-adoption:hover::before {
+    left: 100%;
+  }
+  
+  .btn-doacao {
+    background-color: var(--amarelo-principal);
+    color: var(--azul-principal);
+    padding: clamp(8px, 2vw, 12px) clamp(15px, 4vw, 25px);
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: clamp(14px, 2.5vw, 16px);
+    font-family: "Comfortaa", cursive;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(247, 214, 71, 0.4);
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    max-width: clamp(200px, 40vw, 250px);
+    margin: 0 auto;
+    min-width: 120px;
+  }
+  
+  .btn-doacao::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+  }
+  
+  .btn-doacao:hover {
+    background-color: #f4c900;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(247, 214, 71, 0.5);
+  }
+  
+  .btn-doacao:hover::before {
+    left: 100%;
+  }
+  
+  .btn-doacao:active {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(247, 214, 71, 0.4);
+  }
+  
+  @media (max-width: 768px) {
+    .error-container-404 {
+      padding: 100px 20px 60px;
+    }
+  
+    .error-number {
+      font-size: 80px;
+    }
+  
+    .error-image i.fas.fa-paw {
+      font-size: 60px;
+    }
+  
+    .error-content h1 {
+      font-size: 2rem;
+    }
+  
+    .error-content p {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .error-container-404 {
+      padding: 90px 20px 40px;
+    }
+  
+    .error-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+  
+    .btn-home,
+    .btn-adoption {
+      width: 100%;
+      justify-content: center;
+    }
+  
+    .error-number {
+      font-size: 70px;
+    }
+  
+    .error-image i.fas.fa-paw {
+      font-size: 50px;
+      margin-right: 10px;
+    }
+  
+    .error-content h1 {
+      font-size: 1.8rem;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .error-container-404 {
+      padding: 80px 15px 30px;
+    }
+  
+    .error-number {
+      font-size: 60px;
+    }
+  
+    .error-image i.fas.fa-paw {
+      font-size: 40px;
+    }
+  
+    .error-content h1 {
+      font-size: 1.5rem;
+    }
+  
+    .error-content p {
+      font-size: 0.9rem;
+    }
+  
+    .btn-home,
+    .btn-adoption {
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+  }
+  

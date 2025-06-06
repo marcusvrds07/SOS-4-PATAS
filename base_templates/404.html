@@ -1,0 +1,55 @@
+{% extends "home/base.html" %}
+{% load static %}
+
+{% block title %}Página Não Encontrada - SOS 4 PATAS{% endblock title %}
+
+{% block head-links %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'home/css/partials-css/404.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/partials-css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/partials-css/footer.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{% endblock head-links %}
+
+{% block logo %}
+    <a href="{% url "home:index" %}" class="logo-link" id="logo-link">
+        <div class="logo">
+            <img src="{% static 'home/img/sos.png' %}" alt="SOS 4PATAS">
+        </div>
+    </a>
+{% endblock logo %}
+
+{% block navbar_links %}
+    <a href="{% url "home:index" %}" class="btn-doacao" id="quero-adotar">Voltar</a>
+{% endblock navbar_links %}
+
+{% block content-base %}
+<main class="error-container-404">
+    <div class="error-content">
+        <div class="error-image">
+            <i class="fas fa-paw"></i>
+            <span class="error-number">404</span>
+        </div>
+        <h1>Oops! Página não encontrada</h1>
+        <p>Parece que este animal fugiu! A página que você está procurando não existe ou foi movida.</p>
+        <div class="error-actions">
+            <a href="{% url 'home:index' %}" class="btn-home">
+                <i class="fas fa-home"></i>
+                Voltar ao Início
+            </a>
+            <a href="{% url 'home:index' %}#adoption" class="btn-adoption">
+                <i class="fas fa-heart"></i>
+                Ver Animais
+            </a>
+        </div>
+    </div>
+</main>
+
+{% include "home/partials/footer.html" %}
+{% endblock content-base %}
+
+{% block script %}
+    <script src='{% static "home/js/partials-js/hamburguer.js" %}'></script>
+{% endblock script %}
