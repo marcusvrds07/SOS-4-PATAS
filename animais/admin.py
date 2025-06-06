@@ -219,7 +219,7 @@ class AnimalAdmin(admin.ModelAdmin):
             parts.append(
                 format_html(
                     '<a href="{}" title="Marcar como Adotado">'
-                    '<img src="{}" class="btn-marcar-adotado" style="cursor:pointer;" alt="Marcar como Adotado" />'
+                    '<img src="{}" class="btn-marcar-adotado action-icon" style="cursor:pointer;" alt="Marcar como Adotado" />'
                     '</a>',
                     mark_adopted_url,
                     mark_adopted_icon

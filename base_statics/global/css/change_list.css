@@ -398,10 +398,13 @@ form[method="get"] button:hover {
 #result_list td.field-acoes {
     display: flex;
     flex-wrap: wrap;
-    padding: 0;
     height: 100%;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
+}
+
+#result_list td.field-acoes .btn-marcar-adotado {
+  width: 70%;
+  object-fit: cover;
 }
 
 #result_list tr {

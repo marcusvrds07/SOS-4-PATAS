@@ -386,7 +386,12 @@ button {
     transform: translateX(-400%);
   }
   .container {
-    width: 90%;
+    margin-left: 290px;
+    width: calc(100% - 50px);
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   .content-pad {
     width: 81%;
