@@ -333,18 +333,27 @@ class AnimaisAdotadosAdmin(admin.ModelAdmin):
 
     def acoes(self, obj):
         change_url = reverse('admin:animais_animaisadotados_change', args=[obj.pk])
+        # revert_url = reverse('animais_reverter_adocao', args=[obj.pk])
         delete_icon = static('global/imgs/x.png')
         edit_icon = static('global/imgs/lapis.png')
+        reverse_icon = static('global/imgs/refazer.png')
 
         parts = [
-            format_html('<a href="{}"><img src="{}" alt="Editar" title="Editar"/></a>', change_url, edit_icon),
+            format_html(
+                '<a href="{}"><img src="{}" class="action-icon" alt="Editar" title="Editar"/></a>',
+                change_url, edit_icon
+            ),
             format_html(
                 '<button type="button" class="delete-btn" data-id="{}" data-name="{}">'
-                '<img src="{}" alt="Excluir" title="Excluir"/></button>',
+                '<img src="{}" alt="Excluir" class="action-icon" title="Excluir"/></button>',
                 obj.pk, obj.nome, delete_icon
             ),
+            format_html(
+                '<a href=""><img src="{}" class="action-icon" alt="Reverter Adoção" title="Reverter Adoção"/></a>',
+                reverse_icon
+            ),
         ]
-        return format_html(' '.join(parts))
+        return format_html(' '.join(str(p) for p in parts))
 
     acoes.short_description = 'Ações'
 
