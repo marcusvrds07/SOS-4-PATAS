@@ -262,6 +262,7 @@ form label {
   margin-bottom: 6px;
   font-weight: 600;
   color: var(--texto-principal);
+  font-family: "Comfortaa", cursive;
 }
 
 form input,
@@ -269,9 +270,10 @@ form textarea {
   width: 100%;
   padding: 12px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 3px solid var(--azul-principal);
   border-radius: 8px;
   font-size: 1rem;
+  font-family: "Comfortaa", cursive;
   resize: vertical;
 }
 
@@ -302,20 +304,6 @@ form button,
   min-width: 120px;
 }
 
-form button:hover,
-.btn-principal:hover {
-  background-color: #f4c900;
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.5);
-}
-
-
-form button:active,
-.btn-principal:active {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 8px rgba(247, 214, 71, 0.4);
-}
-
 form button::before,
 .btn-principal::before {
   content: "";
@@ -328,9 +316,22 @@ form button::before,
   transition: 0.5s;
 }
 
+form button:hover,
+.btn-principal:hover {
+  background-color: #f4c900;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(247, 214, 71, 0.5);
+}
+
 form button:hover::before,
 .btn-principal:hover::before {
   left: 100%;
+}
+
+form button:active,
+.btn-principal:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(247, 214, 71, 0.4);
 }
 
 .form-botao-center {
