@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from animais.models import Animais
+from animais.models import Animais, AnimaisAdotados
 from django.contrib.auth.models import User
 from django.contrib.admin.sites import site
 from django.contrib.admin.models import LogEntry
@@ -49,7 +49,7 @@ def change_password_ajax(request, user_id):
 def dashboard_admin(request):
     animais = Animais.objects.filter(disponivel_para_adocao=True).count()
     voluntarios = User.objects.filter(is_active=True).count()
-    adocoes = 0
+    adocoes = AnimaisAdotados.objects.count()
 
     ultimas_acoes = LogEntry.objects.select_related('content_type', 'user') \
         .filter(user=request.user).order_by('-action_time')[:5]

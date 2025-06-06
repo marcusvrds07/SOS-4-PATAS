@@ -248,11 +248,14 @@ button {
 }
 
 /* =================== PROFILE =================== */
-.profile {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
+
+  .profile {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    z-index: 10;
+    position: initial;
+  }
 .profile-wrapper {
   display: flex;
   align-items: center;
@@ -275,11 +278,13 @@ button {
   object-fit: cover;
   object-position: top;
 }
-.menu-options {
+
+@media (min-width: 830px) {
+  .menu-options {
   display: none;
   position: absolute;
-  top: 60px;
-  right: 5px;
+  top: 5rem;
+  right: 25px;
   width: 200px;
   background-color: #fff;
   border-radius: 10px;
@@ -287,6 +292,22 @@ button {
   padding: 10px 0;
   z-index: 1000;
 }
+}
+@media (max-width: 830px) {
+  .menu-options {
+  display: none;
+  position: absolute;
+  top: 60px;
+  right: 25px;
+  width: 200px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px 0;
+  z-index: 1000;
+}
+}
+
 .menu-options.active {
   display: block;
 }
@@ -341,15 +362,6 @@ button {
 }
 
 /* =================== RESPONSIVIDADE =================== */
-@media (max-width: 550px) {
-  .profile {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    z-index: 10;
-    position: initial;
-  }
-}
 @media (max-width: 830px) {
   .sidebar {
     position: fixed;
