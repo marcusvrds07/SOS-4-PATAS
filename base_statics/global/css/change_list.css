@@ -396,6 +396,9 @@ form[method="get"] button:hover {
 }
 
 #result_list td.field-acoes {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
     height: 100%;
     padding-top: 0;
     padding-bottom: 0;

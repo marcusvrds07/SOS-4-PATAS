@@ -22,7 +22,7 @@
     {% block navbar %}
     <div class="navbar" id="navbar">
         {% block logo %}
-            <a href="#" class="logo-link" id="logo-link">
+            <a href="{% url "home:index" %}" class="logo-link" id="logo-link">
                 <div class="logo">
                     <img src="{% static 'home/img/sos.png' %}" alt="SOS 4PATAS">
                 </div>
