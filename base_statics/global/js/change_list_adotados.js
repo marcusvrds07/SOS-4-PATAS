@@ -216,3 +216,41 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.revert-button').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const url = this.dataset.url;
+        console.log("Clique detectado em botão reverter", url);
+
+        if (!url) {
+          alert("data-url não encontrado.");
+          return;
+        }
+
+        openCrudModal({
+          title: 'Reverter Adoção',
+          contentHtml: '<p>Tem certeza que deseja reverter esta adoção?</p>',
+          buttons: [
+            {
+              text: 'Cancelar',
+              className: 'instagram-btn',
+              onClick: () => {
+                document.getElementById('crud-modal-overlay').style.display = 'none';
+              }
+            },
+            {
+              text: 'Confirmar',
+              className: 'whatsapp-btn',
+              onClick: () => {
+                window.location.href = url;
+              }
+            }
+          ]
+        });
+      });
+    });
+  });

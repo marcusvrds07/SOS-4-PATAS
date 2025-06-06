@@ -91,7 +91,7 @@ class AnimaisAdotados(models.Model):
     sexo = models.CharField(max_length=6, choices=[('Fêmea', 'Fêmea'), ('Macho', 'Macho')])
     porte = models.CharField(max_length=20, choices=[('Pequeno', 'Pequeno'), ('Médio', 'Médio'), ('Grande', 'Grande')])
     raca = models.CharField(max_length=30)
-    especie = models.CharField(max_length=100)
+    especie = models.ForeignKey(TipoAnimal, on_delete=models.SET_NULL, null=True)
     descricao = models.TextField(blank=True, default='')
 
     # Campos do adotante==========

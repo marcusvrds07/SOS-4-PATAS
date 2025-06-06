@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from django.contrib import admin
-from .models import AnimaisAdotados
+from .models import AnimaisAdotados, TipoAnimal
 from django.http import HttpResponseRedirect
 from django.urls import path
 from datetime import datetime, timedelta
@@ -218,9 +218,8 @@ class AnimalAdmin(admin.ModelAdmin):
 
             parts.append(
                 format_html(
-                    '<a href="{}" title="Marcar como Adotado">'
-                    '<img src="{}" class="btn-marcar-adotado action-icon" style="cursor:pointer;" alt="Marcar como Adotado" />'
-                    '</a>',
+                    '<a href="{}" title="Marcar como Adotado" class="marked-button">'
+                    '<img src="{}" class="btn-marcar-adotado action-icon" style="cursor:pointer;" alt="Marcar como Adotado" /></a>',
                     mark_adopted_url,
                     mark_adopted_icon
                 )
@@ -257,7 +256,7 @@ class AnimalAdmin(admin.ModelAdmin):
             sexo=animal.sexo,
             porte=animal.porte,
             raca=animal.raca,
-            especie=str(animal.especie),  # FK para string
+            especie=animal.especie,
             descricao=animal.descricao or '',
             idade_anos=getattr(animal, 'idade_anos', None),
             idade_meses=getattr(animal, 'idade_meses', None),
@@ -333,10 +332,11 @@ class AnimaisAdotadosAdmin(admin.ModelAdmin):
 
     def acoes(self, obj):
         change_url = reverse('admin:animais_animaisadotados_change', args=[obj.pk])
-        # revert_url = reverse('animais_reverter_adocao', args=[obj.pk])
         delete_icon = static('global/imgs/x.png')
         edit_icon = static('global/imgs/lapis.png')
         reverse_icon = static('global/imgs/refazer.png')
+
+        reverse_url = reverse('admin:reverter_adocao', args=[obj.pk])
 
         parts = [
             format_html(
@@ -349,9 +349,10 @@ class AnimaisAdotadosAdmin(admin.ModelAdmin):
                 obj.pk, obj.nome, delete_icon
             ),
             format_html(
-                '<a href=""><img src="{}" class="action-icon" alt="Reverter Adoção" title="Reverter Adoção"/></a>',
-                reverse_icon
-            ),
+                '<a href="#" title="Reverter Adoção" class="revert-button" data-url="{}">'
+                '<img src="{}" class="action-icon" alt="Reverter Adoção" /></a>',
+                reverse_url, reverse_icon
+            )
         ]
         return format_html(' '.join(str(p) for p in parts))
 
@@ -416,4 +417,48 @@ class AnimaisAdotadosAdmin(admin.ModelAdmin):
         extra_context['app_list'] = list(self.admin_site.get_app_list(request))
         return super().changeform_view(request, object_id, form_url, extra_context=extra_context)
 
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path(
+                'reverter_adocao/<int:adotado_id>/',
+                self.admin_site.admin_view(self.reverter_adocao),
+                name='reverter_adocao',
+            ),
+        ]
+        return custom_urls + urls
 
+    def reverter_adocao(self, request, adotado_id):
+        try:
+            adotado = models.AnimaisAdotados.objects.get(pk=adotado_id)
+        except models.AnimaisAdotados.DoesNotExist:
+            self.message_user(request, "Registro de animal adotado não encontrado.", level=messages.ERROR)
+            return HttpResponseRedirect(reverse('admin:animais_animaisadotados_changelist'))
+
+        try:
+            tipo_animal = TipoAnimal.objects.get(nome=adotado.especie)
+        except TipoAnimal.DoesNotExist:
+            tipo_animal = None  # ou criar: TipoAnimal.objects.create(nome=adotado.especie)
+
+        novo_animal = models.Animais.objects.create(
+            nome=adotado.nome,
+            sexo=adotado.sexo,
+            porte=adotado.porte,
+            raca=adotado.raca,
+            especie=tipo_animal,
+            descricao=adotado.descricao,
+            idade_anos=getattr(adotado, 'idade_anos', None),
+            idade_meses=getattr(adotado, 'idade_meses', None),
+            data_nascimento=adotado.data_nascimento,
+            disponivel_para_adocao=True,
+        )
+
+        if adotado.foto and adotado.foto.storage.exists(adotado.foto.name):
+            with adotado.foto.open('rb') as f:
+                novo_animal.foto.save(adotado.foto.name, ContentFile(f.read()), save=False)
+
+        novo_animal.save()
+        adotado.delete()
+
+        self.message_user(request, f'A adoção do animal "{novo_animal.nome}" foi revertida com sucesso.')
+        return HttpResponseRedirect(reverse('admin:animais_animais_change', args=[novo_animal.pk]))

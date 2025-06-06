@@ -81,7 +81,7 @@ def marcar_adotado(request, animal_id):
         telefone_adotante=telefone_adotante,
         email_adotante=email_adotante,
         endereco_adotante=endereco_adotante,
-        # copie outros campos se houver...
+
     )
 
     # Remover animal da tabela de disponíveis

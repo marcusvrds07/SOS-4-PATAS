@@ -209,6 +209,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ==================Adotado============
 
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.marked-button').forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
 
+        console.log('BOTÃO APERTADO');
 
+        const url = this.dataset.url;
+        console.log("Clique detectado em botão Adotado", url);
 
+        if (!url) {
+          alert("data-url não encontrado.");
+          return;
+        }
+
+        openCrudModal({
+          title: 'Confirmar Adoção',
+          contentHtml: '<p>Oba! O animal foi adotado?</p>',
+          buttons: [
+            {
+              text: 'Cancelar',
+              className: 'instagram-btn',
+              onClick: () => {
+                document.getElementById('crud-modal-overlay').style.display = 'none';
+              }
+            },
+            {
+              text: 'Adotado!',
+              className: 'whatsapp-btn',
+              onClick: () => {
+                window.location.href = url;
+              }
+            }
+          ]
+        });
+      });
+    });
+  });
