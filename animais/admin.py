@@ -183,6 +183,9 @@ class AnimalAdmin(admin.ModelAdmin):
         view_icon   = static('global/imgs/olho-admin.png')
         delete_icon = static('global/imgs/x.png')
         mark_adopted_icon = static('global/imgs/check.png')
+        revert_icon = static('global/imgs/reverter.png')
+
+        # revert_url = reverse('admin:reverter_para_disponivel', args=[obj.pk])
 
         parts = []
         if request is None or self.has_change_permission(request, obj):
