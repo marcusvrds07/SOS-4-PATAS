@@ -94,7 +94,6 @@ h1, h2 {
   color: #fff;
   text-align: left;
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
 }
 
@@ -194,7 +193,7 @@ h1, h2 {
    FAQ Accordion
 ------------------------------- */
 .faq-accordion {
-  max-width: 700px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

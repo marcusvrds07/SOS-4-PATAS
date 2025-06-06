@@ -149,22 +149,30 @@
     {% endif %}
   </section>
 
-  <section id="doacao" class="donation-section">
-    <h2>FAÇA UMA DOAÇÃO</h2>
-    <div class="donation-container">
-      <div class="donation-text">
-        <p>
-          Sua contribuição é fundamental para continuarmos nosso trabalho de resgate e cuidado dos animais.
-          Cada centavo faz diferença na vida desses bichinhos que tanto precisam de ajuda.
-        </p>
-      </div>
-      
-      <div class="donation-options">
-        <button id="doar-btn" class="btn-doacao btn-doacao-grande">Doar</button>
-      </div>
+<section id="doacao" class="doacao-cards-section">
+  <h2>FAÇA UMA DOAÇÃO</h2>
+  <div class="cards-doacao-container">
+    <div class="card-doacao">
+      <i class="fa-solid fa-bone icon-doacao"></i>
+      <h3>Ajude na Alimentação</h3>
+      <p>Suas doações nos ajudam a manter todos os animais bem alimentados e saudáveis.</p>
     </div>
-  </section>
-</div>
+    <div class="card-doacao">
+      <i class="fa-solid fa-syringe icon-doacao"></i>
+      <h3>Cubra Tratamentos</h3>
+      <p>Contribua com vacinas, castrações e cuidados médicos essenciais.</p>
+    </div>
+    <div class="card-doacao">
+      <i class="fa-solid fa-house icon-doacao"></i>
+      <h3>Mantenha Abrigos</h3>
+      <p>Ajude na manutenção dos lares temporários enquanto os animais esperam pela adoção.</p>
+    </div>
+  </div>
+  <div class="donation-options">
+    <button id="doar-btn" class="btn-doacao btn-doacao-grande">Doar Agora</button>
+  </div>
+</section>
+
 
 {% include "home/partials/footer.html" %}
 
