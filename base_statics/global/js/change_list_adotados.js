@@ -218,6 +218,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// ==============================Reverter adotado
+
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.revert-button').forEach(button => {
       button.addEventListener('click', function (e) {
@@ -254,3 +256,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
+
+  // ====================Adotado
+  //

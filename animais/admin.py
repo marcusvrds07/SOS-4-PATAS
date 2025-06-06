@@ -169,6 +169,12 @@ class AnimalAdmin(admin.ModelAdmin):
             )
         return request.user.has_perm('animais.change_animais')
 
+    class Media:
+        js = (
+            'js/change_list.js',
+            'js/change_list_adotados.js',
+        )
+
     def acoes(self, obj):
         user = getattr(self, 'request', None)
         try:
@@ -218,7 +224,7 @@ class AnimalAdmin(admin.ModelAdmin):
 
             parts.append(
                 format_html(
-                    '<a href="{}" title="Marcar como Adotado" class="marked-button">'
+                    '<a href="#" title="Marcar como Adotado" class="marked-button" data-url="{}">'
                     '<img src="{}" class="btn-marcar-adotado action-icon" style="cursor:pointer;" alt="Marcar como Adotado" /></a>',
                     mark_adopted_url,
                     mark_adopted_icon
