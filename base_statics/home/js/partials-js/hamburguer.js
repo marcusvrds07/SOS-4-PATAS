@@ -3,15 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.getElementById("menu-toggle")
   const navMenu = document.getElementById("nav-menu")
 
-    window.addEventListener("scroll", function() {
-        const navbar = document.getElementById("navbar");
-        if (window.scrollY > 50) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-    });
-
   function resetHamburgerIcon(spans) {
     spans[0].style.transform = "none"
     spans[1].style.opacity = "1"

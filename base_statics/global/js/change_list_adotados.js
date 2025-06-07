@@ -93,6 +93,7 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
+
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.delete-btn').forEach(button => {
     button.addEventListener('click', function () {
