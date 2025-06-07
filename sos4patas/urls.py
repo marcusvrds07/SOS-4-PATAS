@@ -24,7 +24,6 @@ from painel_admin.views import dashboard_admin, change_password_ajax
 
 
 
-
 urlpatterns = [
     path('', include('home.urls')),
 
