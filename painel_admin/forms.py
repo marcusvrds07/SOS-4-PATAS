@@ -6,14 +6,11 @@ from django.contrib.auth.models import Group, Permission
 
 
 class UserProfileCreationForm(UserCreationForm):
-    first_name = forms.CharField(required=True, label='Primeiro nome')
-    last_name  = forms.CharField(required=True, label='Último nome')
-    email      = forms.EmailField(required=True, label='E-mail')
     foto = forms.ImageField(required=False, label='Foto de Perfil')
     user_permissions = forms.ModelMultipleChoiceField(queryset=Permission.objects.all(), required=False)
     cargo = forms.ModelChoiceField(
         queryset=Group.objects.all(),
-        required=False,
+        required=True,
         empty_label="Selecione um cargo",
         label="Cargo"
     )
@@ -49,13 +46,10 @@ class UserProfileCreationForm(UserCreationForm):
         return user
 
 class UserProfileChangeForm(UserChangeForm):
-    first_name = forms.CharField(required=True, label='Primeiro nome')
-    last_name  = forms.CharField(required=True, label='Último nome')
-    email      = forms.EmailField(required=True, label='E-mail')
     foto = forms.ImageField(required=False, label='Foto de Perfil')
     cargo = forms.ModelChoiceField(
         queryset=Group.objects.all(),
-        required=False,
+        required=True,
         empty_label="Selecione um cargo",
         label="Cargo"
     )

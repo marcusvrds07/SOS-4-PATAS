@@ -4,13 +4,13 @@ from django.dispatch import receiver
 import os, gc
 import time
 import shutil
-from .models import Animais, AnimalImage, AnimaisAdotados
-from django.core.files.storage import default_storage
+from .models import Animais, AnimalImage
 
 def safe_remove(path):
     try:
         time.sleep(0.2)
         try:
+            from django.core.files.storage import default_storage
             file = default_storage.open(path)
             file.close()
         except Exception:
@@ -55,38 +55,6 @@ def delete_animal_folder(sender, instance, **kwargs):
         except Exception as e:
             print(f"[ERRO] Ao remover pasta: {e}")
 
-
-# ---- FOTO CAPA ADOTADO ----
-
-@receiver(pre_save, sender=AnimaisAdotados)
-def store_old_capa_adotado(sender, instance, **kwargs):
-    if not instance.pk:
-        return
-    try:
-        old = AnimaisAdotados.objects.get(pk=instance.pk)
-        instance._old_foto_adotado = old.foto
-    except AnimaisAdotados.DoesNotExist:
-        instance._old_foto_adotado = None
-
-@receiver(post_save, sender=AnimaisAdotados)
-def delete_old_capa_adotado(sender, instance, **kwargs):
-    old = getattr(instance, '_old_foto_adotado', None)
-    if old and old.name != instance.foto.name:
-        try:
-            if hasattr(old, 'close'):
-                old.close()
-        except:
-            pass
-        safe_remove(old.path)
-
-@receiver(post_delete, sender=AnimaisAdotados)
-def delete_adotado_folder(sender, instance, **kwargs):
-    folder = os.path.join(settings.MEDIA_ROOT, 'foto_capa_adotado', str(instance.pk))
-    if os.path.isdir(folder):
-        try:
-            shutil.rmtree(folder)
-        except Exception as e:
-            print(f"[ERRO] ao remover pasta adotado {folder}: {e}")
 
 # GALERIA: 
 

@@ -18,11 +18,7 @@
 {% endblock logo %}
 
 {% block navbar_links %}
-    <a href="{% url "home:index" %}">Home</a>
-    <a href="#" id="contato-link">Contato</a>
-    <a href="{% url "home:index" %}#doacao">Doar</a>
-    <a href='{% url "home:voluntarios" %}'>Voluntarios</a>
-    <a href="#" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
+    <a href="#" class="btn-doacao" id="quero-adotar">Voltar</a>
 {% endblock navbar_links %}
 
 
@@ -75,29 +71,11 @@
         </div>
     </div>
 
-{% include "home/partials/contato.html" %}
-{% include "home/partials/footer.html" %}
+    {% include "home/partials/footer.html" %}
 
 {% endblock content-base %}
 
 {% block script %}
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const whatsappBtn = document.getElementById("whatsapp-btn");
-      if (!whatsappBtn) return;
-
-      whatsappBtn.addEventListener("click", function(e) {
-        e.preventDefault();
-        const phoneNumber = "+5521968049191";
-        const animalNome = "{{ animal.nome }}";
-        const animalId   = "{{ animal.id }}";
-        const msg = `Olá, SOS 4 PATAS! Estou interessado(a) em adotar o(a) *${animalNome} (ID: #${animalId})*. Obrigado(a)!`;
-        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`;
-        window.open(url, "_blank");
-      });
-    });
-  </script>
-<script src="{% static 'home/js/partials-js/modal.js' %}"></script>
 <script src='{% static "home/js/animalpag.js" %}'></script>
 <script src='{% static "home/js/partials-js/hamburguer.js" %}'></script>
 <script src='{% static "home/js/partials-js/modal.js" %}'></script>
