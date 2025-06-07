@@ -333,27 +333,67 @@ body {
 }
 
 /* Sessão 15: Botão WhatsApp */
+
+.contact-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(10px, 3vw, 15px);
+  margin-top: clamp(15px, 3vw, 20px);
+  flex-wrap: wrap;
+  padding: 0 clamp(5px, 1vw, 10px);
+  box-sizing: border-box;
+}
 .whatsapp-btn {
-  background-color: var(--whatsapp-color);
+  background-color: #25d366;
   color: white;
-  padding: 14px 28px;
+  padding: clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px);
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
+  font-size: clamp(14px, 2.5vw, 16px);
   display: block;
   border: none;
   cursor: pointer;
-  transition: var(--transition-default);
+  transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
   text-align: center;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
+
 .whatsapp-btn:hover {
-  background-color: var(--whatsapp-hover);
+  background-color: #1fba58;
   transform: translateY(-3px);
   box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
 }
 
+.instagram-btn {
+  background-color: #e1306c;
+  color: white;
+  padding: clamp(12px, 3vw, 14px) clamp(15px, 3vw, 20px);
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: clamp(14px, 2.5vw, 16px);
+  display: block;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+  text-align: center;
+  flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.instagram-btn:hover {
+  background-color: #c13584;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(225, 48, 108, 0.4);
+}
 /* Sessão 16: Responsividade */
 
 @media (max-width: 1024px) {

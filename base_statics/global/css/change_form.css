@@ -644,6 +644,23 @@ body {
 
 }
 
+.btn-adotado {
+  background: var(--amarelo);
+  color: #ffffff;
+  line-height: 1;
+  height: 2.7rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.btn-adotado:hover {
+  background: #f6db64;
+  transform: translateY(-2px);
+
+}
+
 .file-input.add input[type="file"] {
   display: none;
 }

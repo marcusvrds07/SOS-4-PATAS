@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'home/css/partials-css/404.css' %}">
     <link rel="stylesheet" href="{% static 'home/css/partials-css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'home/css/partials-css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/animalpag.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,7 +23,11 @@
 {% endblock logo %}
 
 {% block navbar_links %}
-    <a href="{% url "home:index" %}" class="btn-doacao" id="quero-adotar">Voltar</a>
+  <a href="{% url "home:index" %}">Home</a>
+  <a href="#" id="contato-link">Contato</a>
+  <a href=" {% url "home:index" %}#doacao">Doar</a>
+  <a href='{% url "home:voluntarios" %}'>Voluntarios</a>
+  <a href=" {% url "home:index" %}#adoption" class="btn-doacao" id="quero-adotar">Quero Adotar</a>
 {% endblock navbar_links %}
 
 {% block content-base %}
@@ -47,9 +52,11 @@
     </div>
 </main>
 
+{% include "home/partials/contato.html" %}
 {% include "home/partials/footer.html" %}
 {% endblock content-base %}
 
 {% block script %}
     <script src='{% static "home/js/partials-js/hamburguer.js" %}'></script>
+    <script src='{% static "home/js/partials-js/modal.js" %}'></script>
 {% endblock script %}
