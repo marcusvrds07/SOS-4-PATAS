@@ -235,6 +235,7 @@ class AnimalAdmin(admin.ModelAdmin):
     acoes.short_description = 'Ações'
 
     def get_urls(self):
+        from django.urls import path
         urls = super().get_urls()
         custom_urls = [
             path(
@@ -251,14 +252,13 @@ class AnimalAdmin(admin.ModelAdmin):
         try:
             animal = Animais.objects.get(pk=animal_id)
         except Animais.DoesNotExist:
-            self.message_user(request, "Animal não encontrado.", level='error')
+            self.message_user(request, "Animal não encontrado.", level=messages.ERROR)
             return HttpResponseRedirect(reverse('admin:animais_animais_changelist'))
 
         # Cria o registro do animal adotado com os dados do animal
         novo_adotado = AnimaisAdotados.objects.create(
             animal_original_id=animal.id,
             nome=animal.nome,
-            foto=animal.foto,
             sexo=animal.sexo,
             porte=animal.porte,
             raca=animal.raca,
@@ -269,21 +269,21 @@ class AnimalAdmin(admin.ModelAdmin):
             data_nascimento=animal.data_nascimento,
         )
 
+        # Copia a foto, se existir, e salva corretamente
         if animal.foto:
-            # Copiar arquivo da foto para o novo objeto
-            novo_adotado.foto.save(
-                animal.foto.name,
-                ContentFile(animal.foto.read()),
-                save=False
-            )
-
-        # Marca o animal original como não disponível para adoção
-        novo_adotado.save()
-        animal.delete()
+            with animal.foto.open('rb') as f:
+                novo_adotado.foto.save(
+                    animal.foto.name,
+                    ContentFile(f.read()),
+                    save=True  # Importante: garante salvar a imagem no banco e storage
+                )
 
         self.message_user(request, f'O animal "{animal.nome}" foi marcado como adotado.')
 
-        # Redireciona para o admin de edição do animal adotado recém-criado
+        # Deleta o animal original (opcional, mas geralmente desejado)
+        animal.delete()
+
+        # Redireciona para a página de edição do animal adotado recém-criado
         return HttpResponseRedirect(
             reverse('admin:animais_animaisadotados_change', args=[novo_adotado.pk])
         )
@@ -332,56 +332,23 @@ class AnimaisAdotadosForm(forms.ModelForm):
             'endereco_adotante': forms.TextInput(attrs={'size': '60'}),
         }
 
+from django.contrib import admin, messages
+from django.utils.html import format_html
+from django.urls import reverse, path
+from django.core.files.base import ContentFile
+from django.http import HttpResponseRedirect
+
 @admin.register(models.AnimaisAdotados)
 class AnimaisAdotadosAdmin(admin.ModelAdmin):
     list_display = ['id', 'nome', 'data_adocao', 'preview', 'acoes']
-
-    def acoes(self, obj):
-        change_url = reverse('admin:animais_animaisadotados_change', args=[obj.pk])
-        delete_icon = static('global/imgs/x.png')
-        edit_icon = static('global/imgs/lapis.png')
-        reverse_icon = static('global/imgs/refazer.png')
-
-        reverse_url = reverse('admin:reverter_adocao', args=[obj.pk])
-
-        parts = [
-            format_html(
-                '<a href="{}"><img src="{}" class="action-icon" alt="Editar" title="Editar"/></a>',
-                change_url, edit_icon
-            ),
-            format_html(
-                '<button type="button" class="delete-btn" data-id="{}" data-name="{}">'
-                '<img src="{}" alt="Excluir" class="action-icon" title="Excluir"/></button>',
-                obj.pk, obj.nome, delete_icon
-            ),
-            format_html(
-                '<a href="#" title="Reverter Adoção" class="revert-button" data-url="{}">'
-                '<img src="{}" class="action-icon" alt="Reverter Adoção" /></a>',
-                reverse_url, reverse_icon
-            )
-        ]
-        return format_html(' '.join(str(p) for p in parts))
-
-    acoes.short_description = 'Ações'
-
+    readonly_fields = ['data_adocao', 'data_nascimento']
+    search_fields = ['nome']
+    list_per_page = 10
+    ordering = ['-data_adocao']
     form = AnimaisAdotadosForm
 
     change_list_template = "admin/animais/animaisAdotados/change_list.html"
     change_form_template = "admin/animais/animaisAdotados/change_form.html"
-    list_display = ['id', 'nome', 'data_adocao', 'preview', 'acoes']
-    search_fields = ['nome']
-    readonly_fields = ['data_adocao', 'data_nascimento']
-    list_per_page = 10
-    ordering = ['-data_adocao']
-
-    def preview(self, obj):
-        if obj.foto:
-            try:
-                return format_html(f'<img src="{obj.foto.url}" width="55" style="object-fit:contain;" />')
-            except ValueError:
-                return "Imagem não encontrada"
-        return "-"
-    preview.short_description = "Foto da Capa"
 
     fieldsets = (
         ('Foto de Capa', {
@@ -408,6 +375,45 @@ class AnimaisAdotadosAdmin(admin.ModelAdmin):
             'fields': ('data_adocao',),
         }),
     )
+
+    def preview(self, obj):
+        if obj.foto:
+            try:
+                return format_html(
+                    '<img src="{}" width="55" style="object-fit: contain;" />',
+                    obj.foto.url
+                )
+            except ValueError:
+                return "Imagem não encontrada"
+        return "-"
+    preview.short_description = "Foto da Capa"
+
+    def acoes(self, obj):
+        change_url = reverse('admin:animais_animaisadotados_change', args=[obj.pk])
+        delete_icon = static('global/imgs/x.png')
+        edit_icon = static('global/imgs/lapis.png')
+        reverse_icon = static('global/imgs/refazer.png')
+
+        reverse_url = reverse('admin:reverter_adocao', args=[obj.pk])
+
+        parts = [
+            format_html(
+                '<a href="{}"><img src="{}" class="action-icon" alt="Editar" title="Editar"/></a>',
+                change_url, edit_icon
+            ),
+            format_html(
+                '<button type="button" class="delete-btn" data-id="{}" data-name="{}">'
+                '<img src="{}" alt="Excluir" class="action-icon" title="Excluir"/></button>',
+                obj.pk, obj.nome, delete_icon
+            ),
+            format_html(
+                '<a href="#" title="Reverter Adoção" class="revert-button" data-url="{}">'
+                '<img src="{}" class="action-icon" alt="Reverter Adoção" /></a>',
+                reverse_url, reverse_icon
+            )
+        ]
+        return format_html(' '.join(parts))
+    acoes.short_description = 'Ações'
 
     def get_queryset(self, request):
         self.request = request
@@ -459,9 +465,13 @@ class AnimaisAdotadosAdmin(admin.ModelAdmin):
             disponivel_para_adocao=True,
         )
 
-        if adotado.foto and adotado.foto.storage.exists(adotado.foto.name):
+        if adotado.foto:
             with adotado.foto.open('rb') as f:
-                novo_animal.foto.save(adotado.foto.name, ContentFile(f.read()), save=False)
+                novo_animal.foto.save(
+                    adotado.foto.name,
+                    ContentFile(f.read()),
+                    save=True  # melhor salvar aqui para garantir
+                )
 
         novo_animal.save()
         adotado.delete()
