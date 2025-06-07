@@ -12,7 +12,12 @@ def animal_image_upload_path(instance, filename):
     return os.path.join('galeria', folder_name, filename)
 
 def capa_upload_path(instance, filename):
+    filename = os.path.basename(filename)
     return os.path.join('foto_capa', str(instance.id), filename)
+
+def capa_adotado_upload_path(instance, filename):
+    filename = os.path.basename(filename)
+    return os.path.join('foto_capa_adotado', str(instance.id), filename)
 
 class TipoAnimal(models.Model):
     class Meta:
@@ -83,7 +88,7 @@ class AnimaisAdotados(models.Model):
         verbose_name_plural = "Animais Adotados"
 
     animal_original_id = models.IntegerField(null=True, blank=True)
-    foto = models.ImageField(upload_to=capa_upload_path)
+    foto = models.ImageField(upload_to=capa_adotado_upload_path)
     nome = models.CharField(max_length=100)
     data_nascimento = models.DateField(blank=True, null=True)
     idade_anos = models.IntegerField(blank=True, null=True)

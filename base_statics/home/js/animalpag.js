@@ -72,20 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
             navbar.classList.remove("scrolled");
         }
     });
-
-    // Sessão: Envio de mensagem pelo WhatsApp
-    const whatsappBtn = document.getElementById("whatsapp-btn");
-    if (whatsappBtn) {
-        whatsappBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            const phoneNumber = "+5521968049191";
-            const animalNome = "{{ animal.nome }}";
-            const animalId = "{{ animal.id }}";
-            const msg = `Olá, SOS 4 PATAS! Estou interessado(a) em adotar o(a) *${animalNome} (ID: #${animalId})*. Obrigado(a)!`;
-            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(msg)}`;
-            window.open(url, '_blank');
-        });
-    }
 });
 
 // Sessão: Ajuste responsividade do scroll da galeria

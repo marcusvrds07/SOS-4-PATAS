@@ -147,6 +147,17 @@
             <input type="submit" class="btn cancel" name="_addanother" value="Salvar e adicionar outro">
           {% endif %}
       {% endif %}
+
+      {% if perms.animais.change_animais and original%}
+        {% if perms.animais.add_animais %}
+          <button type="button"
+                  class="btn btn-adotado revert-button"
+                  data-url="{% url 'admin:reverter_adocao' original.pk %}">
+            Reverter Adoção
+          </button>
+        {% endif %}
+      {% endif %}
+
       {% if not add and original and has_delete_permission %}
         <button class="btn btn-danger"
                 id="btn-excluir-form"
@@ -156,6 +167,17 @@
       {% endif %}
     </div>
   </form>
+</div>
+
+<div class="modal-overlay" id="crud-modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="crud-modal-title">Título</h2>
+      <button class="close-modal" id="close-crud-modal">&times;</button>
+    </div>
+    <div class="modal-content" id="crud-modal-content"></div>
+    <div class="crud-modal-buttons" id="crud-modal-buttons"></div>
+  </div>
 </div>
 
 {% endblock %}

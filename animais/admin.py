@@ -8,6 +8,7 @@ from django.templatetags.static import static
 from .forms import AnimalForm, TipoAnimalForm
 from django.contrib.admin.actions import delete_selected
 from django.contrib.auth.models import User
+from django.core.files.storage import default_storage
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django import forms
 from django.contrib import admin
@@ -16,6 +17,7 @@ from django.http import HttpResponseRedirect
 from django.urls import path
 from datetime import datetime, timedelta
 from django.utils import timezone
+from os.path import basename
 
 
 
@@ -271,12 +273,10 @@ class AnimalAdmin(admin.ModelAdmin):
 
         # Copia a foto, se existir, e salva corretamente
         if animal.foto:
+            nome_arq = basename(animal.foto.name)
             with animal.foto.open('rb') as f:
-                novo_adotado.foto.save(
-                    animal.foto.name,
-                    ContentFile(f.read()),
-                    save=True  # Importante: garante salvar a imagem no banco e storage
-                )
+                novo_adotado.foto.save(nome_arq, ContentFile(f.read()), save=True)
+            animal.foto.delete(save=False)
 
         self.message_user(request, f'O animal "{animal.nome}" foi marcado como adotado.')
 
@@ -466,12 +466,13 @@ class AnimaisAdotadosAdmin(admin.ModelAdmin):
         )
 
         if adotado.foto:
-            with adotado.foto.open('rb') as f:
-                novo_animal.foto.save(
-                    adotado.foto.name,
-                    ContentFile(f.read()),
-                    save=True  # melhor salvar aqui para garantir
-                )
+            nome_arquivo = basename(adotado.foto.name)
+            caminho = adotado.foto.name
+            if not default_storage.exists(caminho):
+                caminho = f'foto_capa_adotado/{adotado.id}/{nome_arquivo}'
+            with default_storage.open(caminho, 'rb') as f:
+                novo_animal.foto.save(nome_arquivo, ContentFile(f.read()), save=True)
+            adotado.foto.delete(save=False)
 
         novo_animal.save()
         adotado.delete()
