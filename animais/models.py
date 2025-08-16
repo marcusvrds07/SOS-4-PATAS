@@ -3,6 +3,7 @@ import os
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import date
 from dateutil.relativedelta import relativedelta
+from django.core.validators import RegexValidator
 
 # Create your models here.
 
@@ -101,9 +102,9 @@ class AnimaisAdotados(models.Model):
 
     # Campos do adotante==========
     nome_adotante = models.CharField(max_length=150, default="")
-    telefone_adotante = models.CharField(max_length=20, blank=True, null=True)
-    email_adotante = models.EmailField(blank=True, null=True)
-    endereco_adotante = models.TextField(blank=True, null=True)
+    telefone_adotante = models.CharField(max_length=20, blank=False, null=True)
+    email_adotante = models.EmailField(blank=False, null=True)
+    endereco_adotante = models.TextField(blank=False, null=True)
 
     data_adocao = models.DateField(auto_now_add=True)
 
