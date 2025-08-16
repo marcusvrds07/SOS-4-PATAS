@@ -52,6 +52,15 @@
   </section>
 
   <!-- Seção 4: Formulário -->
+
+  {% if messages %}
+  <div class="popup-mensagem">
+    {% for message in messages %}
+      <div class="popup {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
   <section id="formulario">
     <div class="container" data-aos="zoom-in">
       <h2>Inscreva-se como Voluntário</h2>
@@ -107,6 +116,13 @@
 {% endblock %}
 
 {% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script>
+    $(document).ready(function(){
+    $('#telefone').mask('(00) 00000-0000');
+  });
+</script>
 <script src='{% static "home/js/partials-js/hamburguer.js" %}'></script>
 <script src='{% static "home/js/scripts.js" %}'></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
